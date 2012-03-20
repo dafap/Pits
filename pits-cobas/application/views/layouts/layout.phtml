@@ -1,0 +1,78 @@
+<?php
+/**
+ * Application PiTS
+ * Dessin des pages
+ *
+ * Voir la documentation dans docs/application/views/layouts/layout.textile
+ *
+ * Le partial('common/stats.phtml') est prévu pour inclure un compteur de visites
+ *
+ * @project pits
+ * @package package_name
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mai 2011
+ * @version $Id: $
+ */
+
+$base = 'http://' . $_SERVER['SERVER_NAME'] . $this->baseUrl() . '/';
+$urlLogout = $this->link('index', 'logout');
+$urlRetour = $this->link('index', 'retour');
+$urlHelp = $this->link($this->controller, 'help');
+
+$logout = $this->makeButton('logout', 'logout', $urlLogout, 'Déconnexion', 'field_btn_header', null, 'header_hover');
+$retour = $this->makeButton('retour', 'retour', '/', 'Retour COBAS', 'field_btn_header', null, 'header_hover');
+$help = $this->makeButton('help', 'help', $urlHelp, 'Aide', 'field_btn_header', null, 'header_hover');
+if ( Zend_Auth::getInstance()->hasIdentity()
+&& ($categorie = Zend_Auth::getInstance()->getIdentity()->categorie) > 1) {
+    $urlAdmin = $this->link($categorie == 3 ? 'sadmin' : 'admin', 'index');
+    $admin = $this->makeButton('admin', 'admin', $urlAdmin, 'Espace admin', 'field_btn_header', null, 'header_hover');
+} else {
+    $admin = null;
+}
+?>
+<html>
+<head>
+<base href="<?php echo $base; ?>" />
+<?php
+echo $this->headMeta()
+->setHttpEquiv('Content-Type', 'text/html; charset=utf-8')
+->setHttpEquiv('Content-Style-Type', 'text/css')
+->setHttpEquiv('lang', 'fr')
+->setHttpEquiv('imagetoolbar', 'no')
+->setName('author', 'Alain Pomirol - DAFAP Informatique')
+->setName('generator', 'ZendFramework 1.10')
+->setName('language', 'fr') . PHP_EOL;
+echo $this->headLink(array('rel'  => 'favicon',
+                                 'type' => 'image/x-icon',
+                                 'href' => 'images/favicon.ico')) . PHP_EOL;
+echo $this->headTitle() . PHP_EOL;
+// TODO: Adapter les nom des fichiers css ci dessous
+echo $this->headStyle()//->appendStyle('@import "css/menu_deroulant.css";')
+//->headStyle()->appendStyle('@import "css/structure.css";')
+//->headStyle()->appendStyle('@import "css/template_css.css";')
+->headStyle()->appendStyle('@import "css/cobas.css";') . PHP_EOL;
+echo $this->headScript()->appendFile('js/pits.js') ->appendScript("
+function pageRetour(controller, action) {
+window.location.href = '" . $base . "index.php/' + controller + '/' + action;
+}
+"). PHP_EOL;
+?>
+</head>
+<body>
+	<div class="contener_general">
+		<div class="contener_interface">
+			<!-- header -->
+		<?php echo $this->partial('common/header.phtml', array('retour' => $retour, 'logout' => $logout, 'help' => $help, 'admin' => $admin));?>
+			<!-- corps de page -->
+			<div class="centre">
+			<?php echo $this->layout()->content; ?>
+			</div>
+			<!-- Footer -->
+			<?php echo $this->partial('common/footer.phtml');?>
+		</div>
+	</div>
+	<!-- Statistiques (comme par exemple Google Analytics) -->
+	<?php  echo $this->partial('common/stats.phtml')?>
+	<!-- Scripts éventuels de validation -->
+	<?php echo $this->inlineScript(); ?>
+</body>

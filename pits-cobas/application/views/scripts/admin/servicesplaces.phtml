@@ -1,0 +1,72 @@
+<?php
+/**
+ * Page de mise à jour du nombre de places (capacité, utilisées BdTS)
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 22 juin 2011
+ * @version $Id: $
+ */
+$tservice = new Pits_Model_DbTable_TServicesplaces();
+$service = $tservice->find($this->CodeService)->current();
+$transporteur = $service->findParentRow('Pits_Model_DbTable_TTransporteurs');
+$urlAction = $this->link('admin', 'servicesplaces');
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>
+	Gestion des places du circuit
+	<?php echo $this->CodeService; ?>
+</h2>
+<form enctype="application/x-www-form-urlencoded" class="pits"
+	accept-charset="utf-8" action="<? echo $urlAction; ?>" method="post">
+	<input type="hidden" name="s" id="s"
+		value="<?php echo $this->CodeService; ?>"> <input type="hidden"
+		name="p" id="p" value="<?php echo $this->page; ?>">
+	<table class="fiche">
+		<tr>
+			<th>Code du service</th>
+			<td><?php echo $this->CodeService; ?></td>
+		</tr>
+		<tr>
+			<th>Libellé</th>
+			<td><?php echo $service->Nom; ?></td>
+		</tr>
+		<tr>
+			<th>Transporteur</th>
+			<td><?php echo $transporteur->Nom; ?></td>
+		</tr>
+		<tr>
+			<th>Nombre de places</th>
+			<td><input type="text" name="NbPlaces" id="NbPlaces"
+				value="<?php echo $service->NbPlaces; ?>"></td>
+		</tr>
+		<tr>
+			<th>Nombre d'inscrits en ligne sur le service 1</th>
+			<td><?php echo $service->services1; ?></td>
+		</tr>
+		<tr>
+			<th>Nombre d'inscrits en ligne sur le service 2</th>
+			<td><?php echo $service->services2; ?></td>
+		</tr>
+		<tr>
+			<th>Nombre total d'inscrits en ligne</th>
+			<td><?php echo $service->services1 + $service->services2; ?></td>
+		</tr>
+		<tr>
+			<th>Places réservées pour BdTS</th>
+			<td><input type="text" name="BdTS" id="BdTS"
+				value="<?php echo $service->Bdts; ?>"></td>
+		</tr>
+	</table>
+	<table>
+		<tr>
+			<td><?php echo $this->makeButton('cancel', 'cancel', $this->link('admin','listedesservices', null, "/page/$this->page"), 'Abandonner', 'field_btn_contact'); ?>
+			</td>
+			<td>
+				<button name="envoi" id="envoi" type="button"
+					class="field_btn_contact" onclick="submit();">Enregistrer</button>
+			</td>
+		</tr>
+	</table>
+</form>

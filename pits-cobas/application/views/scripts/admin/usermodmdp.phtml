@@ -1,0 +1,20 @@
+<?php
+/**
+* Formulaire permettant à l'administrateur de changer le mot de passe d'un user
+* 
+* @project pits
+* @package application/views/scripts/admin
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 8 mars 2011
+* @version $Id: $
+*/
+
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Attribuer un mot de passe</h2>
+<?php echo $this->form; 
+if ($this->retour) {
+    $retour = $this->link('admin', 'listedesusers', null, "/page/$this->page");
+    echo $this->makeButton('retour', 'retour', $retour, 'Continuer', 'field_btn_contact');
+}
+?>

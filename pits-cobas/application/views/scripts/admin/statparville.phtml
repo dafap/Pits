@@ -1,0 +1,33 @@
+<?php
+/**
+ * Statistiques par commune
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mars 2011
+ * @version $Id: $
+ */
+$parite = 1;
+
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h3>Statistiques par commune</h3>
+<table class="fiche">
+	<thead>
+		<tr>
+			<th>Commune</th>
+			<th>Effectif</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php
+	foreach ($this->stats as $item) {
+	    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td>' . $item['ville'] . '</td><td>' . $item['nb'] . '</td></tr>';
+	}
+	?>
+	</tbody>
+</table>
+<p>
+<?php echo $this->makeButton('retour', 'retour', $this->link('admin', 'statistiques'), 'Retour', 'field_btn_retour'); ?>
+</p>

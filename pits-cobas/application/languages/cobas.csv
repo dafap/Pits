@@ -1,0 +1,57 @@
+REM;*** Pour le layout ***
+PiTS;"Communauté d'Agglomération du Bassin d'Arcachon Sud : Transport scolaire"
+Organisation;COBAS
+copyright;"&copy; 2011 Communaut&eacute; d'Agglom&eacute;ration Bassin d'Arcachon Sud - tous droits r&eacute;serv&eacute;s"
+footer_label1;Accessibilité
+footer_url1;http://www.agglo-cobas.fr/article.php3?id_article=124
+footer_label2;Contactez-nous
+footer_url2;http://www.agglo-cobas.fr/article.php3?id_article=125
+footer_label3;Plan du site
+footer_url3;http://www.agglo-cobas.fr/plan.php3
+footer_label4;Mentions légales
+footer_url4;http://www.agglo-cobas.fr/article.php3?id_article=126
+footer_label5;--inutilisé--
+footer_url5;----inutilisé--
+footer_label6;--inutilisé--
+footer_url6;----inutilisé--
+Menu;Votre choix
+menu_label1;
+menu_url1;
+menu_label2;
+menu_url2;
+menu_label3;
+menu_url3;
+menu_label4;
+menu_url4;
+menu_label5;
+menu_url5;
+menu_label6;
+menu_url6;
+REM;*** Pour l'espace parents ***
+pasdenfant;Vous n'avez pas encore inscrit d'enfant.
+factureapayer;Vous avez des factures à payer.
+REM;*** Pour l'espace admin - table user***
+userId;Identifiant
+Nom;Nom
+Prenom;Prénom
+AdresseL1;Adresse
+AdresseL2;Adresse
+Commune:Code Insee de la commune
+CodePostal:Code postal
+Titre;Titre
+Telephone;Téléphone
+TelephoneC;Téléphone portable
+Email;Email
+mdp;Codage du mot de passe
+categorie;Catégorie
+bloque;Bloqué
+dateCréation;Date de création
+dateModif;Date de la dernière modification
+dateLastLogin;Date de la dernière connexion
+lastIp;Adresse IP lors de la dernière connexion
+datePreviousLogin;Date de la connexion précédente
+previousIP;Adresse IP lors de l'a connexion précédente
+temoin;Note interne au système
+nomSA;Nom sans accent
+prenomSA;Prénom sans accent
+5.1.2 : Recipient address rejected: Domain not found;5.1.2 : Adresse du destinataire refusée : domaine (ou hôte) introuvable.

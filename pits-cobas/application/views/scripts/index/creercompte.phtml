@@ -1,0 +1,31 @@
+<?php
+/**
+ * Création d'un compte pour les parents
+ *
+ * @project pits
+ * @package application/views/script/index
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 5 mars 2011
+ * @version $Id: $
+ */
+$this->retour = $this->link('index', 'index');
+?>
+<h2>Création d'un compte</h2>
+<div id="cadre">
+<?php if ($this->op == 'form'):?>
+    <?php echo $this->form;?>
+<?php elseif ($this->op == 'ok'): ?>
+    <h3>Demande d'ouverture de compte enregistrée</h3>
+    <p>Pour éviter la création non autorisée d'un compte, un message
+		vient d'être adressé à l'adresse que vous avez indiquée:<br>
+		 (<?php echo $this->email; ?>)</p>
+	<p>Ouvrez votre messagerie. Vous trouverez les instructions
+		nécessaires pour ouvrir votre compte.</p>
+	<?php echo $this->makeButton('cancel', 'cancel', $this->retour, 'Continuer', 'field_btn_contact', 'margin-left: 80px;'); ?>
+<?php else: ?>
+    <h3>La création du compte a échoué</h3>
+    <p></p>
+    <?php echo $this->makeButton('cancel', 'cancel', $this->retour, 'Continuer', 'field_btn_contact', 'margin-left: 80px;'); ?>
+<?php endif; ?>
+
+</div>

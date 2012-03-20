@@ -1,0 +1,18 @@
+<?php
+/**
+ * Accès au règlement du service et autres documentations
+ *
+ * @project pits
+ * @package application/views/script/sadmin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 5 mars 2011
+ * @version $Id: $
+ */
+$this->retour = $this->link('sadmin', 'index');
+?>
+<h1>Configuration des inscriptions aux transports scolaires</h1>
+<h2>Documentation</h2>
+<?php 
+echo $this->partial('common/listedocs.phtml', array('liste' => $this->liste, 'docPath' => $this->docPath,));
+echo $this->makeButton('cancel', 'cancel', $this->retour, 'Retour', 'field_btn_contact', 'margin-left: 80px;');
+?>

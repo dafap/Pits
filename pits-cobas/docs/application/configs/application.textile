@@ -1,0 +1,41 @@
+h1. Description des modifications du fichier application/configs/application.ini
+
+h2. Index
+
+{toc}
+
+h2. Principe
+
+Les données définies dans %{color:orange}application.ini% sont transformées en un tableau d'options par la classe %{color:green}Zend_Application% et sont disponibles par un %{color:red}getOtions()% ou un %{color:red}getOption($key)% dans le %{color:blue}bootstrap%.
+Certaines sont nécessaires au lancement d'une application Zend Framework. D'autres sont optionnelles ou spécifiques à cette application.
+
+h2. Liste des données rajoutées
+
+* *rootPath* : le path du service PiTS
+** rootPath = ROOT_PATH
+
+* *applicationPath* : le path du répertoire %{color:orange}application%
+** applicationPath = APPLICATION_PATH
+
+* *autoloadernamespaces[]* : les préfixes utilisés pour les namespaces des library
+** autoloadernamespaces[] = Ap_
+
+* *addPrefixHelperBroker[]* : les préfixes utilisés pour les aides d'action
+** addPrefixHelperBroker[] = Ap_Controller_ActionHelpers
+
+* *cache* : pour définir les paramètres d'un cache
+** cache.frontend = Core
+** cache.frontendOptions.lifetime = 7200
+** cache.frontendOptions.automatic_serialization = true
+** cache.backend = File
+** cache.backendOptions.cache_dir = ./tmp
+
+* *translate* : pour initialiser le translateur dans le bootstrap
+** translate.adapter = csv
+** translate.content = APPLICATION_PATH "/languages/cobas.csv"
+** translate.locale = fr_FR
+
+* *footer* : pour initialiser le nombre d'options dans le footer. Les labels et les liens seront définis dans le fichier de traduction. Leurs noms sont composés sur les modèles *footer_label#* et *footer_url#* où # est un numéro de 1 à nboptions
+** footer.nboptions = 4
+
+

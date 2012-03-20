@@ -1,0 +1,41 @@
+<?php
+/**
+ * Affiche une liste de documents
+ *
+ * @project pits
+ * @package application/views/script/common
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 5 mars 2011
+ * @version $Id: $
+ */
+?>
+<div align="center" class="pits">
+<?php if (count($this->liste) == 0) : ?>
+	<h3>Il n'y a pas de document disponible</h3>
+<?php else : ?>
+	<h3>Téléchargez les documents</h3>
+	<table class="pits">
+		<thead>
+			<tr>
+				<th>Liste des documents</th>
+				<?php if (isset($this->btnSuppr)) :?>
+				<th></th>
+				<?php endif; ?>
+			</tr>
+		</thead>
+		<tbody>
+		<?php foreach ($this->liste as $document) : ?>
+			<tr>
+				<td><a href="<?php echo $this->docPath . DIRECTORY_SEPARATOR . $document; ?>"><?php echo $document; ?>
+				</a></td>
+				<?php if (isset($this->btnSuppr)) : ?>
+				<?php  $btnclass = isset($this->btnclass) ? $this->btnclass: 'btnliste'; ?>
+				<td><?php echo $this->makeButton('suppr', 'suppr', 'admin/helpsuppr/d/' . $document, 'Supprimer', $btnclass); ?>
+				</td>
+				<?php endif; ?>
+			</tr>
+			<?php endforeach; ?>
+		</tbody>
+	</table>
+<?php endif; ?>
+</div>

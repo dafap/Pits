@@ -1,0 +1,82 @@
+<?php
+/**
+ * Page d'accueil du service
+ *
+ * @project pits
+ * @package application/views/script/index
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 25 fevr. 2011
+ * @version $Id: $
+ */
+
+?>
+<h2>Connexion au service de transport scolaire</h2>
+
+<table class="page-login">
+	<tr>
+		<td><?php if ($this->siteOuvert['inscription'] == 1) : ?>
+			<p id="cadre_login">
+				Vous pouvez inscrire vos enfants en ligne au service de transport
+				scolaire organisé par <span class="organisateur">la COBAS</span>
+				pour la prochaine année scolaire. Les inscriptions ne seront
+				définitives qu'après paiement des prestations demandées. Les
+				paiements se font en ligne, sur une connexion sécurisée.
+			</p>
+			<p id="cadre_login">
+				Consultez d'abord le <a
+					href="<?php echo $this->link('index', 'help'); ?>">règlement du
+					service</a>.
+			</p>
+			<p id="cadre_login">
+				Si c'est la première fois que vous utilisez ce service cette année,
+				vous devez créer votre compte pour inscrire vos enfants. Cela
+				nécessite de donner votre adresse email et de créer votre mot de
+				passe avec 7 caractères dont 2 chiffres.<br />Cette identification
+				vous permettra de <b>suivre votre dossier</b> et d'<b>effectuer les
+					paiements en ligne</b>. Conservez la.
+			</p> Pour tout autre renseignement ou tout autre mode d'inscription,
+			vous pouvez vous adresser directement au service à l'adresse : 
+			<?php else : ?>
+			<p id="cadre_login">Le service d'inscription en ligne aux transports
+				scolaires est actuellement fermé.</p> Pour tout renseignement,
+			adressez-vous directement au service à l'adresse : 
+			<?php endif; ?>
+			<div class="organisateur" align="center">
+				COBAS<br /> Service des transports scolaires<br /> 2 allée d'Espagne<br />
+				33311 ARCACHON CEDEX<br /> Tél. 05 56 22 33 44
+			</div>
+		</td>
+		<td class="contener_droite_inter">
+			<!-- div class="h340"-->
+			<h3>Identifiez-vous</h3> <?php if (!empty($this->messageError)) : ?>
+			<div class="errors">
+			<?php echo $this->messageError; ?>
+			</div> <?php endif; ?>
+			<div align="center">
+			<?php echo $this->form; ?>
+				<a href="<?php echo $this->link('index', 'oublimdp'); ?>">Oubli du
+					mot de passe ?</a>
+			</div>
+			<?php if ($this->siteOuvert['inscription'] == 1) : ?>
+			<hr>
+			<h3>Nouvel utilisateur</h3>
+			<div align="center">
+				<p class="description">Si vous n'avez pas de compte</p>
+				<table class="button_gris"
+					onclick="<?php echo $this->link('index', 'creation'); ?>">
+					<tbody>
+						<tr>
+							<td class="button_gris_gauche"></td>
+							<td class="button_gris_milieu"><a
+								href="<?php echo $this->link('index', 'creercompte'); ?>"
+								class="button_link">Créer un compte</a>
+							</td>
+							<td class="button_gris_droite"></td>
+						</tr>
+					</tbody>
+				</table>
+			</div> 
+			<?php endif; ?>
+		</td>
+	</tr>
+</table>

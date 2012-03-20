@@ -1,0 +1,23 @@
+<?php
+/**
+* Vue permettant de retirer un arrêt d'un circuit
+* L'arrêt n'est pas supprimé de la table des stations
+* 
+* @project pits
+* @package application/views/scripts/admin
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 23 juin 2011
+* @version $Id: $
+*/
+$tstation = new Pits_Model_DbTable_TStationsvilles();
+$station = $tstation->find($this->CodeStation)->current();
+
+$message = "<p class=\"description\">Vous souhaitez retirer l'arrêt $station->NomVille - $station->NomStation du circuit $this->CodeService</p>";
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Suppression d'un arrêt sur le circuit <?php echo $this->CodeService; ?></h2>
+<?php 
+    echo $message;
+    echo $this->form; 
+
+?>

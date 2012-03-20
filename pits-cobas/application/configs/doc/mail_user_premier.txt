@@ -1,0 +1,27 @@
+§bloc§
+Bonjour §Email§,
+Bienvenue au service des transports de la COBAS.
+§finbloc§
+§bloc§
+Pour éviter la création non autorisée d'un compte en votre nom, nous avons mis en place un dispositif nécessitant votre validation. 
+Si vous n'avez pas demandé à ouvrir ce compte, nous vous recommandons de suivre les instructions pour l'annuler.
+§finbloc§
+§bloc§
+CONFIRMER LE COMPTE
+Pour confirmer cette demande d'ouverture de compte, suivez le lien suivant :
+    §url§/index/validation/e/§Email§/t/§temoin§
+§finbloc§
+§bloc§
+ANNULER LE COMPTE
+Si vous n'avez pas demandé l'ouverture de ce compte avec cette adresse de messagerie et si vous souhaitez annuler cette demande, suivez le lien suivant :
+    §url§/index/annulation/e/§Email§/t/§temoin§
+§finbloc§
+§bloc§
+En cas d'anomalie, merci de bien vouloir prévenir le service.
+                  COBAS
+          Service des transports
+            2 allée d'Espagne
+           33311 ARCACHON CEDEX
+            Tél. 05 56 22 33 44
+       Email: transport@agglo-cobas.fr
+§finbloc§

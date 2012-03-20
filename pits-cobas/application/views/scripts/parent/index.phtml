@@ -1,0 +1,191 @@
+<?php
+/**
+ * Page d'accueil de l'espace parents
+ *
+ * @project pits
+ * @package application/views/scripts/parent
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 17 mars 2011
+ * @version $Id: $
+ */
+
+function aPayer($eleves, $valide)
+{
+    $result = 0.0;
+    foreach ($eleves as $eleve) if ($eleve->ficheValidee == $valide) {
+        $result += $eleve->TarifTarif;
+    }
+    return $result;
+}
+function dejaInscrit($eleves)
+{
+    $dejaInscrit = false;
+    foreach ($eleves as $eleve) {
+        $dejaInscrit = $dejaInscrit | ($eleve->ficheValidee == 1);
+    }
+    return $dejaInscrit;
+}
+$row_odd = false;
+$urlAjout = $this->link('parent', 'inscriptioneleve');
+$urlPayer = $this->link('parent', 'payer');
+$urlCompte = $this->link('parent', 'modifcompte');
+$urlAide = $this->link('parent', 'help');
+$auth = Zend_Auth::getInstance()->getIdentity();
+?>
+<h1>Inscription aux transports scolaires</h1>
+
+<?php if ($this->eleves->count() == 0) : ?>
+<h2>Bienvenue, <?php echo $auth->Titre . ' ' . $auth->Prenom . ' ' . $auth->Nom; ?> dans votre espace parents</h2>
+<span class="error"><?php echo $this->errorMessage('parentIndex'); ?> </span>
+<p class="description">Vous n’avez pas d’enfant inscrit.</p>
+<p class="description">Inscrivez tous vos enfants qui doivent utiliser
+	le service de transports scolaires puis effectuez globalement le
+	paiement en ligne.</p>
+<p>
+	Cliquez sur le bouton <b><i>Inscrire un enfant</i> </b> pour inscrire
+	un enfant.
+</p>
+<p>
+	<b>Les inscriptions ne seront prises en compte qu'une fois le paiement
+		effectué.</b>
+</p>
+<p class="description">
+	Pour accéder plus tard à cet espace, rendez-vous sur le site  <span
+		class="description_lien">http://www.agglo-cobas.fr</span>, rubrique <span
+		class="description_lien">Je m'inscris</span> puis <span
+		class="description_lien">S'inscrire pour le transport scolaire</span>.
+</p>
+<p>
+<?php //echo $this->makeButton('ajoutElv', 'ajoutElv', $urlAjout, 'Inscrire un enfant', 'field_btn_contact');?>
+</p>
+<table class="contener_boutons">
+	<tr>
+		<td><?php echo $this->makeButton('ajoutElv', 'ajoutElv', $urlAjout, 'Inscrire un enfant', 'field_btn_contact');?>
+		</td>
+		<td><?php echo $this->makeButton('user', 'user', $urlCompte, 'Voir mon compte', 'field_btn_contact');?>
+		</td>
+		<td><?php echo $this->makeButton('help', 'help', $urlAide, 'Aide', 'field_btn_contact');?>
+		</td>
+	</tr>
+</table>
+
+<?php else : ?>
+<?php if (dejaInscrit($this->eleves)) : ?>
+<h2>Liste de vos enfants inscrits</h2>
+<table class="liste">
+	<thead class="liste">
+		<tr>
+			<th>Prénom</th>
+			<th>Nom</th>
+			<th>Date de naissance</th>
+			<th>Montant</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody class="liste">
+	<?php foreach ($this->eleves as $eleve) : ?>
+	<?php if ($eleve->ficheValidee == 1) : ?>
+	<?php $row_odd = !$row_odd; $tr_class = $row_odd ? 'odd' : 'even'; ?>
+	<?php $url1 = $this->link('parent','editeleve') . '/e/' . $eleve->eleveId; ?>
+	<?php $url2 = $this->link('parent','suppreleve'). '/e/' . $eleve->eleveId; ?>
+	<?php $url3 = $this->link('parent','maileleve') . '/e/' . $eleve->eleveId; ?>
+		<tr class="<?php echo $tr_class; ?>"
+			onmouseover="jsHover(this,'hover');"
+			onmouseout="jsHover(this,'<?php echo $tr_class; ?>');">
+			<td><?php echo $eleve->Prenom; ?></td>
+			<td><?php echo $eleve->Nom; ?></td>
+			<td><?php echo strftime('%d/%m/%Y',strtotime($eleve->DateN)); ?></td>
+			<td class="numerique"><?php echo sprintf("%03.2f",$eleve->TarifTarif); ?>
+			</td>
+			<td align='center'><table class="contener_boutons">
+					<tr>
+						<td colspan="2">Inscription validée</td>
+					</tr>
+					<tr>
+						<td><?php //echo $this->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, 'Signaler un changement', 'field_btn_contact'); ?>
+						</td>
+						<td><?php echo $this->makeButton('p' . $eleve['eleveId'], 'p' . $eleve['eleveId'], $url3, 'Editer le justificatif', 'field_btn_contact'); ?>
+						</td>
+					</tr>
+				</table></td>
+		</tr>
+		<?php endif ?>
+		<?php endforeach ?>
+	</tbody>
+</table>
+		<?php endif; ?>
+
+<h2>Liste de vos enfants pré-inscrits</h2>
+<p class="description">Pour valider les inscriptions, vous devez payer
+	par télé-paiement les prestations demandées.</p>
+<span class="error"><?php echo $this->errorMessage('parentIndex'); ?> </span>
+<table class="liste">
+	<thead class="liste">
+		<tr>
+			<th>Prénom</th>
+			<th>Nom</th>
+			<th>Date de naissance</th>
+			<th>Montant</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody class="liste">
+	<?php foreach ($this->eleves as $eleve) : ?>
+	<?php if ($eleve->ficheValidee == 0) : ?>
+	<?php $row_odd = !$row_odd; $tr_class = $row_odd ? 'odd' : 'even'; ?>
+	<?php $url1 = $this->link('parent','editeleve') . '/e/' . $eleve->eleveId; ?>
+	<?php $url2 = $this->link('parent','suppreleve'). '/e/' . $eleve->eleveId; ?>
+	<?php $url3 = $this->link('parent','maileleve') . '/e/' . $eleve->eleveId; ?>
+		<tr class="<?php echo $tr_class; ?>"
+			onmouseover="jsHover(this,'hover');"
+			onmouseout="jsHover(this,'<?php echo $tr_class; ?>');">
+			<td><?php echo $eleve->Prenom; ?></td>
+			<td><?php echo $eleve->Nom; ?></td>
+			<td><?php echo strftime('%d/%m/%Y',strtotime($eleve->DateN)); ?></td>
+			<td class="numerique"><?php echo sprintf("%03.2f",$eleve->TarifTarif); ?>
+			</td>
+			<td align='center'><table class="contener_boutons">
+					<tr>
+						<td><?php echo $this->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, 'Modifier', 'field_btn_contact'); ?>
+						</td>
+						<td><?php echo $this->makeButton('s' . $eleve['eleveId'], 's' . $eleve['eleveId'], $url2, 'Supprimer', 'field_btn_contact'); ?>
+						</td>
+						<!--td><?php //echo $this->makeButton('p' . $eleve['eleveId'], 'p' . $eleve['eleveId'], $url3, 'Editer le justificatif', 'field_btn_contact'); ?>
+						</td-->
+					</tr>
+				</table></td>
+		</tr>
+		<?php endif ?>
+		<?php endforeach ?>
+	</tbody>
+	<tbody class="lignevide">
+		<tr>
+			<td>&nbsp;</td>
+		</tr>
+	</tbody>
+	<tfoot class="liste">
+		<tr>
+			<th colspan="3">Total à payer</th>
+			<th><?php echo sprintf("%01.2f", aPayer($this->eleves, 0));?></th>
+			<td><table class="contener_boutons">
+					<tr>
+						<td><?php echo $this->makeButton('ajoutElv', 'ajoutElv', $urlAjout, 'Inscrire un autre enfant', 'field_btn_contact');?>
+						</td>
+						<?php if (aPayer($this->eleves, 0)){?>
+						<td><?php echo $this->paybox;//$this->makeButton('payer', 'payer', $urlPayer, 'Valider la liste et payer', 'field_btn_contact');?>
+						<?php }?>
+						</td>
+						<td><?php echo $this->makeButton('user', 'user', $urlCompte, 'Voir mon compte', 'field_btn_contact');?>
+						</td>
+						<td><?php echo $this->makeButton('help', 'help', $urlAide, 'Aide', 'field_btn_contact');?>
+						</td>
+					</tr>
+				</table>
+			</td>
+		</tr>
+	</tfoot>
+</table>
+						<?php endif ?>
+
+
+

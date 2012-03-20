@@ -1,0 +1,18 @@
+<?php
+/**
+* Description courte du fichier
+*
+* Description longue du fichier s'il y en a une
+* 
+* @project pits
+* @package package_name
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 31 mai 2011
+* @version $Id: $
+*/
+$retour = $this->link('parent', 'index');
+?>
+<h1>Inscription aux transports scolaires</h1>
+<h2>Paiement accepté par Paybox</h2>
+<p>Vos enfants sont inscrits.</p>
+<p><?php echo $this->makeButton('cancel', 'cancel', $retour, 'Retour', 'field_btn_contact', 'margin-left: 80px;'); ?></p>

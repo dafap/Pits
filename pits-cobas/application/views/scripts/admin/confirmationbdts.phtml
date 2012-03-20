@@ -1,0 +1,23 @@
+<?php
+/**
+* Importe un fichier de BdTS pour confirmer les inscriptions
+* 
+* (dans CCM : validinscriptions.phtml - non utilisé pour COBAS)
+* 
+* @project pits
+* @package application/views/scripts/admin
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 8 mars 2011
+* @version $Id: $
+*/
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Confirmation de l'inscription des &eacute;l&egrave;ves dans BdTS</h2>
+<?php 
+if (isset($this->forward)) {
+    echo '<p class="description">' . $this->message . '</p>';
+    echo $this->makeButton('cancel', 'cancel', $this->forward, 'Continuer', 'field_btn_contact', 'margin-left: 80px;');
+} else {
+    echo $this->form;
+}
+?>

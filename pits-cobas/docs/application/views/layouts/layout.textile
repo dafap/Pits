@@ -1,0 +1,47 @@
+h1. Description du layout
+
+h2. Index
+
+{toc}
+
+h2. Les cadres de l'écran
+
+!{width:40%;height:50%}layout.png!
+
+* 1 @<div id="ecran">@ : définit tout l'écran
+
+* 2 @<div id="conteneur">@ : définit une zone de 1003px dans laquelle on va travailler
+
+* 3 @<div id="header">@ : définit une zone dans laquelle sera placé le header
+
+* 4 @<div id="contenu">@ : définit une zone dans laquelle sera placé le content
+
+* 5 @<div id="chemin">@ : définit une zone pour le fil d'ariane
+
+* 6 @<h2>@ : définit le titre de la page
+
+* 7 @<div id="cadre">@ : définit une zone dans laquelle sera placé le contenu de la page. Cette zone a un ascenseur vertical si nécessaire.
+
+* 8 @<div id="footer">@ : définit une zone dans laquelle sera placé le footer
+
+* 9 @<div id="footer-deco">@ : définit une zone dans laquelle sera placé le bandeau (image) du footer
+
+* 10 @<div id="footer-page">@ : définit une zone dans laquelle sera placé le copyright et les liens (accessibilité, mention légale, plan, adresse...)
+
+* 11 @<div id="menu">@ : définit une zone dans laquelle sera placé le menu
+
+h2. La css
+
+Pour obtenir une page complète, il faut définir la hauteur du cadre contenu à 100%. Pour cela, il faut que toutes les balises qui contiennent cette balise @<div id="contenu">@ soient, elles aussi, définies avec une hauteur de 100%, à partie de la balise @<html>@ comprise.
+
+Voici la liste des balises concernées : @<html>@, @<body>@, @<div id="ecran">@, @<div id="conteneur">@, @<div id="contenu">@
+
+La zone 7 (cadre) est définie pour optimiser l'affichage à partir d'un écran de 720 pixels de hauteur. Cela conduit à définir sa hauteur à 65%.
+
+La zone 8 (footer) est positionnée au bas de l'écran par un 'position: absolute;'. Dans cette configuration, sa hauteur est de 154px.
+
+h2. Les images utilisées
+
+Les images utilisées portent le nom de layout et sont indexées par un numéro à 3 chiffres dont les 2 derniers sont le numéro de la zone référencée dans cette page.
+
+Les images dont le numéro commence par 9 ne sont pas utilisées.

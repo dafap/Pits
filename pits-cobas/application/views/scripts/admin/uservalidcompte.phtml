@@ -1,0 +1,16 @@
+<?php
+/**
+* Page d'accès à la validation d'un compte nouvellement créé
+* 
+* @project pits
+* @package application/views/scripts/admin
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 8 mars 2011
+* @version $Id: $
+*/
+
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Validation du compte d'un utilisateur</h2>
+<p>Le compte est débloqué mais l'adresse indiquée, <?php echo $this->email; ?>, ne permet pas d'envoyer le courrier de confirmation.</p>
+<p><?php echo $this->makeButton('retour', 'retour', $this->link('admin', 'listedesusers', null, "/page/$this->page"), 'Continuer', 'field_btn_contact');?></p>

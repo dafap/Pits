@@ -1,0 +1,35 @@
+<?php
+/**
+ * Demande d'envoi d'un nouveau mot de passe par mail
+ *
+ * @project pits
+ * @package application/views/script/index
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 5 mars 2011
+ * @version $Id: $
+ */
+$this->retour = $this->link('index', 'index');
+?>
+<h2>Demande d'un nouveau mot de passe</h2>
+<div id="cadre">
+<?php  if ($this->op == 'form'):?>
+	<h3>Identifiez-vous</h3>
+	<div align="center">
+	<?php echo $this->form; ?>
+	</div>
+<?php elseif ($this->op == 'envoye'): ?>
+	<h3>Demande acceptée</h3>
+	<p>Un nouveau mot de passe vient d'être envoyé à l'adresse 
+	    <?php echo $this->email;?> que vous
+		venez d'indiquer. Ouvrez votre messagerie pour le connaître.</p>
+	<p>Vous pourrez le changer après connexion au service, en choisissant
+		`modifier son compte` dans le menu.</p>
+	<?php echo $this->makeButton('cancel', 'cancel', $this->retour, 'Continuer', '', 'margin-left: 80px;'); ?>	
+<?php else: ?>
+	<h3>Demande refusée</h3>
+	<p>L'adresse email que vous avez indiquée est inconnue dans notre base.<p>
+	<p>Si vous souhaitez l'utiliser, créez un nouveau compte. Sinon, utilisez l'adresse que vous avez indiqué lors de votre inscription.</p>
+	<?php echo $this->makeButton('cancel', 'cancel', $this->retour, 'Continuer', '', 'margin-left: 80px;'); ?>
+<?php endif; ?>
+
+</div>

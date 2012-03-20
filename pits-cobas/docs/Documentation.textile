@@ -1,0 +1,21 @@
+h1. Application PiTS
+
+h2. Index
+
+{toc}
+
+h2. Dépot des sources
+
+Les sources de cette application sont déposées sur un 'repository' à l'adresse suivante :
+
+"https://github.com/dafap/pits":https://github.com/dafap/pits
+
+h2. Le layout de l'application
+
+"documentation":application/views/layouts/layout.textile
+
+h2. Les formulaires
+
+
+
+

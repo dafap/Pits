@@ -1,0 +1,24 @@
+h1. Définition des formulaires
+
+h2. Index
+
+{toc}
+
+h2. Principes
+
+La plupart des formulaires sont définis dans le fichier %{color:orange}application/configs/forms.ini%. Pour créer et maintenir ce fichier, un fichier nommé %{color:orange}docs/application/configs/forms.odt% définit la grammaire des champs dans un tableur à raison d'un formulaire par feuille. Chaque feuille porte le nom du formulaire. La colonne K doit être copiée et collée dans %{color:orange}application/configs/forms.ini%.
+
+h2. Liste des formulaires et particularités
+
+h3. Login
+
+Décrit dans forms.ini, section [login]
+
+h3. Oubli du mot de passe
+
+Décrit dans forms.ini, section [oublimdp]
+
+h3. Créer un compte
+
+
+

@@ -1,0 +1,75 @@
+<?php
+/**
+ * Liste des enfants d'un user
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mars 2011
+ * @version $Id: $
+ */
+
+function echoLigne($parite, $array)
+{
+    if (! is_array($array)) {
+        throw new Zend_Exception('Mauvais appel de echoLigne() dans ' . __FILE__);
+    }
+    $tr_class = ($parite % 2 ? 'odd' : 'even');
+    echo '<tr class="' . $tr_class .'" onmouseover="jsHover(this,\'hover\');" onmouseout="jsHover(this,\'' . $tr_class . '\');">';
+    foreach ($array as $element) {
+        if (is_array($element)) {
+            echo '<td>';
+            echo implode('<br>', $element);
+            echo '</td>';
+        } else {
+            echo '<td>' . $element . '</td>';
+        }
+    }
+}
+$parite = 1;
+
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>
+	Liste des enfants inscrits par
+	<?php echo mb_strtoupper($this->userNom) . ' ' . $this->formatPrenom($this->userPrenom); ?>
+</h2>
+	<?php if (count($this->enfants) == 0) : ?>
+<p class="description">Il n'y a pas d'enfant inscrit.</p>
+	<?php else : ?>
+<table class="liste">
+	<thead class="liste">
+		<tr>
+			<th>Elève</th>
+			<th>Parent</th>
+			<th>Point d'arrêt</th>
+			<th>Etablissement</th>
+			<th></th>
+			<th></th>
+			<!-- th></th-->
+		</tr>
+	</thead>
+	<tbody class="liste">
+	<?php foreach ($this->enfants as $enfant) {
+	    $url1 = $this->link('admin', 'eleveedit') . '/e/' . $enfant['eleveId'] . '/u/' . $enfant['userId'] . '/p/' . $this->page;
+	    $url2 = $this->link('admin', 'elevesuppr') . '/e/' . $enfant['eleveId'] . '/u/' . $enfant['userId'] . '/p/' . $this->page;
+	    $url3 = $this->link('admin', 'elevepdf') . '/e/' . $enfant['eleveId'];
+	    $m = 'm' . $enfant['eleveId'];
+	    $s = 's' . $enfant['eleveId'];
+	    $p = 'p' . $enfant['eleveId'];
+	    echoLigne($parite++,
+	    array($enfant['Nom'] . ' ' . $enfant['Prenom'],
+	    $enfant['NomR1'] . ' ' . $enfant['PrenomR1'],
+	    $enfant['VilleStation1'] . ' - ' . $enfant['NomStation1'],
+	    $enfant['NomEcole'],
+	    $this->makeButton($m, $m, $url1, 'Modifier', 'field_btn_contact'),
+	    $enfant['ficheValidee'] ?
+	    $this->makeButton($p, $p, $url3, 'Justificatif', 'field_btn_contact') :
+	    $this->makeButton($s, $s, $url2, 'Supprimer', 'field_btn_contact'),
+	    ));
+	}
+	?>
+	</tbody>
+</table>
+	<?php endif; ?>
+	<?php echo $this->makeButton('cancel', 'cancel', $this->urlretour, 'Retour', 'field_btn_contact'); ?>

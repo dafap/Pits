@@ -1,0 +1,22 @@
+<?php
+/**
+ * Ajout d'un document en ligne
+ *
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mars 2011
+ * @version $Id: $
+ */
+?>
+<h1>Inscription aux transports scolaires</h1>
+<h2>Gestion des documents d'aide</h2>
+<?php 
+if (isset($this->forward)) {
+    echo '<p class="description">' . $this->message . '</p>';
+    echo $this->makeButton('cancel', 'cancel', $this->forward, 'Continuer', 'field_btn_contact', 'margin-left: 80px;');
+} else {
+    echo $this->form;
+}
+?>

@@ -1,0 +1,76 @@
+<?php
+/**
+ * Description courte du fichier
+ *
+ * Description longue du fichier s'il y en a une
+ *
+ * @project pits
+ * @package package_name
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 20 juin 2011
+ * @version $Id: $
+ */
+function lesEnfants($maref) {
+    $result = array();
+    $trefs = explode('|', $maref);
+    for ($j = 3; $j < count($trefs); $j++) {
+        //$eleveId =
+        $result[] = $trefs[$j];
+    }
+    return $result;
+}
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Liste des paiements</h2>
+<table class="fiche">
+<?php foreach ($this->paybox as $record) {
+    $parite = 1;
+    $user = $record->findParentPits_Model_DbTable_TUser();
+    $enfants = $user->findPits_Model_DbTable_TEleves();
+    foreach ($enfants as $enfant) {
+        $tenfants[$enfant->eleveId] = $enfant->toArray();
+        $station = $enfant->findParentPits_Model_DbTable_TStations();
+        //$ville = '';
+        $tenfants[$enfant->eleveId]['VilleStation'] = $station->findParentPits_Model_DbTable_TVilles()->Nom;
+        $tenfants[$enfant->eleveId]['NomStation'] = $station->Nom;
+        $ecole = $enfant->findParentPits_Model_DbTable_TEtablissements();
+        //$ville = '';
+        $tenfants[$enfant->eleveId]['VilleEcole'] = $ecole->findParentPits_Model_DbTable_TVilles()->Nom;
+        $tenfants[$enfant->eleveId]['NomEcole'] = $ecole->Nom;
+    }
+    ?>
+	<thead>
+		<tr>
+			<th><?php echo $user->Nom . ' ' . $user->Prenom; ?></th>
+			<th><?php echo $record->montant; ?> &euro;</th>
+			<th><?php echo $record->maref; ?>
+			</th>
+			<th><?php echo $record->auto; ?>
+			</th>
+			<th><?php echo $record->idtrans; ?>
+			</th>
+			<th><?php echo $record->datetrans . ' ' . $record->heuretrans; ?>
+			</th>
+			<th><?php echo $record->paiement . ' ' . $record->carte . ' ' . $record->bin6 . '...' . $record->bin2;; ?>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php
+	$enfantsId = lesEnfants($record->maref);
+	foreach ($enfantsId as $enfantId) {
+	    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td></td>' . PHP_EOL;
+	    echo '<td colspan="2">' . $tenfants[$enfantId]['Nom'] . ' ' . $tenfants[$enfantId]['Prenom'] . '</td>' . PHP_EOL;
+	    echo '<td colspan="3">' . $tenfants[$enfantId]['VilleStation'] . ' - ' . $tenfants[$enfantId]['NomStation'] . '</td>' . PHP_EOL;
+	    echo '<td>' . $tenfants[$enfantId]['VilleEcole'] . ' - ' . $tenfants[$enfantId]['NomEcole'] . '</td>' . PHP_EOL;
+	    echo '</tr>' . PHP_EOL;
+	}
+	?>
+	</tbody>
+	<?php } ?>
+</table>
+<p></p>
+<div style="float:left;">
+<?php echo $this->makeButton('cancel', 'cancel', $this->link('admin','index'), 'Retour', 'field_btn_contact','margin-top:0;'); ?>
+</div>
+<?php echo $this->paybox; ?>

@@ -1,0 +1,35 @@
+§bloc§
+Bienvenue au service des transports de la COBAS.
+§finbloc§
+§bloc§
+Votre compte d'accès au service des transports scolaires vient d'être validé par l'administrateur du service. Vous pouvez désormais vous connecter à partir de la page d'accueil à l'adresse §url§.
+---------------------------------------------------
+Votre login est : §Email§
+Si vous ne connaissez pas votre mot de passe, vous pouvez en demander un nouveau depuis la page d'accueil par le lien "Oubli du mot de passe".
+---------------------------------------------------
+§finbloc§
+§bloc§
+Voici ce que contient votre fiche :
+§finbloc§
+§bloc§
+Nom       : §Titre§ §Nom§ §Prenom§
+Adresse   : §AdresseL1§
+            §AdresseL2§
+            §CodePostal§ §Commune§
+Email     : §Email§
+Téléphone : §liste(Telephone,TelephoneC)§    
+§finbloc§
+§bloc§
+Date de création du compte : §dateFR(dd/MM/YYYY HH:mm:ss,dateCreation)§
+Date de modification       : §dateFR(dd/MM/YYYY HH:mm:ss,dateModif)§
+Date de dernière connexion : §dateFR(dd/MM/YYYY HH:mm:ss,datePreviousLogin)§
+§finbloc§
+§bloc§
+En cas d'anomalie, merci de bien vouloir prévenir le service.
+                  COBAS
+          Service des transports
+            2 allée d'Espagne
+           33311 ARCACHON CEDEX
+            Tél. 05 56 22 33 44
+       Email: transport@agglo-cobas.fr
+§finbloc§

@@ -1,0 +1,67 @@
+h1. Les boutons plus.png et moins.png
+
+<hr>
+
+h2. Usage
+
+Dans _application/views/scripts/admingest.phtml_ pour élever ou abaisser les droits d'un utilisateur. 
+
+# simple utilisateur
+# admin
+# sadmin
+
+h2. Les images
+
+Il y a 4 images, créées à l'aide de Gimp, placées dans _public/images/_ :
+
+* *moins.png* !../../../public/images/moins.png!
+* *moins_hover.png* !../../../public/images/moins_hover.png!
+* *plus.png* !../../../public/images/plus.png!
+* *plus_hover.png* !../../../public/images/plus_hover.png!
+
+Les signes + et - sont dessinés en blanc :
+
+* 2 px de large
+* 8 px de long
+
+Les couleurs de fonds sont appliquées au pinceau :
+
+* %{color:#ffffff;background-color:#a1cbe5}#a1cbe5 pour les images _plus.png_ et _moins.png_%
+* %{color:#ffffff;background-color:#999}#999 pour les images plus_hover.png et moins_hover.png%
+
+La taille des images est 16 x 16 px (résolution : 72 pixels/in)
+
+h2. Le code html
+
+Les boutons sont des balises *a* avec une image en background-image. Les navigateurs n'affichent l'image de fond que si la balise contient une donnée. De ce fait, nous avons :
+
+* _@<a href="mon/url" class="plusmoins">&nbsp;</a>@_
+
+h2. Le style dans la css
+
+bc.. a.btn_plus {
+	display: block;
+	background-image:url(../images/plus.png);
+	background-repeat:no-repeat;
+	text-decoration: none;
+}
+
+a.btn_plus:hover {
+	display: block;
+	background-image:url(../images/plus_hover.png);
+	background-repeat:no-repeat;
+	text-decoration: none;
+}
+a.btn_moins {
+	display: block;
+	background-image:url(../images/moins.png);
+	background-repeat:no-repeat;
+	text-decoration: none;
+}
+
+a.btn_moins:hover {
+	display: block;
+	background-image:url(../images/moins_hover.png);
+	background-repeat:no-repeat;
+	text-decoration: none;
+}

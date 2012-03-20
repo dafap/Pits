@@ -1,0 +1,38 @@
+<?php
+/**
+* Description courte du fichier
+*
+* Description longue du fichier s'il y en a une
+* 
+* @project pits
+* @package package_name
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 8 mai 2011
+* @version $Id: $
+*/
+
+$contener_logo = $this->baseUrl() . '/images/logo_cobas.gif';
+//$retour_nav = $this->baseUrl() . '/images/btn_retour.gif';
+//$separateur_nav = $this->baseUrl() . '/images/separateur_nav.gif';
+//$habitant_cobas_nav = $this->baseUrl() . '/images/btn_habitant_cobas.gif';
+//$je_minscris_nav = $this->baseUrl() . '/images/btn_je_minscris.gif';
+$bandeau_scolaire = $this->baseUrl() . '/images/bandeau_transports_scolaires.jpg';
+$auth = Zend_Auth::getInstance()->hasIdentity();
+?>
+<div class="header">
+  <div class="contener_logo">
+    <a href="http://cobas.webfutur.com/index.html"><img src="<?php echo $contener_logo; ?>" alt="NATURELLEMENT COBAS" width="246" height="123" border="0" /></a>
+  </div>
+  <div class="contener_nav1_header">
+    <span class="contener_nav2_header"><?php echo $this->retour; ?></span>
+    <?php if ($auth) :?>
+    <span class="contener_nav2_header"><?php echo $this->logout; ?></span>
+    <?php endif; ?>
+    <span class="contener_nav2_header"><?php echo $this->help; ?></span>
+    <?php if (!empty($this->admin)) :?>
+    <span class="contener_nav2_header"><?php echo $this->admin; ?></span>
+    <?php endif; ?>
+  </div>
+  <div class="contener_rechercher_header"></div>
+  <div class="container_banner"><img src="<?php  echo $bandeau_scolaire; ?>" width="963" height="136" alt="Transports scolaires" title="Transports scolaires" border="0"></div>
+</div>

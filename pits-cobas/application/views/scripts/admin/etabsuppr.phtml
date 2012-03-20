@@ -1,0 +1,24 @@
+<?php
+/**
+* Vue permettant de retirer un établissement d'un circuit
+* L'établissement n'est pas supprimé de la table des etablissements
+* 
+* @project pits
+* @package application/views/scripts/admin
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 23 juin 2011
+* @version $Id: $
+*/
+$tetablissement = new Pits_Model_DbTable_TEtablissements();
+$ecole = $tetablissement->find($this->CodeEN)->current();
+$ville = $ecole->findParentRow('Pits_Model_DbTable_TVilles')->Nom;
+
+$message = "<p class=\"description\">Vous souhaitez retirer l'établissement $ville - $ecole->Nom du circuit $this->CodeService</p>";
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Suppression d'un établissement sur le circuit <?php echo $this->CodeService; ?></h2>
+<?php 
+    echo $message;
+    echo $this->form; 
+
+?>

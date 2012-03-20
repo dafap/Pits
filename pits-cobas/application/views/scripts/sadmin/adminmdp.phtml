@@ -1,0 +1,22 @@
+<?php
+/**
+ * Changement du mot de passe d'un administrateur
+ *
+ * @project pits
+ * @package application/views/scripts/sadmin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 30 juin 2011
+ * @version $Id: $
+ */
+
+?>
+<h1>Configuration des inscriptions aux transports scolaires</h1>
+<h2>Gestion des administrateurs</h2>
+<h3>Changement du mot de passe d'un administrateur</h3>
+<?php
+echo $this->form;
+if ($this->retour) {
+    $retour = $this->link('sadmin', 'admingest', null, array('page' => $this->page,));
+    echo $this->makeButton('retour', 'retour', $retour, 'Continuer', 'field_btn_contact');
+} 
+?>

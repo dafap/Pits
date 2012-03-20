@@ -1,0 +1,28 @@
+<?php
+/**
+* Affiche le contenu d'une fiche d'un user
+*
+* 
+* @project pits
+* @package application/views/scripts/sadmin
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 21 juillet 2011
+* @version $Id: $
+*/
+$retour = $this->link('sadmin','admingest',null,"/page/$this->page");
+$parite = 1;
+?>
+<h1>Configuration des inscriptions aux transports scolaires</h1>
+<h2>Fiche d'un utilisateur</h2>
+<table class="fiche">
+<?php 
+foreach ($this->user->getTable()->getFields() as $key) {
+    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><th>';
+    echo $this->translate($key);
+    echo '</th><td>';
+    echo $this->user->{$key};
+    echo '</td></tr>';
+}
+?>
+</table>
+<?php echo $this->makeButton('cancel', 'cancel', $retour, 'Retour', 'field_btn_contact'); ?>

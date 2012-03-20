@@ -1,0 +1,27 @@
+<?php
+/**
+ * Ajout d'un administrateur
+ *
+ * @project pits
+ * @package application/views/scripts/sadmin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 30 juin 2011
+ * @version $Id: $
+ */
+$urlretour = $this->link('sadmin', 'admingest', null, array('page' => $this->page,));
+?>
+<h1>Configuration des inscriptions aux transports scolaires</h1>
+<h2>Gestion des administrateurs</h2>
+
+<?php
+if ($this->op == 'form') {
+    echo '<h3>Ajout d\'un administrateur</h3>';
+    echo $this->form;
+} elseif ($this->op == 'email') {
+    echo "<h3>Le compte est créé mais l'envoi du mail a échoué.<p></p>";
+    echo $this->makeButton('cancel', 'cancel', $urlretour, 'Continuer', 'field_btn_contact', 'margin-left: 80px;'); 
+} else {
+    echo '<h3>La création du compte a échoué.</h3><p></p>';    
+    echo $this->makeButton('cancel', 'cancel', $urlretour, 'Continuer', 'field_btn_contact', 'margin-left: 80px;'); 
+}
+?>

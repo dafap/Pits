@@ -1,0 +1,52 @@
+§bloc§
+Nom : §Nom§
+Prénom : §Prenom§
+§rem: -------------------------------------------------------------------------
+§rem: Lorsqu'on utilise l'instruction dateFR(format,champ) il ne faut pas mettre d'autres champs spéciaux dans la ligne
+Date de naissance : §dateFR(dd/MM/YYYY,DateN)§
+§rem: -------------------------------------------------------------------------
+Etablissement scolaire fréquenté : §NomEcole§ - §VilleEcole§
+Régime : §Regime§
+Responsable légal : §TitreR1§ §NomR1§ §PrenomR1§
+Adresse : §AdressR1L1§
+          §AdressR1L2§
+          §CodePostalR1§ §NomVilleR1§
+§rem: --------------------------------------------------------------------------------------------------------
+§rem: L'instruction liste(...) doit être précédée de la définition du séparateur
+§rem: Lorsqu'on utilise l'instruction liste(...) il ne faut pas mettre d'autres champs spéciaux dans la ligne
+§separateur( - )§
+Téléphone : §liste(TelephoneR1,TelephoneR1c)§
+§rem: --------------------------------------------------------------------------------------------------------	
+Email : §EmailR1§
+Point de montée : §VilleStation1§ - §NomStation1§
+Tarif : §TarifLibelle§ - §TarifTarif§ €
+§finbloc§
+§rem: -------------------------------------------------------------------------------------
+§rem: Une conditionnelle if (...) ne contient rien d'autre sur la ligne
+§if (SecondeAdresse)§
+§rem: -------------------------------------------------------------------------------------
+§bloc§
+Garde alternée
+Autre responsable légal : §TitreR2§ §NomR2§ §PrenomR2§
+Adresse : §AdressR2L1§
+          §AdressR2L2§
+          §CodePostalR2§ §NomVilleR2§
+§rem: -------------------------------------------------------------------------------------
+§rem: Ici, on utilise le même séparateur que celui défini plus haut pour la première liste
+Téléphone : §liste(TelephoneR2,TelephoneR2c)§
+Email : §EmailR2§
+Point de montée : §VilleStation2§ - §NomStation2§
+§finbloc§
+§rem: -------------------------------------------------------------------------------------
+§rem: L'instruction endif ne contient rien d'autre sur la ligne
+§endif§
+§rem: -------------------------------------------------------------------------------------
+§hr§
+§bloc§
+§centre§
+COBAS - Service des transports
+2 allée d'Espagne - BP 147 - 33311 ARCACHON CEDEX
+Tél. 05 56 22 33 44 - Email: transport@agglo-cobas.fr
+www.agglo-cobas.fr
+§fincentre§
+§finbloc§

@@ -1,0 +1,15 @@
+h1. Description du footer - fichier application/views/scripts/common/footer.phtml
+
+h2. Index
+
+{toc}
+
+h2. Composition
+
+h3. Les images
+
+Elles sont définies exclusivement dans la css.
+
+h3. Les liens et les labels
+
+Ils sont définis exclusivement dans le fichier de traduction.

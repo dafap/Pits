@@ -1,0 +1,86 @@
+<?php
+/**
+ * Affiche le détail des paiements Paybox d'un user
+ *
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 19 mai 2011
+ * @version $Id: $
+ */
+function lesEnfants($maref) {
+    $result = array();
+    $trefs = explode('|', $maref);
+    for ($j = 3; $j < count($trefs); $j++) {
+        $result[] = $trefs[$j];
+    }
+    return $result;
+}
+
+$retour = $this->link('admin','listedesusers',null,"/page/$this->page");
+$parite = 1;
+$ville = $this->user->findParentPits_Model_DbTable_TVilles()->Nom;
+$paybox = $this->user->findPits_Model_DbTable_TPaybox();
+$enfants = $this->user->findPits_Model_DbTable_TEleves();
+foreach ($enfants as $enfant) {
+    $tenfants[$enfant->eleveId] = $enfant->toArray();
+    $station = $enfant->findParentPits_Model_DbTable_TStations();
+    //$ville = '';
+    $tenfants[$enfant->eleveId]['VilleStation'] = $station->findParentPits_Model_DbTable_TVilles()->Nom;
+    $tenfants[$enfant->eleveId]['NomStation'] = $station->Nom;
+    $ecole = $enfant->findParentPits_Model_DbTable_TEtablissements();
+    //$ville = '';
+    $tenfants[$enfant->eleveId]['VilleEcole'] = $ecole->findParentPits_Model_DbTable_TVilles()->Nom;
+    $tenfants[$enfant->eleveId]['NomEcole'] = $ecole->Nom;
+}
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Détail des paiements de <?php echo $this->user->Titre . ' ' . $this->user->Nom . ' ' . $this->user->Prenom; ?></h2>
+<!--  table class="fiche">
+	<tr>
+		<th><?php echo $this->user->Titre; ?></th>
+		<th><?php echo $this->user->Nom; ?></th>
+		<th><?php echo $this->user->Prenom; ?></th>
+	</tr>
+	<tr>
+		<td><?php echo $this->user->AdresseL1; ?></td>
+		<td><?php echo $this->user->AdresseL2; ?></td>
+		<td><?php echo $this->user->CodePostal . " " . $ville; ?></td>
+	</tr>
+	<tr>
+		<td><?php echo $this->user->Telephone; ?></td>
+		<td><?php echo $this->user->TelephoneC; ?></td>
+		<td><?php echo $this->user->Email; ?></td>
+	</tr>
+</table>
+<p></p-->
+<table class="fiche">
+<?php foreach ($paybox as $record) : ?>
+	<thead>
+		<tr>
+			<th><?php echo $record->montant / 100; ?>&euro;</th>
+			<th><?php echo $record->maref; ?></th>
+			<th><?php echo $record->auto; ?></th>
+			<th><?php echo $record->idtrans; ?></th>
+			<th><?php echo $record->datetrans . ' ' . $record->heuretrans; ?></th>
+			<th><?php echo $record->paiement . ' ' . $record->carte . ' ' . $record->bin6 . '...' . $record->bin2;; ?>
+			</th>
+		</tr>
+	</thead>
+	<tbody>
+	<?php
+	$enfantsId = lesEnfants($record->maref);
+	foreach ($enfantsId as $enfantId) {
+	    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td></td>' . PHP_EOL;
+	    echo '<td>' . $tenfants[$enfantId]['Nom'] . ' ' . $tenfants[$enfantId]['Prenom'] . '</td>' . PHP_EOL;
+	    echo '<td colspan="3">' . $tenfants[$enfantId]['VilleStation'] . ' - ' . $tenfants[$enfantId]['NomStation'] . '</td>' . PHP_EOL;
+	    echo '<td>' . $tenfants[$enfantId]['VilleEcole'] . ' - ' . $tenfants[$enfantId]['NomEcole'] . '</td>' . PHP_EOL;
+	    echo '</tr>' . PHP_EOL;
+	}
+	?>
+	</tbody>
+	<?php endforeach; ?>
+
+</table>
+	<?php echo $this->makeButton('cancel', 'cancel', $retour, 'Retour', 'field_btn_contact'); ?>

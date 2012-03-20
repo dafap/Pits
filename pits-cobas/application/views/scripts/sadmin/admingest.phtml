@@ -1,0 +1,119 @@
+<?php
+/**
+ * Gestion des administrateurs
+ *
+ * Ajouter, modifier, supprimer un administrateur, consulter la liste
+ *
+ * @project pits
+ * @package appplication/views/scripts/sadmin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 7 mars 2011
+ * @version $Id: $
+ */
+function categorie($param) {
+    return $param == 3 ? 'Super admin' : ($param == 2 ? 'Admin' : '');
+}
+function btn($name, $categorie, $url) {
+    if (($categorie == 1 && $name == 'moins') || ($categorie == 3 && $name == 'plus')) {
+        $rep = '';
+    } else {
+        $rep = '<a href="' . $url . '" class="btn_' . $name . '">&nbsp;</a>';
+    }
+    return $rep;
+}
+function echoLigne($parite, $array)
+{
+    //    Zend_Debug::dump($array); exit;
+    if (! is_array($array)) {
+        throw new Zend_Exception('Mauvais appel de echoLigne() dans ' . __FILE__);
+    }
+    $tr_class = ($parite % 2 ? 'odd' : 'even');
+    echo '<tr class="' . $tr_class .'" onmouseover="jsHover(this,\'hover\');" onmouseout="jsHover(this,\'' . $tr_class . '\');">';
+    foreach ($array as $element) {
+        if (is_array($element)) {
+            if (array_key_exists('class', $element)) {
+                if (is_string($element['class'])) {
+                    $td = '<td class="' . $element['class'] . '">';
+                } else $td = '<td>';
+            } else $td = '<td>';
+            if (array_key_exists('data', $element)) {
+                if (is_array($element['data'])) {
+                    $data = implode('<br>', $element['data']);
+                } else {
+                    $data = $element['data'];
+                }
+            } else $data = '';
+        } else {
+            $td = '<td>';
+            $data = $element;
+        }
+        echo $td . $data . '</td>';
+    }
+}
+
+$urlretour = $this->link('sadmin', 'index');
+$urlajout = $this->link('sadmin', 'adminadd', null, array('p' => $this->page,));
+$parite = 1;
+?>
+<h1>Configuration des inscriptions aux transports scolaires</h1>
+<h2>Gestion des administrateurs</h2>
+<?php if ($this->admins->count() == 0) : ?>
+<p class="description">Vous n'avez pas encore créé d'administrateur.</p>
+<?php else : ?>
+<table class="liste">
+	<thead class="liste">
+		<tr>
+			<th></th>
+			<th>Nom</th>
+			<th>Prénom</th>
+			<th>Email</th>
+			<th colspan="3">Droits d'administration</th>
+			<th colspan="3"></th>
+		</tr>
+	</thead>
+	<tbody class="liste">
+	<?php foreach ($this->admins as $admin) {
+	    $e = 'e' . $admin->userId;
+	    $urledit = $this->link('sadmin', 'adminedit', null, array('u' => $admin->userId, 'p' => $this->page,));
+	    $m = 'm' . $admin->userId;
+	    $urlmdp = $this->link('sadmin', 'adminmdp', null, array('u' => $admin->userId, 'p' => $this->page,));
+	    $s = 's' . $admin->userId;
+	    $urlsuppr = $this->link('sadmin', 'adminsuppr', null, array('u' => $admin->userId, 'p' => $this->page,));
+	    $urlplus = $this->link('sadmin', 'adminplus', null, array('u' => $admin->userId, 'p' => $this->page));
+	    $urlmoins = $this->link('sadmin', 'adminmoins', null, array('u' => $admin->userId, 'p' => $this->page));
+	    $f = 'f' . $admin->userId;
+	    $urlvoirfiche = $this->link('sadmin', 'adminvoirfiche', null, array('u' => $admin->userId, 'p' => $this->page));
+	    echoLigne($parite++, array(
+	    $this->makeButton($f, $f, $urlvoirfiche, 'Fiche', 'field_btn_contact'),
+	    $admin->Nom, $admin->Prenom, $admin->Email, 
+	    array('data' => categorie($admin->categorie), 'class' => 'largeur80'),
+	    array('data' => btn('plus', $admin->categorie, $urlplus), 'class' => 'plusmoins'),
+	    array('data' => btn('moins', $admin->categorie, $urlmoins), 'class' => 'plusmoins'),
+	    $this->makeButton($e, $e, $urledit, 'Modifier', 'field_btn_contact'),
+	    $admin->categorie < 3 ? $this->makeButton($s, $s, $urlsuppr, 'Supprimer', 'field_btn_contact') : '',
+	    $this->makeButton($m, $m, $urlmdp, 'Mot de passe', 'field_btn_contact'),
+	    ));
+	}
+	?>
+	</tbody>
+</table>
+<p></p>
+<div style="float: left;">
+	<table>
+		<tbody>
+			<tr>
+				<td><?php echo $this->makeButton('ajout', 'ajout', $urlajout, 'Nouvel administrateur', 'field_btn_contact', 'margin-top:0;'); ?>
+				</td>
+				<td><?php echo $this->makeButton('retour', 'retour', $urlretour, 'Retour', 'field_btn_contact', 'margin-top:0;'); ?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<div>
+<?php echo $this->admins; ?>
+</div>
+<div align="center" style="bottom: 0px; width: 963px;">
+<?php echo $this->form; ?>
+</div>
+<?php endif; ?>

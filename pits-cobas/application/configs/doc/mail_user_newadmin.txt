@@ -1,0 +1,29 @@
+§bloc§
+Service des transports de la COBAS.
+§finbloc§
+§bloc§
+Votre compte d'accès à l'administration du service d'inscription en ligne aux transports scolaires vient d'être créé.
+---------------------------------------------------
+login        : §Email§
+mot de passe : §mdp§
+---------------------------------------------------
+§finbloc§
+§bloc§
+Voici ce que contient votre fiche :
+§finbloc§
+§bloc§
+Nom       : §Titre§ §Nom§ §Prenom§
+Adresse   : §AdresseL1§
+            §AdresseL2§
+            §CodePostal§ §Commune§
+Email     : §Email§
+Téléphone : §liste(Telephone,TelephoneC)§    
+§finbloc§
+§bloc§
+Date de création du compte : §dateFR(dd/MM/YYYY HH:mm:ss,dateCreation)§
+Date de modification       : §dateFR(dd/MM/YYYY HH:mm:ss,dateModif)§
+Date de dernière connexion : §dateFR(dd/MM/YYYY HH:mm:ss,datePreviousLogin)§
+§finbloc§
+§bloc§
+En cas d'anomalie, vous pouvez rectifier le contenu de la fiche en allant dans l'espace parent et en utilisant le bouton 'voir votre compte'.
+§finbloc§

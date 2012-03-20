@@ -1,0 +1,45 @@
+<?php
+/**
+* Page de mise à jour des points d'arrêt du circuit
+* 
+* @project pits
+* @package application/views/scripts/admin
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 22 juin 2011
+* @version $Id: $
+*/
+$parite = 1;
+$urlretour = $this->link('admin','listedesservices', null, "/page/$this->page");
+$urlajout = $this->link('admin','etabajout', null, "/s/$this->CodeService/p/$this->page");
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Gestion des établissements scolaires desservis par le circuit <?php echo $this->CodeService; ?></h2>
+<table class="liste">
+	<thead class="liste">
+		<tr>
+			<th>Etablissement scolaire</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody class="liste">
+	<?php foreach ($this->etablissements as $etab) {
+	    $tr_class = ($parite++ % 2 ? 'odd' : 'even');
+	    $params = "/s/$this->CodeService/p/$this->page/e/$etab->CodeEN";
+	    $urlSuppr = $this->link('admin', 'etabsuppr', null, $params);
+	    ?>
+	    <tr class="<?php echo $tr_class;?>" onmouseover="jsHover(this,'hover');" onmouseout="jsHover(this,'<?php echo $tr_class; ?>');">
+	    <td><?php echo $etab->Nom; ?></td>
+	    <td><?php echo $this->makeButton('suppr' . $etab->CodeEN, 'suppr' . $etab->CodeEN, $urlSuppr, 'Supprimer', 'field_btn_contact')?>
+	    </tr>
+	<?php } ?>
+	</tbody>
+</table>
+<p></p>
+<div>
+<table>
+  <tr>
+    <td><?php echo $this->makeButton('ajout', 'ajout', $urlajout, 'Ajouter un établissement', 'field_btn_contact'); ?></td>
+    <td><?php echo $this->makeButton('cancel', 'cancel', $urlretour, 'Retour', 'field_btn_contact'); ?></td>
+  </tr>
+</table>
+</div>

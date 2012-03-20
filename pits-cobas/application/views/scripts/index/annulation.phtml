@@ -1,0 +1,34 @@
+<?php
+/**
+ * Vue pour annulation d'inscription
+ *
+ * @project pits
+ * @package application/views/scripts/login
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 24 mai 2011
+ * @version $Id: $
+ */
+
+$retour = $this->link('index', 'index');
+?>
+<h1>Inscriptions aux transports scolaires</h1>
+<h2>Annulation d'une inscription</h2>
+<p class="errors"><?php if (!empty($this->message)) echo $this->message; ?></p>
+<?php if ($this->ok) : ?>
+<p><b>Demande d'ouverture de compte supprimée</b></p>
+<p class="description">La demande d'ouverture de compte que nous avions reçue vient d'être annulée.</p>
+<?php else : ?>
+<p><b>Demande refusée</b></p>
+<p class="description">Ce compte est déjà validé</p>
+<p class="description">Vous ne pouvez pas annuler un compte que vous avez déjà validé.</p>
+<p class="description">En cas de difficulté, prenez contact avec le
+	service :</p>
+<p class="description" align="center">
+	COBAS<br /> Service des transports<br /> 2 allée d'Espagne<br /> 33311
+	ARCACHON CEDEX<br /> Tél. 05 56 22 33 44<br /> Email:
+	transport@agglo-cobas.fr<br />
+</p>
+<?php endif; ?>
+<p>
+<?php echo $this->makeButton('cancel', 'cancel', $retour, 'Page d\'accueil', 'field_btn_contact', 'margin-left: 80px;'); ?>
+</p>

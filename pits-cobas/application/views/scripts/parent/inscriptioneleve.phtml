@@ -1,0 +1,19 @@
+<?php
+/**
+* Inscription d'un nouvel élève
+*
+* Description longue du fichier s'il y en a une
+* 
+* @project pits
+* @package application/views/scripts/parent
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 13 mai 2011
+* @version $Id: $
+*/
+
+$identity = Zend_Auth::getInstance()->getIdentity();
+$user = $identity->Titre . ' ' . $identity->Prenom . $identity->Nom . ' (' . $identity->Email . ')';
+?>
+<h1>Inscription aux transports scolaires</h1>
+<h2>Inscription d'un enfant par <?php  echo $user; ?></h2>
+<?php echo $this->form; ?>

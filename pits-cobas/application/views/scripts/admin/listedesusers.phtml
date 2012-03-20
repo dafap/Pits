@@ -1,0 +1,106 @@
+<?php
+/**
+ * Liste des utilisateurs
+ *
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mars 2011
+ * @version $Id: $
+ */
+function echoLigne($parite, $array)
+{
+    if (! is_array($array)) {
+        throw new Zend_Exception('Mauvais appel de echoLigne() dans ' . __FILE__);
+    }
+    $tr_class = ($parite % 2 ? 'odd' : 'even');
+    echo '<tr class="' . $tr_class .'" onmouseover="jsHover(this,\'hover\');" onmouseout="jsHover(this,\'' . $tr_class . '\');">';
+    foreach ($array as $element) {
+        if (is_array($element)) {
+            echo '<td>';
+            echo implode('<br>', $element);
+            echo '</td>';
+        } else {
+            echo '<td>' . $element . '</td>';
+        }
+    }
+}
+$parite = 1;
+
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Liste des utilisateurs</h2>
+<?php if ($this->users->count() == 0) : ?>
+<p class="description">Il n'y a pas d'utilisateur inscrit.</p>
+<?php
+if (isset($this->mysession->critereNom) || isset($this->mysession->critereEmail)) {
+    echo $this->form;
+} else {
+    $retour = $this->link('admin','index');
+    echo $this->makeButton('cancel', 'cancel', $retour, 'Retour', 'field_btn_contact');
+}
+?>
+<?php else : ?>
+<table class="liste">
+	<thead class="liste">
+		<tr>
+			<th></th>
+			<th>Utilisateur<br /> Email</th>
+			<th>Adresse</th>
+			<th>Localité</th>
+			<th>Téléphones</th>
+			<th>Etat</th>
+			<th>Mot de passe</th>
+			<th>Enfants ?</th>
+			<th>Paiements</th>
+		</tr>
+	</thead>
+	<tbody class="liste">
+	<?php 	//$tuser = new TUser();
+	foreach ($this->users as $user) {
+	    $url1 = $this->link('admin', 'uservalidcompte') . '/u/' . $user['userId'] . '/p/' . $this->page;
+	    $url2 = $this->link('admin', 'usermodmdp') . '/u/' . $user['userId'] . '/p/' . $this->page;
+	    $url3 = $this->link('admin', 'usersupprcompte') . '/u/' . $user['userId'] . '/p/' . $this->page;
+	    $url4 = $this->link('admin', 'uservoirenfants') . '/u/' . $user['userId'] . '/p/' . $this->page;
+	    $url5 = $this->link('admin', 'userfiche') . '/u/' . $user['userId'] . '/p/' . $this->page;
+	    $url6 = $this->link('admin', 'paybox') . '/u/' . $user['userId'] . '/p/' . $this->page;
+	    $v = 'v' . $user['userId']; // valid
+	    $m = 'm' . $user['userId']; // mod mdp
+	    $s = 's' . $user['userId']; // suppr
+	    $e = 'e' . $user['userId']; // enfants
+	    $f = 'f' . $user['userId']; // fiche complète
+	    // lecture des tables
+	    $commune = $user->findParentPits_Model_DbTable_TVilles()->Nom;
+	    $enfants = $user->findPits_Model_DbTable_TEleves();
+	    $paybox = $user->findPits_Model_DbTable_TPaybox();
+	    $montant = 0.0;
+	    foreach ($paybox as $row) {
+	        $montant += $row->montant;
+	    }
+	    $montant /= 100;
+	    $nbEnfants = count($enfants);
+	    $voirEnfants = $nbEnfants . ' enfant' . ($nbEnfants > 1 ? 's' : '');
+
+	    echoLigne($parite++,
+	    array($this->makeButton($f, $f, $url5, 'Fiche', 'field_btn_contact'),
+	    array($user['Titre'] . ' ' . strtoupper($user['Nom']) . ' ' . $this->formatPrenom($user['Prenom']), $user['Email'],),
+	    array($this->formatAdresse($user['AdresseL1']), $this->formatAdresse($user['AdresseL2']),),
+	    array($commune, $user['CodePostal'],),
+	    array($user['Telephone'], $user['TelephoneC'],),
+	    $user['bloque'] == 1 ? $this->makeButton($v, $v, $url1, 'Valider', 'field_btn_contact') : 'compte validé',
+	    $user['bloque'] == 0 ? $this->makeButton($m, $m, $url2, 'Changer', 'field_btn_contact') : '&nbsp;',
+	    $user['bloque'] == 1 && $nbEnfants > 0 ? $voirEnfants
+	    : ($nbEnfants > 0 ? $this->makeButton($e, $e, $url4, $voirEnfants, 'field_btn_contact')
+	    : $this->makeButton($s, $s, $url3, 'Supprimer', 'field_btn_contact')),
+	    array($this->makeButton($s, $s, $url6, $montant . ' €', 'field_btn_contact')),
+	    ));
+	}
+	?>
+	</tbody>
+</table>
+	<?php echo $this->users; ?>
+<div align="center" style="bottom: 0px; width: 963px;">
+<?php echo $this->form; ?>
+</div>
+<?php endif; ?>

@@ -1,0 +1,16 @@
+h1. Le bootstrap
+
+h2. Index
+
+{toc}
+
+h2. Initialisations réalisées par le bootstrap
+
+* *Session* : _initSession()
+* *Cache* : _initLocaleCacheTranslate()
+* *Locale* : _initLocaleCacheTranslate()
+* *Traduction* : _initLocaleCacheTranslate()
+* *Aides d'action* : _initHelperBroker()
+* *Service de log* : _initLog()
+* *Vues* : _initView()
+* *Nombre de liens dans le footer* : _initFooter()

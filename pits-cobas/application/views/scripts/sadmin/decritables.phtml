@@ -1,0 +1,62 @@
+<?php
+/**
+ * Description des tables de la base pits
+ *
+ *
+ * @project pits
+ * @package appplication/views/scripts/sadmin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mars 2011
+ * @version $Id: $
+ */
+
+?>
+<h1>Configuration des inscriptions aux transports scolaires</h1>
+<h2>Structure des tables</h2>
+<?php foreach ($this->metadata as $tableName => $metadata) : ?>
+<h3>
+	&nbsp;&nbsp;&nbsp;
+	<?php echo $metadata['status']['Comment'] == 'VIEW' ? 'Vue' : 'Table'?>
+	`
+	<?php echo $tableName; ?>
+	`
+	<?php echo $this->makeButton('retour', 'retour', $this->link('sadmin', 'index'), 'Retour', 'field_btn_contact'); ?>
+</h3>
+<p class="description">
+<?php  if ($metadata['status']['Comment'] == 'VIEW') : ?>
+<?php
+$sep = '';
+foreach ($metadata['view'] as $key => $value) {
+    echo $sep . '<b>' . $key . ':</b> ' . $value;
+    $sep = '<br />';
+}?>
+<?php else : ?>
+<b>Engine:</b> <?php echo $metadata['status']['Engine']; ?><br>
+<b>Collation:</b> <?php echo $metadata['status']['Collation']; ?><br>
+<b>Create_time:</b> <?php echo $metadata['status']['Create_time']; ?><br>
+<b>Nombre d'enregistrements:</b> <?php echo $metadata['status']['Rows']; ?>
+<?php endif; ?>
+</p>
+<table class="liste">
+	<tr>
+		<th>FIELD_NAME</th>
+		<th>DATA_TYPE</th>
+		<th>NULL</th>
+		<th>INDEX</th>
+		<th>DEFAULT</th>
+		<th>EXTRA</th>
+	</tr>
+	<?php
+	foreach ($metadata['fields'] as $item) {
+	    echo "<tr>";
+	    echo "<td>" . $item['Field'] . "</td>";
+	    echo "<td>" . $item['Type'] . "</td>";
+	    echo "<td>" . $item['Null'] . "</td>";
+	    echo "<td>" . $item['Key'] . "</td>";
+	    echo "<td>" . $item['Default'] . "</td>";
+	    echo "<td>" . $item['Extra'] . "</td>";
+	    echo "</tr>";
+	}
+	?>
+</table>
+<?php endforeach; ?>

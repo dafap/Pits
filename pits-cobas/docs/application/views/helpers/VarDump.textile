@@ -1,0 +1,30 @@
+h1. Aide de vue : VarDump()
+
+h2. Index
+
+{toc}
+
+h2. Description
+
+Affiche le Zend_Debug::dump() dans une zone de gauche de l'écran.
+
+bc. Zend_View_Helper_VarDump::VarDump(mixted $var, string $label = '', boolean $stop = false)
+
+Se termine par exit() si $stop = true
+
+*Parameters:*
+ 
+* mixted $var : variable à dumper 
+* string $label : facultatif 
+* boolean $stop : par défaut à false
+
+h2. Exemple d'utilisation
+
+
+Appel dans la vue test.phtml :
+
+bc. echo $this->VarDump($this->var, 'var');
+
+Résultat :
+
+!(width:40%,height:50%)VarDump.png!

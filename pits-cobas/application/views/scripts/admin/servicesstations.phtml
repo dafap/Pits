@@ -1,0 +1,49 @@
+<?php
+/**
+* Page de mise à jour du nombre de places (capacité, utilisées BdTS)
+* 
+* @project pits
+* @package application/views/scripts/admin
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 22 juin 2011
+* @version $Id: $
+*/
+$parite = 1;
+$urlretour = $this->link('admin','listedesservices', null, "/page/$this->page");
+$urlajout = $this->link('admin','stationajout', null, "/s/$this->CodeService/p/$this->page");
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Gestion des arrêts du circuit <?php echo $this->CodeService; ?></h2>
+<table class="liste">
+	<thead class="liste">
+		<tr>
+			<th>Commune</th>
+			<th>Nom de l'arrêt</th>
+			<th></th>
+		</tr>
+	</thead>
+	<tbody class="liste">
+	<?php foreach ($this->stations as $station) {
+	    $commune = $station->findParentPits_Model_DbTable_TVilles();
+	    $tr_class = ($parite++ % 2 ? 'odd' : 'even');
+	    $params = "/s/$this->CodeService/p/$this->page/a/$station->CodeStation";
+	    $urlSuppr = $this->link('admin', 'stationsupprime', null, $params);
+	    ?>
+	    <tr class="<?php echo $tr_class;?>" onmouseover="jsHover(this,'hover');" onmouseout="jsHover(this,'<?php echo $tr_class; ?>');">
+	    <td><?php echo $commune->Nom; ?></td>
+	    <td><?php echo $station->Nom; ?></td>
+	    <td><?php echo $this->makeButton('suppr' . $station->CodeStation, 'suppr' . $station->CodeStation, $urlSuppr, 'Supprimer', 'field_btn_contact')?>
+	    </tr>
+	<?php } ?>
+	</tbody>
+</table>
+<p></p>
+<div>
+<table>
+  <tr>
+    <td><?php echo $this->makeButton('ajout', 'ajout', $urlajout, 'Ajouter un arrêt', 'field_btn_contact'); ?></td>
+    <td><?php echo $this->makeButton('cancel', 'cancel', $urlretour, 'Retour', 'field_btn_contact'); ?></td>
+  </tr>
+</table>
+</div>
+

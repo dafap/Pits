@@ -1,0 +1,9 @@
+h1. Statistiques du site
+
+h2. Index
+
+{toc}
+
+h2. Note
+
+Le fichier %{color=orange}appliaction/view/scripts/common/stats.phtml% est vide. Placez-y le code nécessaire pour gérer des statistiques de navigation (comme par exemple google analytic).

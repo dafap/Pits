@@ -1,0 +1,23 @@
+<?php
+/**
+* Exécute des requêtes SQL
+*
+* Téléverse un fichier de requêtes et l'exécute
+* 
+* @project pits
+* @package appplication/views/scripts/sadmin
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 7 mars 2011
+* @version $Id: $
+*/
+
+?>
+<h1>Configuration des inscriptions aux transports scolaires</h1>
+<h2>Exécution de requêtes SQL</h2>
+<?php if (isset($this->forward)) : ?> 
+    <p><?php echo $this->message; ?></p>
+    <?php echo $this->makeButton('cancel', 'cancel', $this->forward, 'Continuer', '', 'margin-left: 80px;'); ?>
+<?php else : ?>
+    <p class="documentation">Les requêtes SQL sont contenues dans un fichier texte qui sera téléversé et exécuté.</p>
+    <?php echo $this->form;?>
+<?php endif; ?>

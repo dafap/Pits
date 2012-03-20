@@ -1,0 +1,58 @@
+<?php
+/**
+ * Liste des services
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 20 juin 2011
+ * @version $Id: $
+ */
+$parite = 1;
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Liste des circuits</h2>
+<table class="liste">
+	<thead class="liste">
+		<tr>
+			<th>Code</th>
+			<th>Libellé</th>
+			<th>Transporteur</th>
+			<th>Places</th>
+			<th>Utilisées<br/>BdTS</th>
+			<th>Services 1</th>
+			<th>Services 2</th>
+			<th>Dispo</th>
+			<th colspan="3">Accéder à la gestion des ...</th>
+		</tr>
+	</thead>
+	<tbody class="liste">
+	<?php foreach ($this->services as $service) {
+	    $transporteur = $service->findParentPits_Model_DbTable_TTransporteurs();
+	    $tr_class = ($parite++ % 2 ? 'odd' : 'even');
+	    $params = '/s/' . $service->CodeService . '/p/' . $this->page;
+	    $urlPlaces = $this->link('admin', 'servicesplaces') . $params;
+	    $urlEtablissements = $this->link('admin', 'servicesetablissements') . $params;
+	    $urlArrets = $this->link('admin', 'servicesstations') . $params;
+	    ?>
+	    <tr class="<?php echo $tr_class;?>" onmouseover="jsHover(this,'hover');" onmouseout="jsHover(this,'<?php echo $tr_class; ?>');">
+	    <td><?php echo $service->CodeService; ?></td>
+	    <td><?php echo $service->Nom; ?></td>
+	    <td><?php echo $transporteur->Nom; ?></td>
+	    <td style="text-align:right;"><?php echo $service->NbPlaces; ?></td>
+	    <td style="text-align:right;"><?php echo $service->Bdts; ?></td>
+	    <td style="text-align:right;"><?php echo $service->services1; ?></td>
+	    <td style="text-align:right;"><?php echo $service->services2; ?></td>
+	    <td style="text-align:right;"><?php echo $service->disponibles; ?></td>
+	    <td><?php echo $this->makeButton('p' . $service->CodeService, 'p' . $service->CodeService, $urlPlaces, 'Places', 'field_btn_contact')?>
+	    <td><?php echo $this->makeButton('e' . $service->CodeService, 'e' . $service->CodeService, $urlEtablissements, 'Etablissements', 'field_btn_contact')?>
+	    <td><?php echo $this->makeButton('a' . $service->CodeService, 'a' . $service->CodeService, $urlArrets, 'Arrêts', 'field_btn_contact')?>
+	    </tr>
+	<?php } ?>
+	</tbody>
+</table>
+<p></p>
+<div style="float:left;">
+<?php echo $this->makeButton('cancel', 'cancel', $this->link('admin','index'), 'Retour', 'field_btn_contact','margin-top:0;'); ?>
+</div>
+<?php echo $this->services; ?>

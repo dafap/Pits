@@ -1,0 +1,73 @@
+<?php
+/**
+ * Page d'accueil du sadmin
+ *
+ *
+ * @project pits
+ * @package appplication/views/scripts/sadmin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 6 mars 2011
+ * @version $Id: $
+ */
+
+?>
+<h2>Espace du super administrateur</h2>
+<table class="pits_index_sadmin">
+	<tbody class="pits_menu_sadmin">
+		<tr>
+			<td width="50%"><a id="pageindex"
+				href="<?php echo $this->link('admin', 'index'); ?>">Espace
+					administrateur</a></td>
+			<td><a id="pageindex"
+				href="<?php echo $this->link('parent', 'index'); ?>">Espace parent</a>
+			</td>
+		</tr>
+	</tbody>
+	<tbody>
+		<tr>
+			<td colspan="2">&nbsp;</td>
+		</tr>
+		<tr>
+			<td width="50%"><?php if ($this->log) : ?> <a id="pageindex"
+				href="<?php echo $this->link('sadmin', 'razlog'); ?>">RAZ du fichier
+					log</a>&nbsp;&nbsp;(Taille actuelle : <?php echo $this->sizeLog; ?>
+				ko) <?php endif; ?>
+			</td>
+			<td><a id="pageindex"
+				href="<?php echo $this->link('sadmin', 'razeleves'); ?>">RAZ de la
+					table eleves</a> (<?php echo $this->elevesInscrits; ?> élèves
+				inscrits ; <?php echo $this->elevesPreInscrits; ?> élèves
+				pré-inscrits)</td>
+		</tr>
+		<tr>
+			<td width="50%"><a id="pageindex"
+				href="<?php echo $this->link('sadmin', 'admingest'); ?>">Gestion
+					des administrateurs</a> (<?php echo $this->nbAdmin; ?>
+				administrateurs ; <?php  echo $this->nbSadmin;?> super
+				administrateurs)</td>
+			<td><a id="pageindex"
+				href="<?php echo $this->link('sadmin', 'razpaybox'); ?>">RAZ de la
+					table des paiements</a> (<?php echo $this->nbPaybox; ?> paiements
+				enregistrés)</td>
+		</tr>
+		<!--tr>
+			<td colspan='2'></td>
+		</tr-->
+		<tr>
+			<td width="50%"><a id="pageindex"
+				href="<?php echo $this->link('sadmin', 'decritables'); ?>">Description
+					des tables</a></td>
+			<td><a id="pageindex"
+				href="<?php echo $this->link('sadmin', 'razusers'); ?>">RAZ de la
+					table des parents</a> (<?php echo $this->nbParents; ?> parents
+				inscrits ; <?php echo $this->nbBloques; ?> comptes bloqués)</td>
+		</tr>
+		<tr>
+			<td><a id="pageindex"
+				href="<?php echo $this->link('sadmin', 'sql'); ?>">Exécute SQL</a>
+			</td>
+			<td><a id="pageindex"
+				href="<?php echo $this->link('sadmin', 'cleancache'); ?>">Vide le cache</a></td>
+		</tr>
+	</tbody>
+</table>

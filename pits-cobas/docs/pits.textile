@@ -1,0 +1,73 @@
+h1. Le service PiTS
+
+Service destiné aux parents pour préinscrire leurs enfants au service de transports scolaires et pour régler les factures par télépaiement.
+
+h2. Index
+
+{toc}
+
+h1. Page d'accueil
+
+Elle se compose de trois parties :
+
+* la première partie est réservée aux utilisateurs qui ont déjà créé un compte ;
+
+* la dexième partie permet de créer un compte ;
+
+* la troisième partie donne des précisions ou explications sur l'utilisation.
+
+h2. Créer son compte
+
+Le parent doit donner tout d'abord une adresse email valide qui sera son identifiant, ainsi qu'un mot de passe (qu'il pourra changer ultérieurement). Il remplit alors un formulaire afin de donner son identité et, éventuellement, ses références bancaires (pour ceux qui optent pour un prélèvement automatique).
+
+h2. S'identifier
+
+L'identification se fait en donnant son email et son mot de passe.
+
+h2. Demander un nouveau mot de passe
+
+Un lien, en dessous de la zone d'identification, permet de se faire envoyer un nouveau mot de passe si le précédent a été perdu. L'utilisateur donne son email et le nouveau mot de passe est envoyé à cette adresse (à condition, bien sûr, qu'elle soit référencée comme l'identifiant d'une personne déjà inscrite).
+
+h1. Bureau des parents
+
+Dans cet espace, les parents verront la liste des enfants qu'ils ont inscrits.
+
+Ils pourront :
+
+* incrire un nouvel enfant
+
+* modifier l'inscription d'un enfant déjà inscrit
+
+* supprimer l'inscription d'un enfant
+
+* modifier leur fiche
+
+* consulter les factures
+
+* régler les factures
+
+* consulter des documents
+
+h2. Inscrire un nouvel enfant
+
+Lors de la première visite dans le site, le parent n'a pas encore inscrit d'enfant. Un message le lui indique en précisant ce qu'il doit faire.
+
+h2. Modifier l'inscription d'un enfant déjà inscrit
+
+Les enfants inscrits sont présentés dans un tableau. Sur chaque ligne, un enfant est décrit par son nom, son prénom ... A la fin de la ligne, un message indique l'état de l'inscription. Si c'est encore possible, le parent peut alors modifier la fiche de son enfant en cliquant sur le bouton modifier.
+
+Un formulaire s'ouvre, permettant de modifier les éléments autorisés.
+
+h2. Supprimer l'inscription d'un enfant
+
+Comme pour la modification, la suppression n'est permise que sous condition (en particulier, l'inscription ne doit pas être validée ou une facture ne doit pas être émise tenant compte de cet enfant). Si c'est permis, le bouton suppression, en fin de ligne, permet de supprimer, après confirmation, l'inscription de cet enfant. L'enfant n'apparait alors plus dans la liste.
+
+h2. Modifier la fiche du parent
+
+Le parent peut modifier sa fiche, grâce à un formulaire : le même que celui qui lui a servi pour créer son compte. Il peut notamment modifier son mot de passe.
+
+Si le mot de passe n'est pas renseigné, il est inchangé.
+
+
+
+

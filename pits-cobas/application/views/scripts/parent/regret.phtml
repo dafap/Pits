@@ -1,0 +1,21 @@
+<?php
+/**
+* Description courte du fichier
+*
+* Description longue du fichier s'il y en a une
+* 
+* @project pits
+* @package package_name
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 31 mai 2011
+* @version $Id: $
+*/
+$retour = $this->link('parent', 'index');
+?>
+<h1>Inscription aux transports scolaires</h1>
+<h2>Paiement refusé par Paybox ou abandon de paiement</h2>
+<p><?php echo $this->erreurmsg; ?></p>
+<p>L'inscription de vos enfants n'a pas été validée.</p>
+<p>Vous pouvez essayer d'effectuer à nouveau le paiement ou alors contactez le service.</p>
+<p><?php echo $this->makeButton('cancel', 'cancel', $retour, 'Retour', 'field_btn_contact', 'margin-left: 80px;'); ?></p>
+

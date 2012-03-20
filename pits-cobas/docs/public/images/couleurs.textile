@@ -1,0 +1,55 @@
+*Les boutons*
+
+body : #f3f3f3 => %{color:#f3f3f3}texte du body%
+
+lien : #91abcb => %{color:#91abcb}lien et hover%
+
+Orange : #f68b32 => %{color:#f68b32}erreur%
+
+titre h1 : #e48c1b => %{color:#e48c1b}Titre 1%
+
+titre h2 color : #91abcb => %{color:#91abcb}Titre 1%
+         border: #cccccc => %{color:#cccccc}_______%
+         
+description color : #626262 => %{color:#626262}description%
+
+field_... color : #333333 => %{color:#333333;}couleur des field_...%
+
+field_... border: #cccccc => %{color:#cccccc}border des field_...%
+
+contener_donner_votre_avis border: #bbb4b0 => %{color:#bbb4b0;}border de donner_votre_avis%
+
+contener_liens_bas: #dcdcdc => %{color:#dcdcdc}liens bas%
+
+contener_erreur_form: #ff0000 => %{color:#ff0000}erreur dans un formulaire%
+
+contener_f_comment_error: #f00 => %{color:#f00}erreur dans un formulaire%
+
+contener_txt_centre couleur lien: #666 => %{color:#666}couleur d'un lien de txt_centre%
+contener_txt_centre lien hover: #999999 => %{color:#999999}couleur d'un hover sur lien de txt_centre%
+
+footer background-color: #333333 => %{color:#ffffff;background-color:#333}couleur fond du footer%
+
+field_btn_contact background: #a1cbe5 => %{background-color:#a1cbe5}couleur fond bleu%
+
+field_btn_contact background: #cbe3f1 => %{background-color:#cbe3f1}couleur fond bleu%
+
+field_btn_contact background: #e1eff7 => %{background-color:#e1eff7}couleur fond bleu%
+
+field_btn_contact background:hover: #999 => %{background-color:#999}couleur fond bleu%
+
+conterner_home_magazine background-color: #ffcb04 => %{background-color:#ffcb04}couleur fond du footer%
+
+contener_nombre_reactions_gauche background-color: #91abcb => %{background-color:#91abcb}couleur fond du footer%
+
+contener_newsletter_home background-color: #b5d334 => %{background-color:#b5d334}couleur fond du footer%
+
+contener_actualite_a_la_une background-color: #eaeaea => %{background-color:#eaeaea}couleur fond du footer%
+
+contener_box_lien background-color: #bbb => %{background-color:#bbb}couleur fond réaction%
+
+box_contact_gmap background-color: #ebebeb => %{background-color:#ebebeb}couleur fond du box_contact_gmap%
+
+table pits_index_admin color: #464855; background-color: #e2e9f2; => %{color:#464855;background-color:#e2e9f2;}couleur des lignes du tableau%
+
+

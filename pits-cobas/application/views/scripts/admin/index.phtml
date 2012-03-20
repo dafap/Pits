@@ -1,0 +1,132 @@
+<?php
+/**
+ * Page d'accueil de l'espace administrateur
+ *
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mars 2011
+ * @version $Id: $
+ */
+
+?>
+<h1>Administration du service</h1>
+<p>Utilisez le menu pour accéder aux fonctions proposées.</p>
+<h2>Quelques chiffres</h2>
+<table>
+	<tr>
+		<td>
+
+			<table class="pits_index_admin">
+				<tr>
+					<td>Nombre d'utilisateurs inscrits</td>
+					<td class="droite"><?php echo $this->nbinscrits; ?></td>
+				</tr>
+				<tr>
+					<td>Nombre d'utilisateurs ayant leur compte bloqué</td>
+					<td class="droite"><?php echo $this->nbbloques; ?></td>
+				</tr>
+				<tr>
+					<td>Nombre d'utilisateurs ayant leur compte validé</td>
+					<td class="droite"><?php echo $this->nbinscrits - $this->nbbloques; ?>
+					</td>
+				</tr>
+				<tr>
+					<td>Nombre d'utilisateurs ayant inscrit des enfants</td>
+					<td class="droite"><?php echo $this->nbUsersAvecEnfants; ?></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Nombre d'enfants inscrits</td>
+					<td class="droite"><?php echo $this->nbEnfantsInscrits; ?></td>
+				</tr>
+				<tr>
+					<td>Nombre d'enfants pré-inscrits (sans paiement)</td>
+					<td class="droite"><?php echo $this->nbEnfantsPreInscrits; ?></td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Nombre de paiements enregistrés</td>
+					<td class="droite"><?php echo $this->nbPaybox; ?></td>
+				</tr>
+				<tr>
+					<td>Montant total des paiements en ligne</td>
+					<td class="droite"><?php echo $this->totalPaybox; ?> &euro;</td>
+				</tr>
+				<tr>
+					<td></td>
+					<td></td>
+				</tr>
+				<tr>
+					<td>Date de la dernière extraction</td>
+					<td class="droite"><?php echo $this->derniereExtraction; ?></td>
+				</tr>
+				<tr>
+					<td>Date de la dernière inscription</td>
+					<td class="droite"><?php echo $this->derniereCreation; ?></td>
+				</tr>
+				<tr>
+					<td>Date de la dernière modification</td>
+					<td class="droite"><?php echo $this->derniereModif; ?></td>
+				
+				
+				<tr>
+					<td></td>
+					<td><?php ; ?></td>
+				</tr>
+			</table>
+		</td>
+		<td style="padding-left: 20px; vertical-align: top;">
+			<table class="pits_index_sadmin">
+				<tbody class="pits_menu_sadmin">
+					<tr>
+						<td width="100%"><a id="pageindex"
+							href="<?php echo $this->link('parent', 'index'); ?>">Espace
+								parents</a></td>
+					</tr>
+					<tr>
+						<td>&nbsp;</td>
+					</tr>
+				</tbody>
+				<tbody>
+					<tr>
+						<td><a id="pageindex"
+							href="<?php echo $this->link('admin', 'listepaybox'); ?>">Gestion des
+								paiements</a></td>
+					</tr>
+					<tr>
+						<td><a id="pageindex"
+							href="<?php echo $this->link('admin', 'listedesusers'); ?>">Gestion
+								des utilisateurs</a></td>
+					</tr>
+					<tr>
+						<td><a id="pageindex"
+							href="<?php echo $this->link('admin', 'listedeseleves'); ?>">Gestion
+								des élèves inscrits</a></td>
+					</tr>
+					<tr>
+						<td><a id="pageindex"
+							href="<?php echo $this->link('admin', 'listedesservices'); ?>">Gestion des circuits</a>
+						</td>
+						<td>					
+					</tr>
+					<tr>
+						<td><a id="pageindex"
+							href="<?php echo $this->link('admin', 'statistiques'); ?>">Statistiques</a></td>
+					</tr>
+					<tr>
+						<td><a id="pageindex"
+							href="<?php echo $this->link('admin', 'extraction'); ?>">Extraction pour BdTS</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</td>
+	</tr>
+</table>

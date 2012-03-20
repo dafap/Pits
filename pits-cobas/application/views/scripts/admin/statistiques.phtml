@@ -1,0 +1,25 @@
+<?php
+/**
+ * Page d'accès aux statistiques
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mars 2011
+ * @version $Id: $
+ */
+?>
+<h3>Liste des états statistiques disponibles</h3>
+<div id="cadre">
+	<ul>
+		<li><a href="<?php echo $this->link('admin', 'statparstation');?>">Statistiques
+				par point d'arrêt</a></li>
+		<li><a href="<?php echo $this->link('admin', 'statparetab');?>">Statistiques
+				par établissement</a></li>
+		<li><a href="<?php echo $this->link('admin', 'statparville');?>">Statistiques
+				par commune</a></li>
+	</ul>
+</div>
+<p>
+<?php echo $this->makeButton('retour', 'retour', $this->link('admin', 'index'), 'Retour', 'field_btn_retour'); ?>
+</p>

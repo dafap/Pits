@@ -1,0 +1,22 @@
+<?php
+/**
+ * Suppression d'un élève
+ *
+ * Page de confirmation
+ *
+ * @project pits
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mars 2011
+ * @version $Id: $
+ */
+
+// Pour debugage
+if (!isset($this->eleve)) {
+    $this->eleve = new ArrayObject(array('eleveId'=>1,'Nom'=>'Pomirol','Prenom'=>'Tilo','DateN'=>'01/26/2011','Tarif'=>77.00,'ficheValidee'=>0,'ficheExtraite'=>0), ArrayObject::ARRAY_AS_PROPS);
+}
+?>
+<h1>Administration des inscriptions aux transports scolaires</h1>
+<h2>Suppression d'un élève</h2>
+<p class="description">Vous souhaitez supprimer l'inscrition de <?php echo $this->eleve->Nom . ' ' . $this->eleve->Prenom; ?>.</p>
+<?php echo $this->form; ?>
