@@ -1,0 +1,21 @@
+<?php
+/**
+ * Page de mise au point pour le paiement, avant appel de la fenêtre de Paybox
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/user
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 sept. 2011
+ * @version $Id: $
+ */
+if ($this->voir) :
+?>
+<h1>Inscription aux transports scolaires</h1>
+<h2>Valider les demandes d'inscription et payer les prestations demandées</h2>
+<p>curl_exec a renvoyé: <?php echo $this->content; ?></p>
+<p>curl_errno a renvoyé: <?php echo $this->err; ?></p>
+<p>curl_error a renvoyé: <?php echo $this->errmsg; ?></p>
+<p><?php Zend_Debug::dump($this->header, 'curl_getinfo a renvoyé: '); ?></p>
+<?php else: ?>
+<?php echo $this->content; ?>
+<?php endif;?>

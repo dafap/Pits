@@ -1,0 +1,110 @@
+<?php
+/**
+ * Page d'accueil de l'espace user
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/user
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 sept. 2011
+ * @version $Id: $
+ */
+
+$btnPaybox = true;
+$url = $this->link('user', 'payer');
+$facture = $this->makeButton('facture', 'facture', $this->link('user', 'facture'), 'Imprimer la facture', array('button'=>'btn', 'a'=>'sansdeco'));
+$justificatif = $this->makeButton('justif', 'justif', $this->link('user', 'justificatif'), 'Imprimer un justificatif des paiements', array('button'=>'btn', 'a'=>'sansdeco'));
+?>
+<h1>Espace des utilisateurs</h1>
+<h2>Déjà payé</h2>
+<div class="user">
+<table class="user">
+	<tbody>
+	<?php
+	$debut = true;
+	foreach ($this->liste1 as $record) {
+	    if ($debut) {
+	        echo '<tr><th>Factures</th><th>Du</th><th>Au</td><th>Nom</th><th>Montant</th><th>Tarif</th></tr>';
+	        $debut = false;
+	    }
+	    $du = Tp_Model_Format::date('dd/MM/YYYY', $record->periodeDu);
+	    $au = Tp_Model_Format::date('dd/MM/YYYY', $record->periodeAu);
+	    echo '<tr><td>' . $record->libelleFacture . '</td><td>' . $du . '</td><td>' . $au . '</td><td>' . $record->nom . ' ' . $record->prenom . '</td><td>' . $record->montant . '</td><td>' .$record->libelleMontant . '</td></tr>';
+	}
+	if ($debut) {
+	    echo '<tr><td>Vous n\'avez pas encore payé de facture par internet cette année.</td></tr></tbody>';
+	} else {
+	    ?>
+	</tbody>
+	<tbody class="lignevide">
+		<tr>
+			<td colspan="6"></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="4">Total déjà payé</th>
+			<th class="right"><?php echo sprintf("%01.2f", $this->total1);?></th>
+			<th></th>
+		</tr>
+		<tr>
+			<td colspan="6">
+				<table class="tp contener_boutons">
+					<tbody>
+						<tr>
+							<td><?php echo $justificatif; ?></td>
+							<td>&nbsp;</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tfoot>
+	<?php } ?>
+</table>
+<h2>A payer</h2>
+<table class="user">
+	<tbody>
+	<?php
+	$debut = true;
+	foreach ($this->liste2 as $record) {
+	    if ($debut) {
+	        echo '<tr><th>Factures</th><th>Du</th><th>Au</td><th>Nom</th><th>Montant</th><th>Tarif</th></tr>';
+	        $debut = false;
+	    }
+	    $du = Tp_Model_Format::date('dd/MM/YYYY', $record->periodeDu);
+	    $au = Tp_Model_Format::date('dd/MM/YYYY', $record->periodeAu);
+	    echo '<tr><td>' . $record->libelleFacture . '</td><td>' . $du . '</td><td>' . $au . '</td><td>' . $record->nom . ' ' . $record->prenom . '</td><td class="right">' . $record->montant . '</td><td>' .$record->libelleMontant . '</td></tr>';
+	}
+	if ($debut) {
+	    echo '<tr><td>Vous n\'avez pas de facture à payer.</td></tr></tbody>';
+	    $btnPaybox = false;
+	} else {
+	    ?>
+	</tbody>
+	<tbody class="lignevide">
+		<tr>
+			<td colspan="6"></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr>
+			<th colspan="4">Total à payer</th>
+			<th class="right"><?php echo sprintf("%01.2f", $this->total2);?></th>
+			<th></th>
+		</tr>
+		<tr>
+			<td colspan="6">
+				<table class="tp contener_boutons">
+					<tbody>
+						<tr>
+							<td><?php echo $facture; ?></td>
+							<td><?php echo $this->paybox; ?></td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tfoot>
+	<?php } ?>
+</table>
+</div>

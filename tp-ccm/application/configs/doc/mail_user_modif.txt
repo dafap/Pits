@@ -1,0 +1,35 @@
+§bloc§
+Bienvenue à la Communauté de Communes de Montesquieu.
+§finbloc§
+§bloc§
+Votre compte d'accès au service de télé-paiement vient d'être modifié.
+---------------------------------------------------
+login        : §Email§
+mot de passe : §mdp§
+---------------------------------------------------
+§finbloc§
+§bloc§
+Voici ce que contient votre fiche :
+§finbloc§
+§bloc§
+Nom       : §Titre§ §Nom§ §Prenom§
+Adresse   : §AdresseL1§
+            §AdresseL2§
+            §CodePostal§ §Commune§
+Email     : §Email§
+Téléphone : §liste(Telephone,TelephoneC)§    
+§finbloc§
+§bloc§
+Date de création du compte : §dateFR(dd/MM/YYYY HH:mm:ss,dateCreation)§
+Date de modification       : §dateFR(dd/MM/YYYY HH:mm:ss,dateModif)§
+Date de dernière connexion : §dateFR(dd/MM/YYYY HH:mm:ss,datePreviousLogin)§
+§finbloc§
+§bloc§
+En cas d'anomalie, merci de bien vouloir prévenir le service.
+    Communauté de communes de Montesquieu
+      Service des transports scolaires
+           1 allée Jean Rostand
+              33650 MARTILLAC
+    Tél. 05 57 96 79 62
+    Email: transport-scolaire@cc-montesquieu.fr
+§finbloc§

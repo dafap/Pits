@@ -1,0 +1,98 @@
+<?php
+/**
+ * Page d'accueil du service en anonyme
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/index
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 sept. 2011
+ * @version $Id: $
+ */
+
+function organisateur($nom, $adresse) {
+    $ret = '<div class="organisateur" align="center">';
+    $ret .= $nom;
+    if (is_array($adresse)) {
+        foreach ($adresse as $ligne) {
+            $ret .= '<br />' . $ligne;
+        }
+    }
+    $ret .= '</div>';
+    return $ret;
+}
+?>
+<h1>Connexion au service de paiement en ligne</h1>
+<?php if ($this->siteOuvertSadmin || $this->siteOuvertAdmin) : ?>
+<div class="user">
+	<table class="user">
+		<tbody>
+			<tr>
+			<?php if ($this->siteOuvertUser == 0) : ?>
+				<td width="65%" valign="top">
+					<div align="center">
+						<p>
+
+						<?php if (!empty($this->siteAnnonceOuverture)) {
+						    echo 'Le site de paiement en ligne est actuellement fermé. Il sera ouvert à partir du ' . $this->siteAnnonceOuverture;
+						}?>
+							.
+						</p>
+						<p>
+							Si nécessaire, prenez contact avec le service de la
+							<?php echo $this->organisateurNom; ?>
+							à l'adresse suivante :
+						</p>
+						<?php echo organisateur($this->organisateurNom, $this->organisateurAdresse); ?>
+					</div>
+				</td>
+				<?php else : ?>
+				<td width="65%" valign="top">
+					<p>
+						<span class="organisateur">Vous voulez payer une facture en ligne .</span><br />
+					</p>
+					<p>Identifiez-vous par votre adresse électronique, avec votre mot
+						de passe.</p>
+					<p>
+						<span class="organisateur">Si vous avez oublié votre mot de passe
+							:</span>
+					</p>
+					<p>
+						Cliquez sur «<i>Oubli du mot de passe</i>», un nouveau mot de
+						passe sera alors envoyé à l'adresse mail renseignée lors de la
+						création de votre compte.
+					</p>
+					<p>
+						<span class="organisateur">Le paiement est sécurisé par Paybox.</span>
+					</p>
+					<p>
+						Si nécessaire, prenez contact avec les services de la
+						<?php echo $this->organisateurNom; ?>
+						à l'adresse suivante :
+					</p> <?php echo organisateur($this->organisateurNom, $this->organisateurAdresse); ?>
+				</td>
+				<?php endif; ?>
+				<td valign="top">
+					<h3 align="center">Identifiez-vous</h3> <?php if (!empty($this->messageError)) : ?>
+					<div class="errors">
+					<?php echo $this->messageError; ?>
+					</div> <?php endif; ?> <?php echo $this->form; ?>
+					<div align="center">
+						<a href="<?php echo $this->link('index', 'oublimdp'); ?>">Oubli du
+							mot de passe ?</a>
+					</div>
+					<p>&nbsp;</p>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+					<?php else :?>
+<div align="center">
+	<p>
+		Le site de paiement en ligne est actuellement fermé. Contactez le
+		webmestre de la
+		<?php echo $this->organisateurNom; ?>
+		.
+	</p>
+</div>
+<?php endif; ?>

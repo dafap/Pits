@@ -1,0 +1,19 @@
+<?php
+/**
+ * Page d'accès à la gestion des documents d'aide
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 24 sept. 2011
+ * @version $Id: $
+ */
+
+$this->retour = $this->link('admin', 'index');
+$this->helpadd = $this->link('admin', 'helpadd')
+?>
+<h2>Documentation</h2>
+<?php
+echo $this->partial('common/listedocs.phtml', array('liste' => $this->liste, 'docPath' => $this->docPath, 'btnSuppr' => true, 'btnclass' => array('a' =>'sansdeco', 'button' => 'btn',)));
+echo $this->makeButton('cancel', 'cancel', $this->retour, 'Retour', array('a' =>'sansdeco', 'button' => 'btn',));
+echo $this->makeButton('ajout', 'ajout', $this->helpadd, 'Nouveau document', array('a' =>'sansdeco', 'button' => 'btn',));

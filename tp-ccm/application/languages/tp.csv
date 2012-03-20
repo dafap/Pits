@@ -1,0 +1,29 @@
+REM;*** Pour le layout ***
+tp;"Communauté de Communes de Montesquieu : Télé-paiement"
+Organisation;Communauté de Communes de Montesquieu
+copyright;"&copy; 2011 Communaut&eacute; de Communes de Montesquieu - tous droits r&eacute;serv&eacute;s"
+footer_label1;Plan du site
+footer_url1;http://www.cc-montesquieu.fr/v2/index.php/component/option,com_sitemap/Itemid,864/
+footer_label2;Contact
+footer_url2;http://www.cc-montesquieu.fr/v2/index.php/component/option,com_contact/Itemid,863/
+footer_label3;Mentions légales
+footer_url3;http://www.agglo-cobas.fr/plan.php3
+footer_label4;Mentions légales
+footer_url4;http://www.cc-montesquieu.fr/v2/index.php/content/view/668/765/
+footer_label5;--inutilisé--
+footer_url5;----inutilisé--
+footer_label6;--inutilisé--
+footer_url6;----inutilisé--
+Menu;Votre choix
+menu_label1;
+menu_url1;
+menu_label2;
+menu_url2;
+menu_label3;
+menu_url3;
+menu_label4;
+menu_url4;
+menu_label5;
+menu_url5;
+menu_label6;
+menu_url6;

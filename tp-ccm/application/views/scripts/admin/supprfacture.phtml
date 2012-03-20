@@ -1,0 +1,34 @@
+<?php
+/**
+ * Suppression d'une facture
+ *
+ * demande de confirmation ou compte-rendu de l'opération
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 6 oct. 2011
+ * @version $Id: $
+ */
+
+?>
+<h1>Confirmation de suppression de facture</h1>
+<div class="user">
+	<table class="user">
+		<tbody>
+			<tr>
+				<td>
+					<p>
+						Vous avez demandé la suppression de la facture adressée à
+						<?php echo $this->user['Titre'] . ' ' . $this->user['Nom'] . ' ' . $this->user['Prenom']; ?>
+						numéro
+						<?php echo $this->facture->exercice . '-' . $this->facture->nFacturation. '-' . $this->facture->rangFacture; ?>
+						d'un montant de
+						<?php echo $this->facture->montant; ?>
+						€.
+					</p> <?php echo $this->form; ?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

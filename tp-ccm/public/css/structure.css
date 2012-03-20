@@ -1,0 +1,267 @@
+html, body { 
+    background: #FFFFFF;
+    height:100%;
+	margin: 0px;
+	padding: 0px;
+	text-align: center;
+	}
+
+div { margin: 0px; padding: 0px; }
+ .clear { clear: both;} 
+
+#conteneur {
+	margin-left: auto;
+ 	margin-right: auto;
+ 	text-align: left;
+    height:100%;
+	width:766px; 
+	}
+ 
+.pop-ups { /* désactive l'affichage des icones edit, pdf, etc ... */
+display:none;
+}
+
+#bandeauTitre{
+    background: #FFFFFF;
+	width:764px;
+    height: 108px;
+    float: left;
+    margin: 0px;
+    padding: 0px;
+   border-left: 1px solid #333333;    
+   border-right: 1px solid #333333;    
+   border-top: 1px solid #333333;    
+    }
+h1#titre {
+    display:none;
+    }  
+#bandeauLogo {
+    width: 264px;
+    height: 66px;
+    margin: 0px;
+    padding: 0px;
+    float: left;
+ }
+ 
+#rechercher {
+    width: 96px;
+/*    height: 15px; */
+	z-index:998; 
+    padding: 0px;
+    padding-right: 30px;
+    margin: 0px;
+    float: right;
+    text-align: right;
+	} 
+
+#rechercher2 {
+    width: 96px;
+    color: #000000; 
+    height: 15px;
+    margin: 0px;
+    padding: 5px 0 0 0;
+	} 
+
+    
+#menu-top{
+	width:734px;
+    height: 19px;
+    padding: 14px 30px 0 0;
+    float: right;
+    text-align: right;
+	position:relative; 
+	z-index:999; 
+    }
+* html #menu-top { /* hack uniquement interprété par IE6 Win+Mac */
+   padding: 13px 30px 0 0;
+}
+
+#fond{
+   background: url(../images/fond.gif) repeat-y bottom left;
+   float: right;
+   width: 764px;
+   margin: 0px;
+   border-left: 1px solid #333333;    
+   border-right: 1px solid #333333;    
+}
+
+#fond2 {
+   float: right;
+   width: 100%;
+   margin-left: 0px;
+   margin-right: 0px;
+   margin-top: 0px;
+   margin-bottom: 0px;
+}
+
+#float-wrapper {
+    background: none;
+	float: right;
+	width: 554px;
+    margin: 0px;
+ }
+#sous-menu {
+    margin-bottom: 15px;
+ }
+#contenu {
+   height: 100%;
+   float: left;
+   width: 496px;
+   margin-left : 30px;
+   margin-right : 30px;
+   margin-top : 5px;
+ }
+ 
+* html #contenu { /* hack uniquement interprété par IE6 Win+Mac  */
+   margin-left : 0px;
+   margin-right : 0px;
+   padding-left : 26px;
+   padding-right : 26px;
+}
+
+#tableauActu {
+    border :  none !important;
+    background: none !important;
+    width : 100% !important;
+    margin-top: 10px!important;
+}
+#tableauActu tr, #tableauActu td{
+    vertical-align: top !important;
+    border :  none !important;
+    background: none !important;
+}
+#tableauActu td {
+    padding : 0 24px 10px 24px !important;
+    width : 200px;
+}
+#tableauActu td h2 {
+line-height: 20px!important;
+}
+
+.fondenvironnement {
+background: #DAEF77 url(../images/fond.gif) repeat-y bottom left!important;
+}
+
+#menuGauche{
+	width:168px;
+    padding: 0 23px 0 10px;
+    float: left;
+    margin-top :30px;
+    border-left: 7px solid #990F26;
+    }
+
+#colonneDroite{
+	width:0px;
+    float: right;
+    padding:0;
+    margin:0;
+    height: 400px;
+ }
+
+#piedpage {
+   font-size: 10px;
+   clear: both;
+   height: 37px;
+   border-left: 1px solid #333333;    
+   border-right: 1px solid #333333;    
+   border-bottom: 1px solid #333333;    
+   text-align: right;
+   padding : 0 30px 0 0;
+   line-height : 12px;
+   }
+.fondpiedpage{
+   background: url(../images/fond_footer.gif) no-repeat bottom left;
+   }
+
+.fondpiedpageEnv {
+   background: url(../images/fond_footer_env.gif) no-repeat bottom left;
+   }
+
+.moduleplanningdechets {
+   background: url(../images/panneau_mascotte.gif) no-repeat top left;
+   height: 90px;
+   width: 168px;
+   margin: 20px 0 0 0;
+   padding : 60px 0 0 0;
+   }
+
+/* .moduleterritoire {
+   background: url(../images/fond_territoire_haut.gif) no-repeat bottom left;
+   height: 61px;
+   padding: 4px;
+   margin : 0px;
+}
+* html .moduleterritoire { 
+   padding : 0px;
+   text-indent : 4px;
+} */
+
+form#formterritoire {
+/*   background: url(../images/fond_territoire_bas.gif) no-repeat top left; */
+/*   height: 35px; */
+   background: url(../images/fond_territoire_sm.gif) no-repeat bottom left;
+   height: 61px;
+   margin : 0px;
+   padding: 4px;
+}
+
+form#formterritoire select{
+    width: 160px;
+    margin : 40px 0 0 0;
+}
+.moduletourisme {
+   background: url(../images/fond_module_tourisme.gif) no-repeat top left;
+   height: 43px;
+   margin-top:20px;
+}
+.moduletourisme h3{
+   margin-bottom : 6px!important;
+ }
+.moduleaerodrome {
+   background: url(../images/fond_module_aerodrome.gif) no-repeat top left;
+   height: 43px;
+   margin-top:20px;
+}
+.modulecontacteco{
+   margin-top:20px;
+   border: 1px solid #7991BF !important;
+   padding: 0;
+}
+.modulecontacteco p{
+   padding: 0 4px 0 4px;
+}
+.modulecontacteco h3{
+   height: 25px;
+   margin: 0;
+   padding: 0 4px 0 4px;
+}
+.moduleaerodrome h3{
+   margin-bottom : 6px!important;
+ }
+#colgauche {
+width: 233px;
+padding : 0 15px 0 0;
+float:left;
+}
+#coldroite {
+width: 233px;
+padding : 0 0 0 15px;
+float:right;
+}
+.moduleespacemairie{
+width: 175px;
+display:block!important;
+background-color: #FFFFFF !important;
+border : 1px solid #990F26;
+padding: 1px 1px 10px 1px !important;
+margin: 0 0 20px 0 !important;
+}
+
+.moduletransports {
+   background: url(../images/fond_module_transports.gif) no-repeat top left;
+   height: 43px;
+   margin-top:20px;
+}
+.moduletransports h3{
+   margin-bottom : 6px!important;
+ }

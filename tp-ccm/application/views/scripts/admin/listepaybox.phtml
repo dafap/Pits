@@ -1,0 +1,84 @@
+<?php
+/**
+ * Présentation de la liste des paiements par Paybox
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 6 oct. 2011
+ * @version $Id: $
+ */
+
+function translate($key, $value) {
+    switch ($key) {
+        case 'Montant':
+            $value = sprintf("%0.2f", $value / 100);
+            break;
+        case 'Date__':
+            $value = substr($value, 0, 2) . '/' . substr($value, 2, 2) . '/' . substr($value, 4);
+            break;
+        default:
+            break;
+    }
+    return $value;
+}
+
+$cols = array('Client', 'Paiement', 'Carte', 'Date', 'Référence', 'Montant');
+
+$urlExtraits = $this->link('admin', 'listepaybox', null, array('page' => 1, 'order' => 'e'));
+$urlNonExtraits = $this->link('admin', 'listepaybox', null, array('page' => 1, 'order' => 'n'));
+$urlTous = $this->link('admin', 'listepaybox', null, array('page' => 1, 'order' => 't'));
+
+$btnExtraits = $this->MakeButton('extraits', 'extraits', $urlExtraits, 'Extraits', array('button' => 'btn', 'a' => 'sansdeco'));
+$btnNonExtraits = $this->MakeButton('nonextraits', 'nonextraits', $urlNonExtraits, 'Non extraits', array('button' => 'btn', 'a' => 'sansdeco'));
+$btnTous = $this->MakeButton('tous', 'tous', $urlTous, 'Tous', array('button' => 'btn', 'a' => 'sansdeco'));
+
+$filtre = array('e' => $btnExtraits, 'n' => $btnNonExtraits, 't' => $btnTous);
+unset($filtre[$this->order]);
+?>
+<h1>Liste des paiements par Paybox</h1>
+<div class="admin">
+	<table class="admin" style="color: black;">
+		<thead>
+			<tr>
+			<?php foreach ($cols as $nomCol) {
+			    echo '<th>' . $nomCol . '</th>' . PHP_EOL;
+			}?>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		foreach ($this->liste as $ligne) {
+		    echo '<tr>' . PHP_EOL;
+		    foreach ($cols as $key) {
+		        echo '<td style="border-bottom-style:none;">' . translate($key, $ligne[$key]) . '</td>' . PHP_EOL;
+		    }
+		    if ($ligne['extrait'] == 0) {
+		        echo '<td style="border-bottom-style:none;">à extraitre</td>' . PHP_EOL;
+		    } else {
+		        echo '<td style="border-bottom-style:none;">' . $ligne['dateExtraction'] . '</td>';
+		    }
+		    echo '</tr>' . PHP_EOL;
+		    echo '<tr>' . PHP_EOL . '<tr>' .PHP_EOL . '<td colspan="7" style="border-top-style:none;">' . $this->PayboxFactures($ligne['Référence'], array('div' => 'sous-table', 'table' => 'sous-table' )) . '</td>' . PHP_EOL . '</tr>';
+		}
+		?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="<?php echo count($cols) + 1; ?>">
+					<table class="lignebtn">
+						<tr>
+							<td><?php echo $this->MakeButton('cancel', 'cancel', $this->link('admin', 'index'), 'Retour', array('button' => 'btn', 'a' => 'sansdeco')); ?>
+							</td>
+							<?php foreach ($filtre as $btn) {
+							    echo '<td style="width:100px;">' . $btn . '</td>' . PHP_EOL;
+							}?>
+							<td class="right"><?php echo $this->liste; ?></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>

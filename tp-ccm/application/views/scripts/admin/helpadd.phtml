@@ -1,0 +1,31 @@
+<?php
+/**
+ * Ajout d'un document en ligne
+ *
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 mars 2011 - rev 12 oct. 2011
+ * @version $Id: $
+ */
+?>
+<h1>Inscription aux transports scolaires</h1>
+<h2>Gestion des documents d'aide</h2>
+<div class="user">
+	<table class="user">
+		<tbody>
+			<tr>
+				<td><?php
+				if (isset($this->forward)) {
+				    echo '<p class="description">' . $this->message . '</p>';
+				    echo $this->makeButton('cancel', 'cancel', $this->forward, 'Continuer', array('a' =>'sansdeco', 'button' => 'btn',));
+				} else {
+				    echo $this->form;
+				}
+				?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

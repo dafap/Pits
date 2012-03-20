@@ -1,0 +1,37 @@
+<?php
+/**
+ * Formulaire de modification du mot de passe
+ *
+ * @project télé-paiement CCM
+ * @package application/views/script/user
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 20 sept. 2011
+ * @version $Id: $
+ */
+
+$retour = $this->link('user', 'index');
+?>
+<h1>Changement du mot de passe</h1>
+<div class="user">
+	<table class="user">
+		<tbody>
+			<tr>
+				<td><?php 
+				if ($this->op == 'form') {
+				    echo $this->form;
+				} elseif ($this->op == 'change') {
+				    echo '<p>Le nouveau mot de passe a été enregistré et un mail de confirmation a été envoyé à votre adresse.</p>';
+				    echo $this->makeButton('cancel', 'cancel', $retour, 'Continuer', array('button' => 'btn', 'a' => 'sansdeco'), 'margin-left: 80px;');
+				} elseif ($this->op == 'nomail') {
+				    echo '<p>Le nouveau mot de passe a été enregistré (sans mail de confirmation).</p>';
+				    echo $this->makeButton('cancel', 'cancel', $retour, 'Continuer', array('button' => 'btn', 'a' => 'sansdeco'), 'margin-left: 80px;');
+				} else {
+				    echo '<p>Echec ! Une erreur s\'est produite</p>';
+				    echo $this->makeButton('cancel', 'cancel', $retour, 'Continuer', array('button' => 'btn', 'a' => 'sansdeco'), 'margin-left: 80px;');
+				}
+				?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

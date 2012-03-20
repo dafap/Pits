@@ -1,0 +1,27 @@
+<?php
+/**
+ * Page de retour de Paybox après une annulation par le user
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/user
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 sept. 2011
+ * @version $Id: $
+ */
+
+$retour = $this->link('user', 'index');
+?>
+<h1>Paiement en ligne</h1>
+<h2>Abandon de paiement</h2>
+<div class="user">
+<table class="user">
+	<tbody>
+		<tr>
+			<td>Vos factures n'ont pas été soldées.<br />Vous pouvez essayer
+				d'effectuer à nouveau le paiement ou alors contactez le service.</td>
+			<td><?php echo $this->makeButton('cancel', 'cancel', $retour, 'Retour', array('button'=>'btn', 'a'=>'sansdeco'), 'margin-right: 80px;'); ?>
+			</td>
+		</tr>
+	</tbody>
+</table>
+</div>

@@ -1,0 +1,29 @@
+<?php
+/**
+ * Formulaire permettant à l'administrateur de changer le mot de passe d'un user
+ *
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 oct. 2011
+ * @version $Id: $
+ */
+
+?>
+<h1>Attribuer un nouveau mot de passe</h1>
+<div class="user">
+	<table class="user">
+		<tbody>
+			<tr>
+				<td><?php echo $this->form;
+				if ($this->retour) {
+				    $retour = $this->link('admin', 'listeuser', null, "/page/$this->page");
+				    echo $this->makeButton('retour', 'retour', $retour, 'Continuer', array('button' => 'btn', 'a' => 'sansdeco'));
+				}
+				?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

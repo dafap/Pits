@@ -1,0 +1,67 @@
+<?php
+/**
+ * Partiel pour afficher un paginateur qui renvoie des parametres dans l'url
+ *
+ * L'appel se fait dans une vue par :
+ *    echo $this->paginationControl($this->liste, $defilement, 'pagination_control2.phtml', array('page' => [nom du parametre page], 'params' => array('parametre1' => 'valeur1', 'parametre2' => 'valeur2, ),))
+ *
+ * Le nom de parametre du numéro de page est passé en premier dans le tableau
+ * Les couples parametre => valeur seront passés en get dans l'url
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/common
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 7 oct. 2011
+ * @version $Id: $
+ */
+
+?>
+<?php if ($this->pageCount): ?>
+<div
+	class="paginationControl">
+	<!-- First page link -->
+	<?php if (isset($this->previous)): ?>
+	<a href="<?php echo $this->url(array_merge(array($this->page => $this->first), $this->params)); ?>">
+		&lt;&lt; </a> |
+		<?php else: ?>
+	<span class="current"><?php echo $this->translate('premier'); ?> </span>
+	|
+	<?php endif; ?>
+
+	<!-- Previous page link -->
+	<?php if (isset($this->previous)): ?>
+	<a href="<?php echo $this->url(array_merge(array($this->page => $this->previous), $this->params)); ?>">
+	<?php echo $this->translate("précédent"); ?> </a> |
+	<?php else: ?>
+	<span class="disabled"><?php echo $this->translate("précédent"); ?> </span>
+	|
+	<?php endif; ?>
+
+	<!-- Numbered page links -->
+	<?php foreach ($this->pagesInRange as $page): ?>
+	<?php if ($page != $this->current): ?>
+	<a href="<?php echo $this->url(array_merge(array($this->page => $page), $this->params)); ?>"><?php echo $page; ?>
+	</a> |
+	<?php else: ?>
+	<span class="current"><?php echo $page; ?> </span> |
+	<?php endif; ?>
+	<?php endforeach; ?>
+
+	<!-- Next page link -->
+	<?php if (isset($this->next)): ?>
+	<a href="<?php echo $this->url(array_merge(array($this->page => $this->next), $this->params)); ?>"><?php echo $this->translate("suivant"); ?>
+	</a>
+	<?php else: ?>
+	<span class="disabled"><?php echo $this->translate("suivant"); ?> </span>
+	<?php endif; ?>
+
+	<!-- Last page link -->
+	<?php if (isset($this->next)): ?>
+	| <a href="<?php echo $this->url(array_merge(array($this->page => $this->last), $this->params)); ?>">
+		&gt;&gt; </a>
+		<?php else: ?>
+	| <span class="current"><?php echo $this->translate('dernier'); ?> </span>
+	<?php endif; ?>
+
+</div>
+	<?php endif; ?>

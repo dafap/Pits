@@ -1,0 +1,46 @@
+<?php
+/**
+ * Vue affichant le contenu de la fiche d'un utilisateur
+ *
+ * @project télé-paiement CCM
+ * @package application/views/script/user
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 20 sept. 2011
+ * @version $Id: $
+ */
+
+function traduction($key, $record) 
+{        
+    if ($key == 'categorie') {
+        $tcategorie = array('1' => 'Utilisateur', '2' => 'Administrateur', '3' => 'Super administrateur');
+        $value = $tcategorie[$record->{$key}];
+    } elseif ($key == 'Commune') {
+        $value = $record->findParentRow('Tp_Model_DbTable_TVilles')->Nom;
+    } else {
+        $value = $record->{$key};
+    }
+    return $value;
+}
+
+$alias = array('Titre' => 'Titre', 'Nom' => 'Nom', 'Prenom' => 'Prenom', 'AdresseL1' => 'Adresse (ligne 1)',
+               'AdresseL2' => 'Adresse (ligne 2)', 'CodePostal' => 'Code postal', 'Commune' => 'Commune',
+               'Telephone' => 'Téléphone', 'TelephoneC' => 'Téléphone cellulaire', 'Email' => 'Adresse mail',
+               'categorie' => 'Catégorie', 'dateCreation' => 'Date de création du compte', 
+               'dateModif' => 'Date de dernière modification', 'datePreviousLogin' => 'Date de votre dernière visite',
+               'previousIp' => 'Adresse IP de votre dernière connexion',);
+
+$retour = $this->link('user', 'index');
+?>
+<h1>Compte de l'utilisateur</h1>
+<div class="user">
+<table class="user">
+	<tbody>
+	<?php 
+	foreach ($alias as $key => $value) {
+	    echo '<tr><th>' . $value . '</th><td>' . traduction($key, $this->record) . '</td></tr>';
+	}
+	?>
+	</tbody>
+</table>
+<?php echo $this->makeButton('cancel', 'cancel', $retour, 'Continuer', array('button' => 'btn', 'a' => 'sansdeco'), 'margin-left: 80px;'); ?>
+</div>

@@ -1,0 +1,36 @@
+<?php
+/**
+ * Page d'importation des factures
+ *
+ * Permet de choisir le fichier à uploader
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 24 sept. 2011
+ * @version $Id: $
+ */
+
+$retour = $this->link('admin', 'index');
+?>
+<h1>Importation d'un lot de factures</h1>
+<div class="user">
+	<table class="user">
+		<tbody>
+			<tr>
+				<td><?php  
+				if (isset($this->form)) {
+				    echo $this->form;
+				    foreach ($this->form->getErrorMessages() as $errorMsg) {
+				        echo '<p class="errors">' . $errorMsg . '</p>';
+				    }
+				} else {
+				    echo '<pre>' . $this->message . '</pre>';
+				    echo $this->makeButton('cancel', 'cancel', $retour, 'Continuer', array('button' => 'btn', 'a' => 'sansdeco'), 'margin-left: 80px;');
+				}
+				?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

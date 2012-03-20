@@ -1,0 +1,73 @@
+<?php
+/**
+ * Présentation de la liste des factures
+ *
+ * avec possibilité de supprimer
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 6 oct. 2011
+ * @version $Id: $
+ */
+$cols = array('N°', 'Année scolaire', 'Date', 'Client', 'Enfant', 'Montant');
+
+$urlsoldes = $this->link('admin', 'listefactures', null, array('page' => 1, 'order' => 's'));
+$urlnsoldes = $this->link('admin', 'listefactures', null, array('page' => 1, 'order' => 'n'));
+$urltoutes = $this->link('admin', 'listefactures', null, array('page' => 1, 'order' => 't'));
+
+$s = $this->MakeButton('soldes', 'soldes', $urlsoldes, 'Soldées', array('a' => 'sansdeco', 'button' => 'btn',));
+$n = $this->MakeButton('nsoldes', 'nsoldes', $urlnsoldes, 'Non soldées', array('a' => 'sansdeco', 'button' => 'btn',));
+$t = $this->MakeButton('toutes', 'toutes', $urltoutes, 'Toutes', array('a' => 'sansdeco', 'button' => 'btn',));
+
+$filtre = array('s' => $s, 'n' => $n, 't' => $t);
+unset($filtre[$this->order]);
+?>
+<h1>Liste des factures</h1>
+<div class="admin">
+	<table class="admin">
+		<thead>
+			<tr>
+			<?php
+			foreach ($cols as $nomCol) {
+			    echo '<th>' . $nomCol . '</th>';
+			}
+			?>
+				<th></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		foreach ($this->liste as $ligne) {
+		    echo '<tr>' . PHP_EOL;
+		    foreach ($cols as $key) {
+		        echo '<td>' . $ligne[$key] . '</td>' . PHP_EOL;
+		    }
+		    if ($ligne['solde'] == 1) {
+		        echo '<td>soldée</td>' . PHP_EOL;
+		    } else {
+		        $id = $ligne['id'];
+		        $url = $this->link('admin', 'supprfacture', null, array('factureId' => $id, 'page' => $this->page));
+		        $btn = $this->MakeButton('s' . $id, 's' . $id, $url, 'Suppr', array('button' => 'btn', 'a' => 'sansdeco'));
+		        echo '<td>' . $btn . '</td>' . PHP_EOL;
+		    }
+		    echo '</tr>' . PHP_EOL;
+		}
+		?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td style="border-right: 0px;"><?php echo $this->MakeButton('cancel', 'cancel', $this->link('admin', 'index'), 'Retour', array('button' => 'btn', 'a' => 'sansdeco')); ?>
+				</td>
+				<?php
+				foreach ($filtre as $btn) {
+				    echo '<td style="border-right: 0px; border-left: 0px;">' . $btn . '</td>' . PHP_EOL;
+				}
+				?>
+				<td colspan="<?php echo count($cols) - 2; ?>" class="right"
+					style="border-left: 0px;"><?php echo $this->liste; ?>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>

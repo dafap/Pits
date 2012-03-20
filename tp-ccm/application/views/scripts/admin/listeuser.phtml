@@ -1,0 +1,83 @@
+<?php
+/**
+ * Présentation de la liste des clients (utilisateurs)
+ *
+ * avec accès au détail des sommes dues et des sommes payées
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 6 oct. 2011
+ * @version $Id: $
+ */
+
+$cols = array('Nom', 'Email', 'Commune');
+
+$urlsoldes = $this->link('admin', 'listeuser', null, array('page' => 1, 'order' => 's'));
+$urlnsoldes = $this->link('admin', 'listeuser', null, array('page' => 1, 'order' => 'n'));
+$urltoutes = $this->link('admin', 'listeuser', null, array('page' => 1, 'order' => 't'));
+
+$s = $this->MakeButton('soldes', 'soldes', $urlsoldes, 'Soldés', array('a' => 'sansdeco', 'button' => 'btn',));
+$n = $this->MakeButton('nsoldes', 'nsoldes', $urlnsoldes, 'Dettes', array('a' => 'sansdeco', 'button' => 'btn',));
+$t = $this->MakeButton('toutes', 'toutes', $urltoutes, 'Tous', array('a' => 'sansdeco', 'button' => 'btn',));
+
+$filtre = array('s' => $s, 'n' => $n, 't' => $t);
+unset($filtre[$this->order]);
+
+?>
+<h1>Liste des clients</h1>
+<div class="admin">
+	<table class="admin">
+		<thead>
+			<tr>
+			<?php
+			foreach ($cols as $nomCol) {
+			    echo '<th>' . $nomCol . '</th>';
+			}
+			?>
+				<th colspan="2"></th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		foreach ($this->liste as $ligne) {
+		    echo '<tr>' . PHP_EOL;
+		    foreach ($cols as $key) {
+		        echo '<TD>' . $ligne[$key] . '</TD>' . PHP_EOL;
+		    }
+		    if ($ligne['solde'] == 1) {
+		        echo '<TD>soldé</TD>' . PHP_EOL;
+		    } else {
+		        echo '<TD>dette</TD>' .PHP_EOL;
+		    }
+		    $id = $ligne['id'];
+		    $url1 = $this->link('admin', 'usermodmdp', null, array('userId' => $id, 'page' => $this->page));
+		    $url2 = $this->link('admin', 'detailuser', null, array('userId' => $id, 'page' => $this->page));
+		    $btn1 = $this->MakeButton('m' . $id, 'm' . $id, $url1, 'Mdp', array('button' => 'btn', 'a' => 'sansdeco'));
+		    $btn2 = $this->MakeButton('s' . $id, 's' . $id, $url2, 'Détail', array('button' => 'btn', 'a' => 'sansdeco'));
+		    echo '<TD width="100px">' . $btn1 . $btn2. '</TD>' . PHP_EOL;
+
+		    echo '</tr>' . PHP_EOL;
+		}
+		?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="5">
+					<table class="lignebtn">
+						<tr>
+							<td><?php echo $this->MakeButton('cancel', 'cancel', $this->link('admin', 'index'), 'Retour', array('button' => 'btn', 'a' => 'sansdeco')); ?>
+							</td>
+							<?php
+							foreach ($filtre as $btn) {
+							    echo '<td>' . $btn . '</td>' . PHP_EOL;
+							}
+							?>
+							<td class="right"><?php echo $this->liste; ?></td>
+						</tr>
+					</table>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>

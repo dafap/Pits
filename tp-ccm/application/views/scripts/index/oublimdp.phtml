@@ -1,0 +1,70 @@
+<?php
+/**
+ * Page de demande d'un nouveau mot de passe
+ *
+ * Présente la possibilité de se loger si le site est ouvert (voir application.ini)
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/index
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 sept. 2011
+ * @version $Id: $
+ */
+
+function organisateur($nom, $adresse) {
+    $ret = '<div class="organisateur" align="center">';
+    $ret .= $nom;
+    if (is_array($adresse)) {
+        foreach ($adresse as $ligne) {
+            $ret .= '<br />' . $ligne;
+        }
+    }
+    $ret .= '</div>';
+    return $ret;
+}
+
+$this->retour = $this->link('index', 'index');
+?>
+<h1>Demande d'un nouveau mot de passe</h1>
+<div class="user">
+	<table class="user">
+		<tbody>
+			<tr>
+				<td><?php  if ($this->op == 'form'):?>
+					<h3>Identifiez-vous</h3>
+					<div align="center">
+					<?php echo $this->form; ?>
+					</div> <?php elseif ($this->op == 'envoye'): ?>
+					<h3>Demande acceptée</h3>
+					<p>
+						Un nouveau mot de passe vient d'être envoyé à l'adresse
+						<?php echo $this->email;?>
+						que vous venez d'indiquer. Ouvrez votre messagerie pour le
+						connaître.
+					</p>
+					<p>Vous pourrez le changer après connexion au service, en
+						choisissant `modifier son compte` dans le menu.</p> <?php echo $this->makeButton('cancel', 'cancel', $this->retour, 'Continuer', array('button' => 'btn', 'a' => 'sansdeco'), 'margin-left: 80px;'); ?>
+						<?php elseif ($this->op == 'change'): ?>
+					<h3>Demande acceptée</h3>
+					<p>L'envoi du mot de passe a échoué.</p>
+					<p>
+					<?php echo $this->messageError; ?>
+					
+					<p>Contactez le service afin qu'un nouveau mot de passe vous soit
+						donné.</p> <?php echo organisateur($this->organisateurNom, $this->organisateurAdresse); ?>
+						<?php echo $this->makeButton('cancel', 'cancel', $this->retour, 'Continuer', array('button' => 'btn', 'a' => 'sansdeco'), 'margin-left: 80px;'); ?>
+						<?php else: ?>
+					<h3>Demande refusée</h3>
+					<p>L'adresse email que vous avez indiquée est inconnue dans notre
+						base.
+					
+					<p>
+					
+					<p>Vous devez utiliser l'adresse que vous avez indiquée lors de
+						votre inscription.</p> <?php echo $this->makeButton('cancel', 'cancel', $this->retour, 'Continuer', array('button' => 'btn', 'a' => 'sansdeco'), 'margin-left: 80px;'); ?>
+						<?php endif; ?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,72 @@
+<?php
+/**
+ * Vue pour afficher les logs de paybox
+ *
+ * Possibilité de filtre par date (depuis), par erreur (sans erreur, les erreurs, les erreurs de n° donné), par userId
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 10 oct. 2011
+ * @version $Id: $
+ */
+function translate($key, $value) {
+    switch ($key) {
+        case 'userId':
+            $records = new Tp_Model_DbTable_TUser();
+            $value = $records->identite($value);
+            break;
+        case 'montant':
+            $value = sprintf("%0.2f", $value / 100);
+            break;
+        default:
+            break;
+    }
+    return $value;
+}
+
+$cols = array('userId', 'datetrans', 'maref', 'montant', 'errmsg');
+$vide = true;
+
+$urlRetour = $this->link('admin', 'index');
+$btnRetour = $this->MakeButton('retour', 'retour', $urlRetour, 'Retour', array('a' => 'sansdeco', 'button' => 'btn'));
+?>
+<h1>Historique des transactions Paybox</h1>
+<div class="admin">
+	<table class="admin">
+		<tbody>
+		<?php
+		foreach ($this->liste as $ligne) {
+		    echo '<tr>';
+		    foreach ($cols as $key) {
+		        switch ($key) {
+		            case 'errmsg':
+		                $td = '<td class="left">';
+		                break;
+		            case 'montant':
+		                $td = '<td class="right">';
+		                break;
+		            default:
+		                $td = '<td class="left">';
+		                break;
+		        }
+		        echo $td . translate($key, $ligne[$key]) . '</td>' . PHP_EOL;
+		    }
+		    echo '</tr>';
+		    $vide = false;
+		}
+		?>
+			<tr>
+				<td colspan="<?php echo count($cols); ?>"><?php if ($vide) : ?>
+					<p>Pas de transaction enregistrée.</p> <?php echo $btnRetour; ?> <?php else : ?>
+					<?php echo '<div style="float:left;">' . $btnRetour  . '</div>' . $this->liste; ?>
+					<?php endif; ?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
+<p></p>
+<div class="admin">
+<?php echo $this->form; ?>
+</div>

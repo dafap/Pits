@@ -1,0 +1,118 @@
+<?php
+/**
+ * Présentation du détail des sommes dues et des sommes payées pour un user donné
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 6 oct. 2011
+ * @version $Id: $
+ */
+
+/**
+ * Transforme le format du montant et de la datetrans
+ * 
+ * @param string $key
+ * @param float|string $value
+ */
+function translate($key, $value) {
+    switch ($key) {
+        case 'Montant':
+            $value = sprintf("%0.2f", $value / 100);
+            break;
+        case 'Date':
+            $value = substr($value, 0, 2) . '/' . substr($value, 2, 2) . '/' . substr($value, 4);
+            break;
+        default:
+            break;
+    }
+    return $value;
+}
+$colsF = array('N°', 'Année scolaire', 'Date', 'Enfant', 'Montant');
+$colsP = array('Paiement', 'Carte', 'Date', 'Référence', 'Montant');
+$nbCols = count($colsP) < count($colsF) ? count($colsF) : count($colsP);
+//Zend_Debug::dump($this->listeP);
+
+?>
+<h1>Liste des clients</h1>
+<h3 style="margin-left: 20px;">
+	Compte de
+	<?php echo $this->client; ?>
+</h3>
+<div class="admin">
+	<table class="admin">
+		<thead>
+			<tr>
+				<th colspan="<?php echo $nbCols + 1; ?>">Les factures - total : <?php echo $this->totalF; ?>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		foreach ($this->listeF as $ligne) {
+		    echo '<tr>' . PHP_EOL;
+		    foreach ($colsF as $key) {
+		        echo '<td>' . $ligne[$key] . '</td>' . PHP_EOL;
+		    }
+		    if (count($colsF) < $nbCols) {
+		        $td = '<td colspan="' . $nbCols - count($colsF) + 1 . '">';
+		    } else {
+		        $td = '<td>';
+		    }
+		    if ($ligne['solde'] == 1) {
+		        echo $td . 'soldée</td>' . PHP_EOL;
+		    } else {
+		        $id = $ligne['id'];
+		        $url = $this->link('admin', 'supprfacture', null, array('factureId' => $id, 'cancel' => "detailuser/pageF/$this->pageF/pageP/$this->pageP/userId/$this->userId"));
+		        $btn = $this->MakeButton('s' . $id, 's' . $id, $url, 'Suppr. dette', array('button' => 'btn', 'a' => 'sansdeco'));
+		        echo $td . $btn . '</td>' . PHP_EOL;
+		    }
+		    echo '</tr>' . PHP_EOL;
+		}
+		?>
+		</tbody>
+		<?php // ligne vide ?>
+		<tbody>
+			<tr>
+				<td colspan="<?php echo $nbCols + 1;?>" style="text-align: right;"><?php echo $this->paginationControl($this->listeF, 'All', 'common/pagination_control2.phtml', array('page' => 'pageF', 'params' => array('pageP' => $this->pageP, 'userId' => $this->userId, ),)); ?>
+				</td>
+			</tr>
+		</tbody>
+		<thead>
+			<tr>
+				<th colspan="<?php echo $nbCols + 1; ?>">Les paiements - total : <?php echo $this->totalP;?>
+				</th>
+			</tr>
+		</thead>
+		<tbody>
+		<?php
+		foreach ($this->listeP as $ligne) {
+		    echo '<tr>' . PHP_EOL;
+		    foreach ($colsP as $key) {
+		        echo '<td>' . translate($key, $ligne[$key]) . '</td>' . PHP_EOL;
+		    }
+		    if (count($colsF) < $nbCols) {
+		        $td = '<td colspan="' . $nbCols - count($colsF) + 1 . '">';
+		    } else {
+		        $td = '<td>';
+		    }
+		    if (empty($ligne['dateExtraction'])) {
+		        echo $td . 'à extraire</td>' . PHP_EOL;
+		    } else {
+		        echo $td . $ligne['dateExtraction'] . '</td>' . PHP_EOL;
+		    }
+		    echo '</tr>' . PHP_EOL;
+		}
+		?>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td style="border-right: 0px;"><?php echo $this->MakeButton('cancel', 'cancel', $this->link('admin', 'listeuser', null, array('page' => $this->page)), 'Retour', array('button' => 'btn', 'a' => 'sansdeco')); ?>
+				</td>
+				<td colspan="<?php echo $nbCols; ?>"
+					style="border-left: 0px; text-align: right;"><?php echo $this->paginationControl($this->listeP, 'All', 'common/pagination_control2.phtml', array('page' => 'pageP', 'params' => array('pageF' => $this->pageF, 'userId' => $this->userId, ),)); ?>
+				</td>
+			</tr>
+		</tfoot>
+	</table>
+</div>

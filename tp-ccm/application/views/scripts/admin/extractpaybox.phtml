@@ -1,0 +1,27 @@
+<?php
+/**
+ * Extraction d'un fichier des paiements par Paybox pour BdTS
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 6 oct. 2011
+ * @version $Id: $
+ */
+
+?>
+<h1>Extraction des paiements pour BdTS</h1>
+<div class="user">
+	<table class="user">
+		<tbody>
+			<tr>
+				<td><?php echo $this->form; ?></td>
+			</tr>
+			<?php if ($this->termine) :?>
+			<tr>
+				<td><?php echo $this->message; ?></td>
+			</tr>
+			<?php endif; ?>
+		</tbody>
+	</table>
+</div>

@@ -1,0 +1,17 @@
+<?php
+/**
+ * Page d'aide pour le service
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/user
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 sept. 2011
+ * @version $Id: $
+ */
+
+$this->retour = $this->link('user', 'index');
+?>
+<h1>Documentation</h1>
+<?php 
+echo $this->partial('common/listedocs.phtml', array('liste' => $this->liste, 'docPath' => $this->docPath,));
+echo $this->makeButton('cancel', 'cancel', $this->retour, 'Retour', array('button' => 'btn', 'a' => 'sansdeco'));

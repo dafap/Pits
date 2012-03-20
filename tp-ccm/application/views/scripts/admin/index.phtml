@@ -1,0 +1,51 @@
+<?php
+/**
+ * Page d'accueil de l'espace administrateur
+ *
+ * @project télé-paiement CCM
+ * @package application/views/scripts/admin
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 8 sept. 2011
+ * @version $Id: $
+ */
+
+?>
+<h1>Espace des administrateurs</h1>
+<div class="user">
+	<table class="user">
+		<tbody>
+			<tr>
+				<td>Nombre de comptes</td>
+				<td class="right"><?php echo $this->nbComptes; ?></td>
+				<td>Montant total des factures</td>
+				<td class="right"><?php echo $this->totalFactures; ?></td>
+			</tr>
+			<tr>
+				<td>Nombre de comptes en débit</td>
+				<td class="right"><?php echo $this->nbDebits; ?></td>
+				<td>Montant total des impayés</td>
+				<td class="right"><?php echo $this->totalImpayes; ?></td>
+			</tr>
+			<tr>
+				<td colspan="4"></td>
+			</tr>
+			<tr>
+				<td>Nombre d'encaissements Paybox</td>
+				<td class="right"><?php echo $this->nbEncaissements; ?></td>
+				<td>Total des sommes encaissées</td>
+				<td class="right"><?php echo $this->totalEncaissements; ?>
+			
+			</tr>
+			<tr>
+				<td colspan="4"></td>
+			</tr>
+			<tr>
+				<td>Date du dernier paiement Paybox</td>
+				<td class="right"><?php echo $this->lastPaybox; ?></td>
+				<td>Date de la dernière extraction</td>
+				<td class="right"><?php echo empty($this->lastExtraction) ? '' : Tp_Model_Format::date('dd/MM/YYYY HH:mm:ss', $this->lastExtraction); ?>
+				</td>
+			</tr>
+		</tbody>
+	</table>
+</div>
