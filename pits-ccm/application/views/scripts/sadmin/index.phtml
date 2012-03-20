@@ -1,0 +1,40 @@
+<p>&nbsp;</p>
+<p class="error"><?php echo $this->errorMessage('sadmin'); ?></p>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tr>
+		<td width="50%"><a href="<?php echo $this->link('admin', 'index'); ?>">Espace
+		administrateur</a></td>
+		<td><a href="<?php echo $this->link('parent', 'index'); ?>">Espace
+		parent</a></td>
+	</tr>
+</table>
+<p>&nbsp;</p>
+<table align="center" cellpadding="5" cellspacing="1">
+    <tr>
+        <td width="50%"><a href="<?php echo $this->link('sadmin', 'desinscrire');?>">Préparation d'une nouvelle année scolaire</a></td>
+		<td width="50%"><a
+			href="<?php echo $this->link('sadmin', 'razlog'); ?>">RAZ du fichier
+		log</a>&nbsp;&nbsp;(Taille actuelle : <?php echo $this->sizeLog; ?> ko)</td>
+            </tr>
+	<tr>
+	    <td width="50%"><a href="<?php echo $this->link('sadmin', 'suppruserbloque'); ?>">Suppr des comptes bloqués</a> (<?php echo $this->nbUserBloques; ?> comptes bloqués)</td>
+		<td width="50%"><a href="<?php echo $this->link('sadmin', 'razeleves'); ?>">RAZ de
+		la table eleves</a> (<?php echo $this->nbEleves; ?> élèves inscrits)</td>
+	</tr>
+	<tr>
+	    <td width="50%"><a href="<?php echo $this->link('sadmin', 'supprolduser'); ?>">Suppr des comptes inactifs</a> (<?php echo $this->nbUserInactifs; ?> comptes inactifs)</td>
+		<td width="50%"><a href="<?php echo $this->link('sadmin', 'razuser'); ?>">RAZ de
+		la table des parents</a> (<?php echo $this->nbParents; ?> parents inscrits)</td>
+	</tr>
+	<tr>
+		<td width="50%"><a
+			href="<?php echo $this->link('sadmin', 'admingest'); ?>">Gestion des
+		administrateurs</a> (<?php echo $this->nbAdmin; ?> administrateurs)</td>
+	    <td width="50%"><a href="<?php echo $this->link('sadmin','razcache'); ?>">RAZ du cache</a></td></tr>
+	<tr>
+		<td width="50%"><a
+			href="<?php echo $this->link('sadmin', 'decritables'); ?>">Description
+		des tables</a></td>
+		<td width="50%"><a href="<?php echo $this->link('sadmin', 'sql'); ?>">Exécute SQL</a></td>
+	</tr>
+</table>

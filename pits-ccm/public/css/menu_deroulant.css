@@ -1,0 +1,85 @@
+.menunav {
+float: right;
+text-align:left; 
+list-style-type:none;
+position:relative; 
+height:18px; 
+margin:0 -5px 0 0;
+padding:0px; 
+z-index: 1;
+}
+.menunav ul {
+list-style-type:none; /* Pour Firefox */
+padding:0px; 
+margin:0px; 
+}
+.menunav li {
+float:left; 
+position:relative;
+}
+
+.lisep {
+border-left: 1px solid white;
+padding: 0 5px 0 5px;
+}
+
+.linosep {
+padding: 0 5px 0 5px;
+}
+
+.menunav li a, .menunav li a:visited {
+display:block; 
+float:left; 
+height:18px; 
+}
+* html .menunav li a, .menunav li a:visited { /* hack uniquement interprété par IE6 Win+Mac  */
+height:17px; 
+}
+
+.menunav li ul {
+visibility:hidden; 
+position:absolute; 
+top:17px; 
+left:0; 
+overflow:hidden;
+}
+* html .menunav li ul{ /* hack uniquement interprété par IE6 Win+Mac  */
+top:16px; 
+}
+
+/* la première ligne est pour IE7 et les navigateurs autres que IE - La seconde ligne est pour IE5.5 et IE6 */
+.menunav li:hover ul,
+.menunav li a:hover ul {
+border-top : 1px solid #4f4f4f; /* cache la superposition nécessaire pour un bon fonctionnement du rollover */
+background:#99CB2B;  
+visibility:visible; 
+height:auto; 
+width:120px; 
+left:0; 
+overflow:visible;
+}
+
+.menunav li:hover ul li a,
+.menunav li a:hover ul li a {
+display:block; 
+height:auto; 
+border-top : 1px solid white;
+padding : 5px;
+width:110px;
+}
+
+.menunav li:hover ul li a:link, .menunav li:hover ul li a:visited,
+.menunav ul li a:link, .menunav ul li a:visited{
+color: #333333 !important;
+}
+
+.menunav li:hover ul li a:hover, 
+.menunav li a:hover ul li a:hover{
+border-right : 4px solid #990F26;
+border-left : 4px solid #990F26;
+width:106px; 
+padding-left : 1px;
+}
+
+
+;

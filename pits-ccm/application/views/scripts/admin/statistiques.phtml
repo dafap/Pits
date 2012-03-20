@@ -1,0 +1,51 @@
+<h1>Statistiques</h1>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td>
+			<h3>Liste des états disponibles</h3>
+			<table>
+			    <thead>
+			        <tr>
+			            <th width="50%">Elèves inscrits</th><th>Elèves en cours d'inscription</th>
+			        </tr>
+			    </thead>
+				<tbody>
+					<tr>
+						<td><a
+							href="<?php echo $this->link('admin', 'statparstation', null, array('filtre' => 'inscrit')); ?>">Nombre d'inscrits
+						par point d'arrêt</a></td>
+						<td><a href="<?php echo $this->link('admin', 'statparstation', null, array('filtre' => 'encours')); ?>">Nombre d'enfants en cours d'inscription par point d'arrêt</a></td>
+					</tr>
+					<tr>
+						<td><a href="<?php echo $this->link('admin', 'statparetab', null, array('filtre' => 'inscrit')); ?>">Nombre d'inscrits
+						par établissement</a></td><td><a href="<?php echo $this->link('admin', 'statparetab', null, array('filtre' => 'encours')); ?>">Nombre d'enfants en cours d'inscription par établissement</a></td>
+					</tr>
+					<tr>
+						<td><a href="<?php echo $this->link('admin', 'statparville', null, array('filtre' => 'inscrit')); ?>">Nombre d'inscrits
+						par commune</a></td><td><a href="<?php echo $this->link('admin', 'statparville', null, array('filtre' => 'encours')); ?>">Nombre d'enfants en cours d'inscription par commune</a></td>
+					</tr>
+					<!-- >tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+					</tr -->
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

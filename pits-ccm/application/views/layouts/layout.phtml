@@ -1,0 +1,63 @@
+<?php
+/*
+ * Application PiTS
+ * Dessin des pages
+ *
+ * Les classes conteneur, titre, fond sont définies dans 'structure.css'
+ * La classe fondvielocale, header et footer ne sont pas définies
+ *
+ * L'appel à partial('common/header.phtml) passe le menu déclaré dans la méthode init() du controller
+ * Le partial('common/stats.phtml') est prévu pour inclure un compteur de visites
+ */
+
+echo $this->doctype("XHTML1_TRANSITIONAL"), PHP_EOL;
+/****************************************************
+ * Attention !
+ * Mettre le doctype en premier avant quoi que ce soit 
+ * sinon les navigateurs basculent  en mode Quirks (ou
+ * mode compatibilité)  et  reproduisent  les bugs des 
+ * anciennes versions.
+ */
+echo '<html>';
+echo '<head>' . PHP_EOL;
+echo '<base href="http://' . $_SERVER['SERVER_NAME'] . $this->baseUrl() . '/" />' . PHP_EOL;
+echo $this->headMeta()
+->setHttpEquiv('Content-Type', 'text/html; charset=utf-8')
+->setHttpEquiv('Content-Style-Type', 'text/css')
+->setHttpEquiv('lang', 'fr')
+->setHttpEquiv('imagetoolbar', 'no')
+->setName('author', 'Alain Pomirol - DAFAP Informatique')
+->setName('generator', 'ZendFramework 1.10')
+->setName('language', 'fr') . PHP_EOL;
+echo $this->headLink(array('rel'  => 'favicon',
+                                 'type' => 'image/x-icon',
+                                 'href' => 'images/favicon.ico')) . PHP_EOL;
+echo $this->headTitle(isset($this->pageTitle) ? $this->pageTitle : '') . PHP_EOL;
+echo $this->headStyle()->appendStyle('@import "css/menu_deroulant.css";')
+->headStyle()->appendStyle('@import "css/structure.css";')
+->headStyle()->appendStyle('@import "css/template_css.css";')
+->headStyle()->appendStyle('@import "css/pits.css";') . PHP_EOL;
+echo $this->headScript() . PHP_EOL;
+echo '</head>' . PHP_EOL;
+
+echo '<body>' . PHP_EOL;
+echo ' <div id="conteneur">' . PHP_EOL;
+echo '  <h1 id="titre">CCM</h1>' . PHP_EOL;
+echo '  <div id="header">' . PHP_EOL;
+echo $this->partial('common/header.phtml', array('menu' => isset($this->menu) ? $this->menu : array()));
+echo '  </div>' . PHP_EOL;
+echo '  <div id="fond" class="fondvielocale">' . PHP_EOL;
+echo $this->layout()->content;
+echo '  </div>' . PHP_EOL;
+
+echo '  <div id="footer">' . PHP_EOL;
+echo $this->partial('common/footer.phtml');
+echo '  </div>' . PHP_EOL;
+echo ' </div>' . PHP_EOL;
+echo '<!-- Statistiques (comme par exemple Google Analytics) -->' . PHP_EOL;
+echo $this->partial('common/stats.phtml');
+echo '<!-- Scripts éventuels de validation -->' . PHP_EOL;
+echo $this->inlineScript();
+echo '</body>' . PHP_EOL;
+
+echo '</html>' . PHP_EOL;

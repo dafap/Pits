@@ -1,0 +1,163 @@
+<?php
+/**
+* Procédure d'inscription avec des phases successives (3 onglets)
+*
+* Phase 1 : phase d'inscription
+* Phase 2 : phase de contrôle
+* Phase 3 : phase de confirmation
+* 
+* @project PiTS CCM
+* @package application/views/scripts/parent
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 6 mars 2012
+* @version $Id: $
+*/
+function organisateur() {
+    return '<div class="organisateur" align="center">
+						Communauté de Communes de Montesquieu<br /> Service des transports
+						scolaires<br /> 1 allée Jean Rostand<br /> 33650 MARTILLAC
+					</div>';
+}
+
+$onglet1 = $onglet2 = $onglet3 = 'onglet';
+switch ($this->phase) {
+    case 1:
+        $onglet1 = 'selected';
+        break;
+    case 2:
+        $onglet2 = 'selected';
+        $this->headScript()->setFile('js/formConfirmation.js');
+        break;
+    case 3:
+        $onglet3 = 'selected';
+        $this->headScript()->setFile('js/formConfirmation.js');
+        break;
+}
+$urlAddnew = $this->link('parent', 'addneweleve', null, array('cancel' => urlencode('parent/inscrire'), 'forward' => urlencode('parent/inscrire'),));
+?>
+<h1><?php echo $this->escape($this->pageTitle); ?></h1>
+<div class="onglets">
+  <p class="description italique">Pour revenir à l'espace parent, cliquez sur <b>Mon espace</b> dans le bandeau du haut.</p>
+  <ul>
+    <li class="<?php echo $onglet1; ?>"><div>Etape 1. Inscriptions</div></li>
+    <li class="<?php echo $onglet2; ?>"><div>Etape 2. Justificatifs</div></li>
+    <li class="<?php echo $onglet3; ?>"><div>Etape 3. Confirmation</div></li>
+  </ul>
+</div>
+<table align="center" cellpadding="5" cellspacing="1">
+  <tbody>
+	<tr>
+	  <td>
+		<?php if ($this->phase == 1) : ?>
+			<div id="phase1">
+			<?php if ($this->elevesInscrits->count() > 0) : ?>
+			  <h3>Liste des enfants inscrits pour l'année scolaire <?php echo $this->anneeScolaire;?></h3>
+			  <table class="toute">
+			    <thead>
+			      <tr><th>Prénom</th><th>Nom</th><th>Date de naissance</th></tr>
+			    </thead>
+			    <tbody>
+				<?php 
+				foreach ($this->elevesInscrits as $eleve) {
+				    echo '<tr><td>' . $eleve->Prenom . '</td><td>' . $eleve->Nom . '</td><td>' . strftime('%d/%m/%Y',strtotime($eleve->DateN)) 
+				    . '</td></tr>';
+				}
+				?>  
+			    </tbody>
+			  </table>
+			<?php endif; ?>
+			<?php if ($this->elevesNonInscrits->count() > 0) : ?>
+			  <h3>Liste des enfants connus</h3>
+			  <p class="error">Attention ! Les enfants de la liste ci-dessous ne sont pas encore inscrit pour l'année scolaire <?php echo $this->anneeScolaire;?>.<br /></p>
+			  <p>Pour inscrire un enfant, cliquer sur <b>Inscrire cet enfant</b> et mettez à jour sa scolarité.</p>
+			  <table class="toute">
+				<thead>
+				  <tr><th>Prénom</th><th>Nom</th><th>Date de naissance</th><th></th></tr>
+				</thead>
+				<tbody>
+				<?php 
+				foreach ($this->elevesNonInscrits as $eleve) {
+				    $url1 = $this->link('parent','editeleve', null, array('elv' => $eleve->eleveId, 'forward' => urlencode('parent/inscrire'), 'cancel' => urlencode('parent/inscrire'),));
+				    echo '<tr><td>' . $eleve->Prenom . '</td><td>' . $eleve->Nom . '</td><td>' . strftime('%d/%m/%Y',strtotime($eleve->DateN)) 
+				    . '</td><td>' . $this->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, 'Inscrire cet enfant', 'btnliste') 
+				    . '</td></tr>';
+				}
+				?>  
+				</tbody>
+			  </table>
+			  <?php echo $this->makeButton('addnew', 'addnew', $urlAddnew, 'Inscrire un enfant qui n\'est pas dans la liste', 'btnliste', 'float:right;'); ?>
+			<?php else : ?>
+			  <?php echo $this->makeButton('addnew', 'addnew', $urlAddnew, 'Inscrire un enfant', 'btnliste', 'float:right;'); ?>  
+			<?php endif;?> 
+			<?php if ($this->eleves->count() > 0) : ?>
+			  <h3>Liste des enfants en cours d'inscription pour l'année scolaire <?php echo $this->anneeScolaire;?></h3>
+			  <p>Attention ! Pour que la procédure d'inscription soit terminée, il faut cliquer sur le bouton <b>Suite</b> et suivre les instructions.</p>
+			  <table class="toute">
+				<thead>
+				  <tr><th>Prénom</th><th>Nom</th><th>Date de naissance</th><th></th></tr>
+				</thead>
+				<tbody>
+				<?php 
+				foreach ($this->eleves as $eleve) {
+				    $params = array('elv' => $eleve->eleveId, 'forward' => urlencode('parent/inscrire'), 'cancel' => urlencode('parent/inscrire'));
+				    $url1 = $this->link('parent', 'editeleve', null, $params);
+				    $url2 = $this->link('parent', 'suppreleve', null, $params);
+				    echo '<tr><td>' . $eleve->Prenom . '</td><td>' . $eleve->Nom . '</td><td>' . strftime('%d/%m/%Y',strtotime($eleve->DateN)) 
+				    . '</td><td>' . $this->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, 'Modifier', 'btnliste') 
+				    . $this->makeButton('s' . $eleve['eleveId'], 's' . $eleve['eleveId'], $url2, 'Supprimer', 'btnliste')
+				    . '</td></tr>';
+				}
+				?>  
+				</tbody>
+			  </table>
+			  <?php echo $this->makeButton('suite2', 'suite2', $this->link('parent', 'inscrire', null, array('phase' => 2,)), 'Suite', '', 'float:right;'); ?>
+			<?php endif;?>
+			</div>
+		<?php elseif ($this->phase == 2) : ?>
+			<div id="phase2">
+			  <h3>Liste des enfants en cours d'inscription</h3>
+			  <table class="toute">
+				<thead>
+				  <tr><th>Prénom</th><th>Nom</th><th>Date de naissance</th><!-- >th></th --></tr>
+				</thead>
+				<tbody>
+				<?php 
+				foreach ($this->eleves as $eleve) {
+				    echo '<tr><td>' . $eleve->Prenom . '</td><td>' . $eleve->Nom . '</td><td>' . strftime('%d/%m/%Y',strtotime($eleve->DateN)) 
+				    . '</td></tr>';
+				}
+				?>  
+				</tbody>				
+			  </table>
+			  <p>Vous devez imprimer les justificatifs et les adresser, avec les photos d'identité et éventuellement un RIB, à</p>
+			  <?php echo organisateur(); ?>
+			  <?php echo $this->makeButton('prece2', 'prece2', $this->link('parent', 'inscrire', null, array('phase' => 1,)), 'Précédent', '', 'float:left;'); ?>
+			  <?php echo $this->makeButton('suite2', 'suite2', $this->link('parent', 'inscrire', null, array('phase' => 3)), 'Suite', '', 'float:right;'); ?>			
+			  <?php echo $this->makeButton('justif2', 'justif2', $this->link('parent', 'justificatifs'), 'Imprimer les justificatifs', '', 'float:right;'); ?>			
+			  <?php //echo $this->formButton('suite2', 'Suite', array('id' => 'suite2', 'onclick' => $this->link('parent', 'inscrire', null, array('phase' => 3)), 'style' => 'float:right;', 'disabled' => 'disabled')); ?>
+			  <?php //echo $this->formButton('justif2', 'Imprimer les justificatifs', array('id' => 'justif2', 'onclick' => 'voirsuite(\'' . $this->link('parent', 'justificatifs') . '\')', 'style' => 'float:right;')); ?>
+			</div>
+		<?php else : ?>
+			<div id="phase3">
+			  <h3>Liste des enfants en cours d'inscription</h3>
+			  <table class="toute">
+				<thead>
+				  <tr><th>Prénom</th><th>Nom</th><th>Date de naissance</th><!-- >th></th --></tr>
+				</thead>
+				<tbody>
+				<?php 
+				foreach ($this->eleves as $eleve) {
+				    echo '<tr><td>' . $eleve->Prenom . '</td><td>' . $eleve->Nom . '</td><td>' . strftime('%d/%m/%Y',strtotime($eleve->DateN)) 
+				    . '</td></tr>';
+				}
+				?>  
+				</tbody>				
+			  </table>
+			  <p>&nbsp;</p>
+			  <div class="confirmation"><?php echo $this->form; ?></div>			  			
+			</div> 
+		<?php endif; ?>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,27 @@
+<?php
+$urlBase = Zend_Controller_Front::getInstance()->getBaseUrl();
+$retour =  $urlBase . '/index';
+?>
+<h1>Annulation d'une demande de compte</h1>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td>
+			<table>
+				<tbody>
+					<tr>
+						<th>Demande d'ouverture de compte supprimée</th>
+						<td>
+						<p>La demande d'ouverture de compte que nous avions reçue vient
+						d'être annulée.</p>
+						<p align="center"><?php 
+						echo $this->makeButton('cancel', 'cancel', $retour, 'Quitter', '', 'margin-left: 80px;');
+						?></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,27 @@
+<?php
+$urlBase = Zend_Controller_Front::getInstance()->getBaseUrl();
+$retour =  $urlBase . '/index';
+?>
+<h1>Annulation d'un compte</h1>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td>
+			<table>
+				<tbody>
+					<tr>
+						<th>Demande refusée</th>
+						<td>
+						<p>Vous ne pouvez pas annuler un compte que vous avez déjà validé.
+						</p>
+						<p align="center"><?php 
+						echo $this->makeButton('cancel', 'cancel', $retour, 'Quitter', '', 'margin-left: 80px;');
+						?></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

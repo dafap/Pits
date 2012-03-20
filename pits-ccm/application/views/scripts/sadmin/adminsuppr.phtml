@@ -1,0 +1,47 @@
+<h1>Suppression d'un compte</h1>
+<table class="admin">
+	<tbody>
+		<tr>
+			<td><?php
+			if (isset($this->form)) {
+			    echo '<p>Vous avez demandé la suppression du compte de ' . $this->user->Titre;
+			    echo ' ' . $this->user->Nom . ' ' . $this->user->Prenom . '</p>';
+			    echo '<p>Confirmez-vous ?</p>';
+			    echo $this->form;
+			} else {
+			    $urlBase = Zend_Controller_Front::getInstance()->getBaseUrl();
+			    $retour =  $urlBase . '/' . $this->url;
+			    ?>
+			<table class="toute">
+				<tbody>
+					<tr>
+						<th>Demande refusée</th>
+						<td>
+						<p>Vous ne pouvez pas supprimer un compte qui a des enfants
+						inscrits.</p>
+						<table>
+							<thead>
+								<tr>
+									<td><?php echo mb_strtoupper($this->user->Nom) . ' ' . $this->formatPrenom($this->user->Prenom); ?></td>
+									<td>a inscrit les enfants suivants :</td>
+								</tr>
+							</thead>
+							<tbody>
+							<?php
+							foreach ($this->enfants as $enfant) {
+							    echo '<tr><td></td><td>' . mb_strtoupper($enfant['Nom']) . ' ' . $this->formatPrenom($enfant['Prenom']) . '</td></tr>';
+							}
+							?>
+							</tbody>
+						</table>
+						<p align="center"><?php 
+						echo $this->makeButton('cancel', 'cancel', $retour, 'Quitter', '', 'margin-left: 80px;');
+						?></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<?php } ?></td>
+		</tr>
+	</tbody>
+</table>

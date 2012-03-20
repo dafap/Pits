@@ -1,0 +1,37 @@
+<?php 
+$fileHelp = Zend_Registry::get('applicationPath') . DIRECTORY_SEPARATOR . 'languages' . DIRECTORY_SEPARATOR . 'aides.csv';
+$translate = new Zend_Translate('csv', $fileHelp, 'fr');
+sort($this->liste);
+?>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td><?php if (count($this->liste) == 0) : ?>
+			<h3>Il n'y a pas de document disponible</h3>
+			<?php else : ?>
+			<h3>Téléchargez les documents</h3>
+			<table>
+				<thead>
+					<tr>
+						<th>Liste des documents</th>
+					    <?php if (isset($this->btnSuppr)) :?>
+					    <th></th>
+					    <?php endif; ?>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($this->liste as $document) : ?>
+					<tr>
+						<td><a
+							href="<?php echo $this->urlBase . $document; ?>"><?php echo $translate->_($document); ?></a></td>
+						<?php if (isset($this->btnSuppr)) : ?>
+						<td><?php echo $this->makeButton('suppr', 'suppr', $this->link('admin', 'supprhelp', null, array('d' => $document)), 'Supprimer', 'btnliste'); ?></td>
+						<?php endif; ?>	
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+			<?php endif; ?></td>
+		</tr>
+	</tbody>
+</table>

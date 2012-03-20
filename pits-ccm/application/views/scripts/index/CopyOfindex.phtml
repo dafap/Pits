@@ -1,0 +1,94 @@
+<h1><?php echo $this->escape($this->pageTitle); ?></h1>
+<table align="center" cellpadding="5" cellspacing="1">
+<tbody>
+<tr>
+<td width="65%" valign="top" rowspan="2">
+<p id="page">
+Vous pouvez pré-inscrire vos enfants en ligne au service des transports scolaires organisé par 
+<span class="organisateur">la Communauté de Communes Montesquieu</span> 
+pour la prochaine année scolaire.
+</p>
+<p id="page">
+Consultez d'abord le <a href="<?php echo $this->link('index', 'help'); ?>">règlement du service</a>.
+</p>
+<p id="page">
+Si c'est la première fois que vous utilisez ce service cette année, vous devez créer
+ votre compte pour inscrire votre enfant. Cela nécessite de donner votre adresse email et de
+ créer votre mot de passe avec 7 caractères dont 2 chiffres. Cette identification vous permettra
+ de suivre votre dossier. Conservez la.
+</p>
+<p id="page">
+L'inscription ne sera définitive qu'après réception des pièces demandées.
+</p>
+<p id="page">
+A la fin de chaque inscription, imprimez le récapitulatif proposé et adressez en une copie avec :
+</p>
+<ul>
+<li>une photo d'identité de l'élève</li>
+<li>un relevé d'identité bancaire si vous optez pour un prélèvement automatique</li>
+</ul>
+à l'adresse :
+<div class="organisateur" align="center">
+Communauté de Communes de Montesquieu<br />
+Service des transports scolaires<br />
+1 allée Jean Rostand<br />
+33650 MARTILLAC
+</div>
+</td>
+<td valign="top">
+<h3 align="center">Connexion au service de transports scolaire</h3>
+<p align="center">(si compte internet existant)</p>
+<span class="error"><?php echo $this->errorMessage('loginForm'); ?></span>
+<form id="signIn" action="<?php echo $this->link('login', 'login'); ?>" method="post">
+<div align="center">
+<table class="login">
+<tbody>
+<tr>
+<td class="login" align="right">
+Votre email
+</td>
+<td class="login">
+<input type="text" name="email" size="18" value="" />
+</td>
+</tr>
+<tr>
+<td class="login" align="right">
+Mot de passe
+</td>
+<td class="login">
+<input type="password" name="passwd" size="18" />
+</td>
+</tr>
+<tr>
+<td class="login"></td>
+<td class="login">
+<input type="submit" name="signIn" value="Connexion" />
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</form>
+<div align="center"><a href="<?php echo $this->link('index', 'passwd'); ?>">Oubli du mot de passe ?</a></div>
+<p>&nbsp;</p>
+</td>
+</tr>
+<tr>
+<td>
+<h3 align="center">Nouvel utilisateur</h3>
+<p align="center">Vous n'avez pas de compte</p>
+<div align="center">
+<table class="login">
+<tbody>
+<tr>
+<td class="login button_gris_gauche"></td>
+<td class="login button_gris_milieu"><div class="button_link" ><a href="<?php echo $this->link('index', 'creation'); ?>">Créer un compte</a></div></td>
+<td class="login button_gris_droite"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</td>
+</tr>
+</tbody>
+</table>

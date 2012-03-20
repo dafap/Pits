@@ -1,0 +1,56 @@
+<?php
+$urlBase = Zend_Controller_Front::getInstance()->getBaseUrl();
+$retour =  $urlBase . '/index';
+?>
+<h1>
+<?php echo $this->escape($this->pageTitle); ?>
+</h1>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td>
+				<table>
+					<tbody>
+						<tr>
+							<th><?php if ($this->ok) { ?> Demande acceptée</th>
+							<td>
+								<p>Nous avons bien reçu votre demande de mot de passe.</p><p>Un
+								message contenant le nouveau mot de passe vous est immédiatement
+								envoyé à l'adresse :<br />
+								<?php echo Zend_Registry::get('email_mdp'); ?>
+								</p>
+								<p>Vous pourrez le changer après connexion au service, en
+									choisissant `modifier son compte` dans le menu.</p>
+								<p>ATTENTION, le message peut vous arriver avec un décalage dans
+									le temps. Si tel est le cas, vérifiez votre boîte mail un peu
+									plus tard dans la journée et, si besoin est, dans les tout
+									prochains jours. Il peut également être classé comme spam dans
+									votre boîte aux lettres. Si vous ne recevez pas ce mail ne
+									perdez pas patience : ce décalage est lié au fonctionnement
+									d'internet. Il est heureusement rare qu'il atteigne plusieurs
+									jours !</p>
+								<p>Merci de votre compréhension
+								 <?php } else {
+									    echo '        Demande refusée';
+									    echo '       </th>';
+									    echo '       <td>';
+									    echo '        <p>';
+									    echo '        L\'adresse que vous venez d\'indiquer est inconnue ou le compte n\'a pas été débloqué. ';
+									    echo '        Dans ce cas, veuillez consulter votre messagerie pour relire la procédure à suivre.';
+									} ?>
+								</p>
+								<p align="center">
+
+								<?php
+								echo $this->makeButton('cancel', 'cancel', $retour, 'Continuer', '', 'margin-left: 80px;');
+								?>
+
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

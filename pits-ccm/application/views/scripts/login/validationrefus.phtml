@@ -1,0 +1,38 @@
+<?php
+$urlBase = Zend_Controller_Front::getInstance()->getBaseUrl();
+$retour =  $urlBase . '/index';
+?>
+<h1>Validation d'un compte</h1>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td>
+			<table>
+				<tbody>
+					<tr>
+						<th>
+						<p>Demande refusée</p>
+						<p>Ce compte est déjà validé</p>
+						</th>
+						<td>
+						<p>Pour accéder au service, indiquez votre email et votre mot de
+						passe dans la zone de saisie de la page d'accueil.</p>
+						<p>En cas de difficulté, prenez contact avec le service :</p>
+						<p align="center">Communauté de communes de Montesquieu<br />
+						Service des transports scolaires<br />
+						1 allée Jean Rostand<br />
+						33650 MARTILLAC<br />
+						Tél. 05 57 96 79 62<br />
+						Email: transport-scolaire@cc-montesquieu.fr<br />
+						</p>
+						<p align="center"><?php 
+						echo $this->makeButton('cancel', 'cancel', $retour, 'Page d\'accueil', '', 'margin-left: 80px;');
+						?></p>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,143 @@
+<?php
+function organisateur() {
+    return '<div class="organisateur" align="center">
+						Communauté de Communes de Montesquieu<br /> Service des transports
+						scolaires<br /> 1 allée Jean Rostand<br /> 33650 MARTILLAC
+					</div>';
+}
+?>
+<h1>
+<?php echo $this->escape($this->pageTitle); ?>
+</h1>
+<h2 align="center">Accès au paiement en ligne ou aux inscriptions</h2>
+<?php if ($this->siteOuvert) : ?>
+
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+		<?php if ($this->etatInscriptions == 0) : ?>
+			<td width="65%" valign="top">
+				<div align="center">
+					<p>
+						Les inscriptions pour les transports scolaires de l'année
+						<?php echo $this->anneeScolaire; ?>
+						seront ouvertes à partir du
+						<?php echo $this->dateOuvertureInscriptions; ?>.
+					</p>
+					<p>Si nécessaire, prenez contact avec le service de la Communauté
+						de Commune de Montesquieu à l'adresse suivante :</p>
+						<?php echo organisateur(); ?>
+				</div>
+			</td>
+		<?php elseif ($this->etatInscriptions == 1) : ?>
+			<td width="65%" valign="top" rowspan="2">
+				<p>
+					<span class="organisateur">Vous avez déjà créé un compte l'année
+						précédente</span><br /> (rappel : un compte par famille)
+				</p>
+				<p>Procédez à la préinscription de chacun de vos enfants.</p>
+				<p>
+					<span class="organisateur">Vous souhaitez créer un compte :</span>
+				</p>
+				<p>Cela nécessite de donner votre adresse mail et de créer votre mot
+					de passe avec 7 caractères dont 2 chiffres. Cette identification
+					vous permettra de suivre votre dossier. Conservez-la.</p>
+				<p>
+					<span class="organisateur">Vous avez oublié votre mot de passe :</span>
+				</p>
+				<p>
+					Cliquez sur «<i>Oubli du mot de passe</i>»,un nouveau mot de passe
+					sera alors envoyé à l'adresse mail renseignée lors de la création
+					de votre compte.
+				</p>
+				<p>
+					<span class="organisateur">L'inscription ne sera définitive
+						qu'après réception des pièces demandées</span>. A la fin de chaque
+					inscription, imprimez le récapitulatif proposé et adressez le avec
+					:
+				</p>
+				<ul>
+					<li>une photo d'identité de l'élève</li>
+					<li>un relevé d'identité bancaire si vous optez pour un prélèvement
+						automatique</li>
+				</ul> à l'adresse suivante :
+				<?php echo organisateur(); ?>
+			</td>
+			<?php else : ?>
+			<td width="65%" valign="top">
+				<div align="center">
+				    <p>Les inscriptions pour les transports scolaires
+					   de l'année <?php echo $this->anneeScolaire; ?>
+                       sont closes.</p>
+                    <p>Si nécessaire, prenez contact avec le service de la Communauté
+						de Commune de Montesquieu à l'adresse suivante :</p>
+					<?php echo organisateur(); ?>
+				</div>
+			</td>
+			<?php endif; ?>
+			<td valign="top">
+				<h3 align="center">Connexion au service des transports scolaires</h3>
+				<p align="center">(si compte internet existant)</p> <span
+				class="error"><?php echo $this->errorMessage('loginForm'); ?> </span>
+				<form id="signIn"
+					action="<?php echo $this->link('login', 'login'); ?>" method="post">
+					<div align="center">
+						<table class="login">
+							<tbody>
+								<tr>
+									<td class="login" align="right">Votre email</td>
+									<td class="login"><input type="text" name="email" size="18"
+										value="" />
+									</td>
+								</tr>
+								<tr>
+									<td class="login" align="right">Mot de passe</td>
+									<td class="login"><input type="password" name="passwd"
+										size="18" />
+									</td>
+								</tr>
+								<tr>
+									<td class="login"></td>
+									<td class="login"><input type="submit" name="signIn"
+										value="Connexion" />
+									</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</form>
+				<div align="center">
+					<a href="<?php echo $this->link('index', 'passwd'); ?>">Oubli du
+						mot de passe ?</a>
+				</div>
+				<p>&nbsp;</p>
+			</td>
+		</tr>
+		<?php if ($this->etatInscriptions == 1) : ?>
+		<tr>
+			<td>
+				<h3 align="center">Nouvel utilisateur</h3>
+				<p align="center">Vous n'avez pas de compte</p>
+				<div align="center">
+					<table class="login">
+						<tbody>
+							<tr>
+								<td class="login button_gris_gauche"></td>
+								<td class="login button_gris_milieu"><div class="button_link">
+										<a href="<?php echo $this->link('index', 'creation'); ?>">Créer
+											un compte</a>
+									</div></td>
+								<td class="login button_gris_droite"></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</td>
+		</tr>
+		<?php endif; ?>
+	</tbody>
+</table>
+		<?php else : ?>
+<div style="margin-left: 20px;">Le site d'inscription aux transports
+	scolaires est actuellement fermé.</div>
+		<?php endif; ?>

@@ -1,0 +1,36 @@
+<?php
+echo '<h1>';
+echo $this->escape($this->pageTitle);
+echo '</h1>';
+echo '<p class="error">' . $this->errorMessage('sadmin') . '</p>';
+?>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td><?php if (count($this->liste) == 0) : ?>
+			<h3>Il n'y a pas de document disponible</h3>
+			<?php else : ?>
+			<h3>Editez les documents</h3>
+			<table>
+				<thead>
+					<tr>
+						<th>Liste des documents</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($this->liste as $document) : ?>
+					<tr>
+						<td><?php echo $document; ?></td>
+						<td><?php 
+						$action = $this->link('sadmin', 'editfichier'). '/f/' . $document;
+						echo $this->makeButton('voir', 'voir', $action, 'Voir', 'btnliste'); 
+						?></td>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+			<?php endif; ?></td>
+		</tr>
+	</tbody>
+</table>

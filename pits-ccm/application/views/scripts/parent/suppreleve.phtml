@@ -1,0 +1,13 @@
+<h1>Suppression d'un élève</h1>
+<table class="admin">
+	<tbody>
+		<tr>
+			<td><?php 
+			echo '<p>Vous avez demandé la suppression de l\'inscription de ';
+			echo ' ' . $this->eleve->Nom . ' ' . $this->eleve->Prenom . '</p>';
+			echo '<p>Confirmez-vous ?</p>';
+			echo $this->form;
+			?></td>
+		</tr>
+	</tbody>
+</table>

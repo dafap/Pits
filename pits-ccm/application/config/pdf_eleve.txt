@@ -1,0 +1,68 @@
+§bloc§
+Nom : §Nom§
+Prénom : §Prenom§
+§rem: -------------------------------------------------------------------------
+§rem: Lorsqu'on utilise l'instruction dateFR(format,champ) il ne faut pas mettre d'autres champs spéciaux dans la ligne
+Date de naissance : §dateFR(dd/MM/YYYY,DateN)§
+§rem: -------------------------------------------------------------------------
+Etablissement scolaire fréquenté : §NomEcole§ - §VilleEcole§
+Régime : §Regime§
+Classe : §Classe§
+Responsable légal : §TitreR1§ §NomR1§ §PrenomR1§
+Adresse : §AdressR1L1§
+          §AdressR1L2§
+          §CodePostalR1§ §NomVilleR1§
+§rem: --------------------------------------------------------------------------------------------------------
+§rem: L'instruction liste(...) doit être précédée de la définition du séparateur
+§rem: Lorsqu'on utilise l'instruction liste(...) il ne faut pas mettre d'autres champs spéciaux dans la ligne
+§separateur( - )§
+Téléphone : §liste(TelephoneR1,TelephoneR1c)§
+§rem: --------------------------------------------------------------------------------------------------------	
+Email : §EmailR1§
+Point de montée : §VilleStationR1§ - §NomStationR1§
+Tarif : §TarifLibelle§ - §TarifTarif§ €
+§finbloc§
+§rem: -------------------------------------------------------------------------------------
+§rem: Une conditionnelle if (...) ne contient rien d'autre sur la ligne
+§if (TarifPrelevement==1)§
+§rem: -------------------------------------------------------------------------------------
+§bloc§
+Relevé d'identité bancaire
+§RibBanque§ §RibAgence§ §RibCompte§ §RibCle§
+Banque : §RibDom§
+Titulaire : §RibTit§
+§finbloc§
+§rem: -------------------------------------------------------------------------------------
+§rem: L'instruction endif ne contient rien d'autre sur la ligne
+§endif§
+§rem: -------------------------------------------------------------------------------------
+§if (SecondeAdresse)§
+§bloc§
+Garde alternée
+Autre responsable légal : §TitreR2§ §NomR2§ §PrenomR2§
+Adresse : §AdressR2L1§
+          §AdressR2L2§
+          §CodePostalR2§ §NomVilleR2§
+§rem: -------------------------------------------------------------------------------------
+§rem: Ici, on utilise le même séparateur que celui défini plus haut pour la première liste
+Téléphone : §liste(TelephoneR2,TelephoneR2c)§
+Email : §EmailR2§
+Point de montée : §VilleStationR2§ - §NomStationR2§
+§finbloc§
+§endif§
+§rem: -------------------------------------------------------------------------------------
+§hr§
+§bloc§
+Adressez une copie de ce justificatif avec :
+  - une photo d'identité de l'élève
+§if (TarifPrelevement==1)§
+  - un relevé d'identité bancaire
+§endif§
+à l'adresse :
+§centre§
+Communauté de Communes de Montesquieu
+Service des transports scolaires
+1 allée Jean Rostand
+33650 MARTILLAC
+§fincentre§
+§finbloc§

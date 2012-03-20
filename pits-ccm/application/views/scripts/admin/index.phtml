@@ -1,0 +1,75 @@
+<h1><?php echo $this->escape($this->pageTitle); ?></h1>
+<?php
+$dbusr = new TUser();
+$dbelv = new TEleves();
+$db = Zend_Db_Table_Abstract::getDefaultAdapter();
+$sql = 'SELECT count(*) As NbElv FROM `eleves` INNER JOIN stations ON eleves.CodeStationR1=stations.CodeStation WHERE garder=0';
+$r =$db->fetchAll($sql);
+
+?>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td>
+			<div style="float:right;"><a href="<?php echo $this->link('parent', 'index'); ?>">Espace parent</a></div>
+			<h3>Administration du service</h3>
+			<p>Utilisez le menu pour accéder aux fonctions proposées.</p>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			<h3>Quelques chiffres</h3>
+			<table class="toute">
+				<tr>
+					<td>Nombre d'utilisateurs inscrits</td>
+					<td><?php echo $this->dbusr->userInscrits(); ?></td>
+				</tr>
+				<tr>
+					<td>Nombre de comptes bloqués</td>
+					<td><?php echo $this->dbusr->userBloque(); ?></td>
+				</tr>
+				<tr>
+					<td>Nombre de comptes validés</td>
+					<td><?php echo $this->dbusr->userValide(); ?></td>
+				</tr>
+				<tr>
+					<td>Nombre d'utilisateurs ayant inscrit des enfants</td>
+					<td><?php echo $this->dbelv->nbUserAvecEnfants(); ?></td>
+				</tr>
+				<tr>
+					<td>Nombre d'enfants inscrits</td>
+					<td><?php echo $this->dbelv->nbEnfantsInscrits(); ?></td>
+				</tr>
+				<tr>
+					<td>Nombre d'enfants en cours d'inscription</td>
+					<td><?php echo $this->dbelv->nbEnfantsEncours(); ?></td>
+				</tr>
+				<?php 
+				/*
+				 * Supprimé le 31/05/2011 (table des arrêts mise à jour)
+				 * <tr>
+				 * <td>Nombre d'enfants inscrits sur de mauvais arrêts</td>
+				 * <td><?php echo $this->nbInscritsMauvaisArrets; ?></td>
+				 * </tr>
+				 */
+				?>
+			</table>
+			<p></p>
+			<table class="toute">
+				<tr>
+					<td>Date de la dernière extraction</td>
+					<td><?php echo $this->derniereExtraction; ?></td>
+				</tr>
+				<tr>
+					<td>Date de la dernière inscription</td>
+					<td><?php echo $this->derniereCreation; ?></td>
+				</tr>
+				<tr>
+					<td>Date de la dernière modification</td>
+					<td><?php echo $this->derniereModif; ?></td>
+				</tr>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

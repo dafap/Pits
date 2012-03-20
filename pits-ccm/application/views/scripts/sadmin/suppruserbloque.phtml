@@ -1,0 +1,32 @@
+<?php
+/**
+ * Description courte du fichier
+ *
+ * Description longue du fichier s'il y en a une
+ *
+ * @project project_name
+ * @package package_name
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 19 mars 2012
+ * @version $Id: $
+ */
+
+echo '<p>&nbsp;</p>';
+echo '<table align="center" cellpadding="5" cellspacing="1">
+<tbody>
+<tr>
+<td>
+<h3>Suppression des utilisateurs dont le compte est bloqué</h3>';
+if ($this->phase == 2) {
+    echo '<p>' . $this->result . ' utilisateurs supprimés</p>';
+    echo $this->makeButton('suite', 'suite', $this->link('sadmin', 'index'), 'Continuer', 'btnliste', 'float:right;');
+} else {
+    echo '<p>Vous avez demandé de supprimer tous les utilisateurs qui ont leur compte bloqué.</p>';
+    echo '<p>Cette procédure annuelle est irréversible et ne doit être lancée qu\'au moment de la préparation de la nouvelle année scolaire.</p>';
+    echo '<p>Confirmez-vous ?</p>';
+    echo $this->form;
+}
+echo '</td>
+</tr>
+</tbody>
+</table>';

@@ -1,0 +1,23 @@
+<?php
+/**
+* Description courte du fichier
+*
+* Description longue du fichier s'il y en a une
+* 
+* @project project_name
+* @package package_name
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 14 avr. 2011
+* @version $Id: $
+*/
+$latitudelongitude = $this->baseUrl() . '/maj/latitudelongitude';
+$majnomsa = $this->link('maj', 'nomsa');
+$majcodeservice = $this->link('maj', 'majcodeservice');
+?>
+<h1>Transports scolaires - CC Montesquieu</h1>
+<h2>Menu des mises à jour</h2>
+<ul>
+<li><a href="<?php echo $latitudelongitude; ?>">Mise à jour de la table des stations</a></li>
+<li><a href="<?php echo $majnomsa; ?>">Mise à jour de la table des user</a></li>
+<li><a href="<?php echo $majcodeservice; ?>">Mise à jour des CodeService de la table eleves</a></li>
+</ul>

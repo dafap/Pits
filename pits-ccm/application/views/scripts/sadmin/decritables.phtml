@@ -1,0 +1,26 @@
+
+<?php foreach ($this->metadata as $tableName => $metadata) : ?>
+<h3>&nbsp;&nbsp;&nbsp;Table <?php echo $tableName; ?></h3>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tr>
+		<th>TABLE_NAME</th>
+		<th>COLUMN_POSITION</th>
+		<th>COLUMN_NAME</th>
+		<th>DATA_TYPE</th>
+		<th>LENGTH</th>
+		<th>DEFAULT</th>
+	</tr>
+<?php
+foreach ($metadata as $item) {
+    echo "<tr>";
+    echo "<td>" . $item['TABLE_NAME'] . "</td>";
+    echo "<td>" . $item['COLUMN_POSITION'] . "</td>";
+    echo "<td>" . $item['COLUMN_NAME'] . "</td>";
+    echo "<td>" . $item['DATA_TYPE'] . "</td>";
+    echo "<td>" . $item['LENGTH'] . "</td>";
+    echo "<td>" . $item['DEFAULT'] . "</td>";
+    echo "</tr>";
+}
+?>
+</table>
+<?php endforeach; ?>

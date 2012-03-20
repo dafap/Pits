@@ -1,0 +1,29 @@
+§bloc§
+Bonjour §Email§,
+Bienvenue au service des transports scolaires de la Communauté de Communes de Montesquieu.
+Nous avons reçu une demade d'ouverture de compte au nom de §Titre§ §Nom§ §Prenom§.
+§finbloc§
+§bloc§
+Pour éviter la création non autorisée d'un compte en votre nom, nous avons mis en place un dispositif nécessitant votre validation. 
+Si vous n'avez pas demandé à ouvrir ce compte, nous vous recommandons de suivre les instructions pour l'annuler.
+§finbloc§
+§bloc§
+CONFIRMER LE COMPTE
+Pour confirmer cette demande d'ouverture de compte, cliquez sur le lien suivant :
+    §url§/login/validation/e/§Email§/t/§temoin§
+ATTENTION : Ce lien ne fonctionnera qu'une seule fois. Par la suite, vous entrerez dans service grâce au mot de passe que vous avez choisi.    
+§finbloc§
+§bloc§
+ANNULER LE COMPTE
+Si vous n'avez pas demandé l'ouverture de ce compte avec cette adresse de messagerie et si vous souhaitez annuler cette demande, cliquez sur le lien suivant :
+    §url§/login/annulation/e/§Email§/t/§temoin§
+§finbloc§
+§bloc§
+En cas d'anomalie, merci de bien vouloir prévenir le service.
+    Communauté de communes de Montesquieu
+      Service des transports scolaires
+           1 allée Jean Rostand
+              33650 MARTILLAC
+    Tél. 05 57 96 79 62
+    Email: transport-scolaire@cc-montesquieu.fr
+§finbloc§

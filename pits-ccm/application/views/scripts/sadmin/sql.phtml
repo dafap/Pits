@@ -1,0 +1,16 @@
+<?php
+echo '<table align="center" cellpadding="5" cellspacing="1">
+<tbody>
+<tr>
+<td>
+<h3>Confirmation du lancement d\'un fichier de requêtes</h3>';
+if (isset($this->forward)) {
+    echo '<p>' . $this->message . '</p>';
+    echo $this->makeButton('cancel', 'cancel', $this->forward, 'Continuer', '', 'margin-left: 80px;');
+} else {
+    echo $this->form;
+}
+echo '</td>
+</tr>
+</tbody>
+</table>';

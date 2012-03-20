@@ -1,0 +1,227 @@
+@CHARSET "UTF-8";
+
+H1 {
+	text-align: center;
+}
+
+P#page {
+	padding-left: 10px;
+}
+
+DIV#menu-top {
+	margin-top: 10px
+}
+
+.login {
+	background: none;
+	border: hidden;
+	border-style: none;
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
+	cursor: pointer;
+}
+
+TD .button_gris_gauche {
+	background: url(../images/greybtn.png) no-repeat 0px 0px;
+	width: 10px;
+	height: 45px;
+	padding: 0px;
+}
+
+TD .button_gris_milieu {
+	background: url(../images/greybtn.png) no-repeat -10px 0px;
+	height: 45px;
+	padding: 0px;
+}
+
+TD .button_gris_droite {
+	background: url(../images/greybtn.png) no-repeat -370px 0px;
+	width: 10px;
+	height: 45px;
+	padding: 0px;
+}
+
+DIV .button_link {
+	color: black;
+	font-size: 1.17em;
+	font-weight: bold;
+	padding: 0px 7px;
+	text-align: center;
+	text-decoration: none;
+	white-space: nowrap;
+}
+
+.organisateur {
+	font-weight: bold;
+}
+
+.error {
+	color: red;
+	font-weight: bold;
+}
+
+dl {
+	width: 40em;
+	border: 1px solid #FFF;
+	margin: 1em;
+}
+
+dt {
+	width: 20em;
+	float: left;
+	font-weight: bold;
+	margin: 6px;
+}
+
+.invisible {
+	display: none;
+}
+
+#paginationControl {
+	text-align: center;
+	margin-top: 10px;
+}
+
+#paginationControl .disabled {
+	color: grey;
+}
+
+#paginationControl .current {
+	color: red;
+}
+
+table.admin{
+	width: 95%;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 5px;
+	border-spacing: 1px;
+	border-collapse: collapse;
+}
+
+table.toute {
+	width: 100%;
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px 2px;
+	border-style: solid;
+	border-color: #F79911;
+	border-collapse: collapse;
+	background-color: white;
+	line-height: 2.5ex;
+	font-size: 10px !important;
+}
+
+td.fonddansform {
+	padding: 2px;
+	border: 1px inset white;
+	background-color: #FFD18F;
+}
+
+.btnliste {
+	font: bold 90% Verdana, 'Bitstream Vera Sans', Helvetica, sans-serif;
+}
+
+p.description {
+	margin: 0em 0px;
+}
+p.italique {
+	font-style:italic;
+}
+p.h3 {
+	font-size:117%;
+	font-weight:bold;
+}
+
+#fond {
+	float: left;
+}
+
+/* **************** ajout du 6 mars 2012 **************** */
+div.onglets {
+	width:80%;
+	font-size:93%;
+	overflow:hidden;
+	margin-top:20px;
+	margin-left:auto;
+	margin-right:auto;
+	padding:0;
+}
+div.onglets ul {
+	margin:0;
+	padding:0;
+	list-style:none;
+}
+div.onglets li {
+	float:left;
+}
+div.onglets li div {
+	background:#ffeec5;
+	padding-left:3px;
+	padding-right:3px;
+	padding-bottom:0;
+	padding-top:3px;
+	border-top:1px solid #f79911;
+	border-left:1px solid #f79911;
+	border-right:1px solid #f79911;
+	height:23px;
+	-moz-border-radius:6px 6px 0 0;
+	-webkit-border-radius:6px 6px 0 0;
+	border-radius:6px 6px 0 0;
+}
+div.onglets li.selected div {
+	background:#ffd18f;
+	font-weight:bold;
+}
+div.confirmation dl {
+	width:90%;
+	margin-left:auto;
+	margin-right:auto;
+	border:0;
+}
+div.confirmation dt {
+	font-weight:normal;
+	float:left;
+	width:45em;
+}
+div.confirmation dd {
+	font-weight:normal;
+	float:left;
+}
+div.confirmation dt.dt100 {
+	width:100%;
+}
+div.labelADroite {
+	overflow:hidden;
+}
+div.confirmation p.label {
+	font-size: 1.1em;
+	font-style: italic;
+	padding-left:83px;
+	margin-top:0;
+	line-height:1.5em;
+}
+tr.noir td {
+	/*color:black;*/
+}
+tr.rouge td {
+	color:#B82010;
+}
+tr.jaune td {
+	color:#AE642D;
+}
+tr.vert td {
+	color:green;
+}
+tr.barre td {
+	text-decoration:line-through;
+}
+button.rouge {
+	background-color:#B82010;
+}
+button.jaune {
+	background-color:#AE642D;
+}
+button.vert {
+	background-color:green;
+}

@@ -1,0 +1,834 @@
+html, body, .mceContentBody { 
+font-family: Verdana,"Bitstream Vera Sans", Helvetica, sans-serif;
+font-size: 85%;
+line-height:2.5ex;
+color: #494949; 
+}
+* html, body, mceContentBody {
+font-size: 83%;
+}
+.mceContentBody div{ 
+margin: 0px;
+padding: 0px;
+}
+div#contenu, .mceContentBody{
+text-align: justify; 
+}
+div#contenu p, div#float-wrapper p, .mceContentBody p, div#contenu .module p {
+    line-height:2.5ex;
+    padding-top: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding-bottom: 5px;
+    margin: 0px;
+    color: #494949; 
+}
+
+
+/* Titres et sous titres */
+
+H1 {
+    vertical-align: bottom;
+    line-height:1em;
+}
+div#fond2 h2 { 
+    color: #990F26;
+    font-size: 13px;
+    line-height:25px;
+    border-bottom: 1px solid #BAB9B9;
+}
+div#fond2 div#contenu h3, .mceContentBody h3, .module h3, .moduletransparent h3 { 
+    background-color: #990F26;
+    padding : 0 2px 0 2px;
+    color : white;
+    font-size: 10px;
+    font-weight: bold ;
+    line-height:20px;
+    text-align : left;
+}
+div#menuGauche h3 {
+    background-color: #F79910;
+}
+div#plan H3{ 
+    font-size: 1.0em;
+    font-weight: normal ;
+    background : none;
+    border : 1px solid #890857;
+    line-height:1.5em;
+    margin-bottom :5px;
+}
+.fondenvironnement div#contenu h2 {
+    color: #0D6F12 !important;
+    border-bottom: 1px solid #ffffff !important;
+}
+.fondenvironnement div#contenu h3 {
+    color: #0D6F12 !important;
+    background-color: #99CB2A !important;
+}
+
+/* Liens globaux */
+
+div#float-wrapper a:link, div#piedpage a:link{
+   font-weight: bold;
+   font-size: 0.9em;
+   text-decoration: none;
+}
+div#float-wrapper a:visited, div#piedpage a:visited{
+   font-weight: bold;
+   font-size: 0.9em;
+    text-decoration: none;
+}
+div#float-wrapper a:hover, div#piedpage a:hover{
+   font-weight: bold;
+   font-size: 0.9em;
+   text-decoration: underline;
+}
+div#fond2 div#float-wrapper a:link{
+   color: #F75810;
+}
+div#fond2 div#float-wrapper a:visited{
+   color: #F75810;
+}
+div#fond2 div#float-wrapper a:hover{
+   color: #F75810;
+}
+.fondenvironnement div#contenu a:link{
+   color: #0D6F12 !important;
+}
+.fondenvironnement div#contenu a:visited{
+   color: #0D6F12 !important;
+}
+.fondenvironnement div#contenu a:hover{
+   color: #139F19 !important;
+}
+
+/* Liens pied de page */
+
+div#piedpage a, div#piedpage a:link {
+    font-size: 10px;
+    color: #991226;
+    border-bottom: none;
+    padding-left : 10px;
+}
+div#piedpage a:visited {
+    font-size: 10px;
+    color: #991226;
+    border-bottom: none;
+}
+div#piedpage a:hover {
+    font-size: 10px;
+    color: #F75810;
+    border-bottom: none;
+}
+
+.fondpiedpageEnv a, .fondpiedpageEnv a:link {
+    color: #0D6F12 !important;
+}
+.fondpiedpageEnve a:visited {
+    color: #0D6F12 !important;
+}
+.fondpiedpageEnv a:hover {
+    color: #139F19 !important;
+}
+
+
+label, .mceContentBody label {
+    font-size: 1.1em;
+    font-style: italic;
+}
+
+legend { 
+   font-weight: bold;
+    color: #990F26!important;
+    font-size: 13px!important;
+    line-height:25px!important;
+}
+
+fieldset{
+    margin: 10px;
+    padding: 10px;
+    border: 2px solid #F79910;
+}
+
+
+
+div#piedpage a:link{
+   color: #494949;
+}
+div#piedpage a:visited{
+   color: #494949;
+}
+div#piedpage a:hover{
+   color: #494949;
+}
+
+div#fond2 div#menuGauche  ul {
+    list-style-type : none;
+    margin: 0px;
+    padding: 0px;
+    text-indent: 0px;
+    list-style-position: outside ;
+}
+
+div#fond2 div#menuGauche ul li {
+    list-style-type : none;
+    margin: 0px;
+    padding-left: 0px;
+    text-indent: 0px;
+    list-style-position: outside ;
+    line-height: 20px;
+    border-bottom: 1px dashed #99C72A;
+}
+div#fond2 div#menuGauche ul li ul li {
+    list-style-type: none;
+    background-image: url(../images/puce_orange.gif);
+    background-repeat: no-repeat;
+    background-position: 0 0.5em;
+    padding-bottom: 5px;
+    padding-left: 15px;
+    margin-left: 10px;
+    line-height: 15px;
+    list-style-position: outside;
+    border-bottom: none;
+}
+div#fond2 div#menuGauche ul li ul li ul li{
+    background-image: url(../images/puce_orange2.gif);
+    padding-left: 5px;
+    margin-left: 6px;
+    line-height: 12px;
+}
+div#fond2 div#menuGauche { 
+    padding-top: 15px;
+    font-size: 10px;
+    text-decoration: none;
+    font-weight: normal;
+    line-height: 10px;
+}
+div#fond2 div#menuGauche .module p, .moduletransparent p { 
+    padding : 0 0 0 2px;
+    text-decoration: none;
+    font-weight: normal;
+}
+div#fond2 div#menuGauche a:link, div#fond2 div#menuGauche a:visited { 
+    color: #4F4F4F;
+    padding : 0 0 0 2px;
+    text-decoration: none;
+    font-weight: normal;
+}
+div#fond2 div#menuGauche a:hover { 
+    color: #4F4F4F;
+    padding : 0 0 0 2px;
+    text-decoration: underline;
+    font-weight: normal;
+}
+
+select, option {
+font-family: Verdana,"Bitstream Vera Sans", Helvetica, sans-serif;
+font-size: 11px;
+color: #494949; 
+}
+.contactlist {
+font-size: 11px;
+}
+
+.contactoption1 {
+background-color: #FFFFFF;
+color: #494949;
+}
+.contactoption2 {
+background-color: #D5EF95;
+color: #494949;
+}
+
+   
+div#contenu ul, .mceContentBody ul {
+    padding:0;
+    margin:0;     
+}
+div#contenu ul li,  .mceContentBody ul li{
+    list-style-type:none;
+    background-image:url(../images/puce_triangle.gif);
+    background-repeat: no-repeat; 
+    background-position: 0 0.5em;
+    padding-bottom:5px;
+    padding-left:15px;
+    margin-left : 10px;
+    list-style-position: outside ;
+}
+
+.contenuenvironnement ul li {
+    background-image:url(../images/puce_triangle_env.gif) !important;
+}
+
+
+div#plan ul li {
+    padding-bottom:0px;
+    padding-left:0;
+    margin-left : 0;
+}
+div#plan {
+    text-indent:15px;
+}
+div#contenu ul ul li , .mceContentBody ul ul li{
+    list-style-position: outside ;
+}
+
+#pathway {
+    text-align: right;
+    font-size: 10px;
+    padding-left : 5px;
+    }
+#pathway a:link, #pathway a:visited,#pathway a:hover {
+color : #990F26 !important;
+}
+div#menuGauche .module {
+    background-color: #FFD18F;
+    margin :0 0 10px 0;
+    padding : 0px;
+    font-size: 10px;
+    line-height: 15px;
+} 
+.moduletransparent {
+    background-color: #none;
+    padding :0px;
+    margin : 0px;
+    font-size: 10px;
+    line-height: 15px;
+} 
+div#menuGauche .mainlevel{
+    margin : 0px;
+    text-align: left;
+    font-size: 10px;
+    line-height: 15px;
+    display: none;
+} 
+a.mainlevel:link,  a.mainlevel:visited {
+    font-size: 10px;
+    font-weight: bold;
+    color: #CF7A0C;
+    text-decoration: none;
+    border-bottom: none;
+    
+ }
+a.mainlevel:hover {
+    font-size: 10px;
+    border-bottom: none;
+    text-decoration: none;
+    color: #ff9900;
+ }
+
+div#plan a:link,div#plan a:visited,div#plan a:hover{
+font-weight: normal;
+}
+    
+div#colonneDroite .module div{
+    padding : 5px;
+    }
+
+    
+div#colonneDroite .moduleblanc{
+    border: none;
+    line-height:12px;
+    margin-bottom : 20px;
+    margin-right : 3px;
+    padding : 1px;
+    }
+
+div#fond2 div#colonneDroite .module{
+    border: 1px solid #538413;
+    line-height:12px;
+    margin-bottom : 20px;
+    margin-right : 3px;
+    padding : 1px;
+    }
+
+    
+div#fond2 div#colonneDroite .module H3 {
+    background-color: #E1E529;
+    vertical-align:middle;
+    font-size: 10px;
+    text-align: left;
+   line-height: 15px;
+    margin: 0 0 5px 0;
+    font-weight: bold;
+    border : none;
+    padding : 5px;
+    }
+
+   
+.inputbox {
+    font-family: Verdana,"Bitstream Vera Sans", Helvetica, sans-serif;
+   font-size: 10px;
+    background: #EEEDED;
+    padding-bottom: 1px;
+	border: 1px solid #4F4F4F;
+    margin-top : 5px;
+    margin-bottom : 5px;
+}
+ .button {
+	color: #ffffff; 
+    font-weight: bold;
+	text-align: center;
+	font-size: 10px;
+    cursor: pointer;
+	background: #4F4F4F;
+	padding-bottom: 1px;
+	border: 1px solid #4F4F4F;
+    margin-top : 5px;
+    margin-bottom : 5px;
+	}
+
+hr {
+border-top: 1px solid #AF71A9;/*the border*/
+width: 100%;
+height: 1px;/*whatever the total width of the border-top and border-bottom equal*/
+} 
+
+
+div#colonneDroite .module, div#menuGauche .module, .moduletransparent{
+        font-size: 1.0em;
+}
+.pagetext {
+visibility: hidden;
+display: none;
+position: relative;
+top: 0;
+}
+/* for modifying {moscode} output.  Don't set the colour! */
+.moscode {
+background-color: #f0f0f0;
+}
+/* Text passed with mosmsg url parameter */
+.message {
+font-weight: bold;
+color : #FF9900 ;
+text-align: center;
+}
+.mosformerror {
+font-weight: bold;
+color : red;
+}
+/* Mise en page page d'accueil */
+#accueilHaut{
+}
+#accueilGauche{
+width : 197px;
+padding : 10px;
+float : left;
+}
+#accueilDroite{
+width : 197px;
+padding : 10px;
+float : right;
+}
+.imggauche {
+float:left;
+margin-right: 15px;
+}
+.imgdroite {
+float:right;
+margin-left: 15px;
+}
+.encadrement {
+padding : 5px;
+border : silver 1px solid; 
+background-color : white;
+}
+
+.imgdroiteencadrement {
+float:right;
+margin-left: 15px;
+margin-bottom: 10px;
+padding : 5px; 
+border : silver 1px solid; 
+background-color : white;
+}
+
+.imggaucheencadrement {
+float:left;
+margin-right: 15px;
+margin-bottom: 10px;
+padding : 5px; 
+border : silver 1px solid; 
+background-color : white;
+}
+
+.surligne {
+background-color: #F5FF5C;
+}
+.gras {
+font-weight: bold;
+}
+.italique {
+font-style: italic;
+}
+
+div#menu-top, div#menu-top a:link, div#menu-top a:visited{
+    color: white;
+    text-decoration: none;
+}
+
+div#menu-top a:hover{
+    color: #99CB2B;
+    text-decoration: none;
+}
+
+.boutonrechercher {
+	width: 15px;
+	border : 0;
+    float: right;
+    cursor: pointer;
+	height: 15px;
+    }
+
+.inputrechercher {
+    font-size: 10px;
+    background: #EEEDED;
+	border: 1px solid #4F4F4F;
+    padding: 0 0 0 1px;
+    margin: 0px;
+    float: left;
+    text-align: left;
+}
+
+.ulenvironnement {
+background-color: #C5DD5D !important;
+}
+.aenvironnement:hover {
+color: #C5DD5D !important;
+}
+.bordureenvironnement {
+border-color: #C5DD5D !important;
+}
+
+.ulcommunaute {
+background-color: #E1576E !important;
+}
+.acommunaute:hover {
+color: #E1576E !important;
+}
+.bordurecommunaute {
+border-color: #E1576E !important;
+}
+
+.ulsolidarite {
+background-color: #49CDF0 !important;
+}
+.asolidarite:hover {
+color: #49CDF0 !important;
+}
+.borduresolidarite {
+border-color: #49CDF0 !important;
+}
+
+.ulvielocale {
+background-color: #DDB55D !important;
+}
+.avielocale:hover {
+color: #DDB55D !important;
+}
+.bordurevielocale {
+border-color: #DDB55D !important;
+}
+
+.uljeunesse {
+/* background-color: #FFD92C !important; */
+background-color: #FFA92F !important;
+}
+.ajeunesse:hover {
+color: #FFA92F !important;
+}
+.bordurejeunesse {
+/*border-color: #FFD92C !important;*/
+border-color: #FFA92F !important;
+}
+
+.menunav li:hover ul.uleconomie li  a:link, .menunav li:hover ul.uleconomie li  a:visited, .menunav li:hover ul.uleconomie li  a:hover  {
+color: #00456B !important;
+}
+.uleconomie {
+background-color: #92c3d9 !important;
+}
+.aeconomie:hover {
+color: #92c3d9 !important;
+}
+
+form#formrechercheentreprise {
+background: #A7BBDF url(../images/fond_form_entreprises.jpg) no-repeat center center;
+border: none;
+text-align: left;
+color: #333333;
+}
+form#formrechercheextranet {
+border: none;
+text-align: left;
+color: #333333;
+}
+form#formrechercheasso{
+background: #A7BBDF url(../images/fond_form_asso.jpg) no-repeat center center;
+border: none;
+text-align: left;
+color: #333333;
+}
+form#formrechercheentreprise table td, form#formrechercheasso table td, form#formrechercheextranet table td{
+padding: 5px;
+}
+.moduleterritoire {
+   color: #FFFFFF ;
+   line-height: 20px;
+   padding-left: 5px;
+}
+
+.moduleterritoire .mainlevel, .agenda1 .mainlevel{
+   display: block !important;
+}
+
+.moduleterritoire a.mainlevel:link,  .agenda1 a.mainlevel:link,  .moduleterritoire a.mainlevel:visited, .agenda1 a.mainlevel:visited, .moduleterritoire a.mainlevel:hover, .agenda1 a.mainlevel:hover, .moduletourisme a:link, .moduletourisme a:visited, .moduletransports a:hover, .moduletransports a:link, .moduletransports a:visited, .moduletransports a:hover,.moduleaerodrome a:hover, .moduleaerodrome a:link, .moduleaerodrome a:visited, .moduleaerodrome a:hover, .modulecontacteco a:hover, .modulecontacteco a:link, .modulecontacteco a:visited,{
+    color: #990F26 !important;
+    font-weight: bold !important;
+       padding-left: 0px !important;
+ }
+
+ .moduleterritoire h3 {
+    padding: 23px 0 0 0;
+    overflow: hidden;
+    background: url("../images/titre_territoire.gif") no-repeat top right;
+    background-repeat: no-repeat;
+	margin-top:10px;	
+	margin-bottom:0px;	
+	margin-left:0px;	
+	margin-right:0px;	
+    width: 160px;
+    line-height:0px;
+    font-size:0px;
+    color: #F79910;
+    height: 0px !important; /* for most browsers */
+    height /**/:23px; /* for IE5.5's bad box model */
+}    
+div#agenda3 h3 {
+    margin-bottom:0px!important; 
+    padding-bottom:0px!important; 
+    color: #990F26!important; 
+    background-color : #EEEDED!important; 
+    display: block!important; 
+}
+.agenda1 {
+    line-height:11px;
+}
+.moduleplanningdechets p {
+    padding : 0 5px 5px 20px;
+    margin : 0;
+    font-size:10px;
+    line-height:12px;
+}
+.moduleplanningdechets a:link, .moduleplanningdechets a:visited{
+font-weight: bold!important; 
+color: #990F26!important; 
+text-decoration: none!important; 
+}
+
+.moduleplanningdechets a:hover{
+text-decoration: none!important; 
+color: #F75810!important; 
+}
+#rechercher .module {
+line-height:14px;
+}
+#rechercher .module a:link, #rechercher .module a:visited{
+font-weight: bold!important; 
+font-size:10px;
+color: #FFFFFF!important; 
+text-decoration: none!important; 
+}
+
+#rechercher .module a:hover {
+text-decoration: underline!important; 
+}
+
+
+blockquote {
+    padding-top : 0;
+    padding-bottom : 0;
+    margin-top : 0;
+    margin-bottom : 0;
+}
+table {
+    width : 80%;
+	border-width: 2px 2px 2px 2px;
+	border-spacing: 2px 2px;
+	border-style: solid;
+	border-color: #F79911;
+	border-collapse: collapse;
+	background-color: white;
+    line-height:2.5ex;
+   font-size: 10px!important;
+}
+.annuaireExtranet {
+    width : 100%;
+}
+td {
+    padding: 2px;
+    border: 1px inset white;
+    background-color: #FFD18F;
+    /* text-align : left; */
+}
+.annuaireExtranet td{
+    vertical-align: top !important;
+	background-color: #FFEFAF !important;
+}
+
+th{
+    padding: 2px;
+    border: 1px inset white;
+    background-color: #990F26;
+    color : white;
+    text-align : center;
+}
+.annuaireExtranet th{
+    text-align : left;
+}
+
+form table {
+    width : 100%;
+    border : none;
+    background: none;
+}
+form td, form th {
+    padding: 0px;
+    border: none;
+    background: none;
+    text-align : left;
+    color : #494949;
+}
+
+.annonces, .annonces table, .annonces tr, .annonces th, .annonces td {
+    border-color: white;
+    background-color: white;
+}  
+.tableauRechEntr1 {
+    background: #E0E5EF!important;
+    color: #333333!important;
+    text-align: left!important;
+}
+.tableauRechEntr2 {
+    color: #333333!important;
+    text-align: left!important;
+}
+.tableauRechAsso1 {
+    background: #E8CD90!important;
+    color: #333333!important;
+    text-align: left!important;
+}
+.tableauRechAsso2 {
+    color: #333333!important;
+    text-align: left!important;
+}
+.bddentreprises, .bddassociations {
+    width : 100%;
+    border : none;
+    background: none;
+}
+
+.bddentreprises th, .bddentreprises td, .bddassociations th, .bddassociations td, {
+    border: none;
+    background: none;
+    text-align : left;
+}
+.moduletourisme h3{
+   background: none !important;
+   color: white;
+   font-size: 10px;
+   padding: 4px;
+}
+.moduleaerodrome h3{
+   background: none !important;
+   color: white;
+   font-size: 10px;
+   padding: 4px;
+}
+.moduleespacemairie h3{
+   color: #FFFFFF;
+   font-size: 10px!important;
+   height: 20px!important;
+   padding: 2px!important;
+   margin: 0 0 5px 0 !important;
+}
+.moduleespacemairie .mainlevel{
+   background: url(../images/cadenas.gif) no-repeat top right;
+   padding: 2px 15px 2px 2px !important;
+   height: 20px!important; /* correctif 21/01/2010 */
+   line-height: 10px!important; /* correctif 21/01/2010 */
+   display: block !important;
+  }
+.moduleespacemairie .sublevel{
+   color: #DF8300!important;
+   font-size: 9px!important;
+   padding: 4px 0px 0px 2px !important;
+   height: 15px!important;
+   line-height: 10px!important;
+   display: block !important;
+  }
+
+.moduleespacemairie ul li {
+   height: 15px!important;
+   border: none!important;
+   line-height: 10px!important;
+  }
+.moduletransports h3{
+   background: none !important;
+   color: white;
+   font-size: 10px;
+   padding: 4px;
+}
+.modulecontacteco h3{
+   background-color: #7991BF !important;
+   color: white;
+   font-size: 10px;
+}
+
+/* Formulaire de réservation de matériel */
+
+#formulaire_resa  {
+	position:relative; 
+	z-index:1; 
+	}
+#formulaire_resa fieldset {
+	border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px;
+	}
+#formulaire_resa .inputbox {
+	border-radius:3px; -moz-border-radius:3px; -webkit-border-radius:3px;
+	}
+#formulaire_resa .message {
+	margin-bottom:10px; 
+	padding:5px;
+	}
+#formulaire_resa .success {
+	color:#4F8A10; 
+	border:1px solid #4F8A10; 
+	background:#DFF2BF;
+	}
+#formulaire_resa .error {
+	color:#D8000C; 
+	border:1px solid #D8000C; 
+	background:#FFBABA;
+	text-align: left;
+	padding-left: 20px;
+	}
+#formulaire_resa button {
+	width:auto; 
+	margin-bottom:0; 
+	padding:3px 30px; 
+	cursor:pointer; 
+	font-size:16px; 
+	border:1px solid #999; 
+	border-bottom-width:2px; 
+	border-radius:5px; 
+	-moz-border-radius:5px; 
+	-webkit-border-radius:5px; 
+	background:#EEE;
+	}
+#formulaire_resa button:active {
+	border-bottom-width:1px; 
+	padding:4px 30px 3px; 
+	background:#E9E9E9;
+	}

@@ -1,0 +1,71 @@
+<?php 
+$urlRelance = $this->link('admin', 'relanceuser');
+?>
+<table class="admin">
+	<tbody>
+		<tr>
+			<td><?php if ($this->users->count() == 0) : ?>
+			<h3>Il n'y a pas d'utilisateur inscrit</h3>
+			<?php else : ?>
+			<h3>Liste des utilisateurs inscrits
+			<?php echo $this->makeButton('relance', 'relance', $urlRelance, 'Liste des utilisateurs sans enfant inscrit', 'btnliste','float:right;');?>
+			</h3>
+			<table class="toute">
+				<thead>
+					<tr>
+						<th>Utilisateur<br />
+						Email</th>
+						<th>Adresse</th>
+						<th>Localité</th>
+						<th>Téléphones</th>
+						<th>Etat</th>
+						<th>Mot de passe</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+				$tuser = new TUser();
+				$televes = new TEleves();
+				foreach ($this->users as $user) {
+				    $url1 = $this->link('admin','debloque') . '/u/' . $user['userId'] . '/p/' . $this->page;
+				    $url2 = $this->link('admin','changemdp') . '/u/' . $user['userId'] . '/p/' . $this->page;
+				    $url3 = $this->link('admin','suppruser') . '/u/' . $user['userId'] . '/p/' . $this->page;
+				    $url4 = $this->link('admin','voirenfants') . '/u/' . $user['userId'] . '/p/' . $this->page;
+				    $user1 = $tuser->find($user['userId'])->current();
+				    $commune = $user1->findParentTVilles()->Nom;
+				    //$enfants = $user1->findTEleves();
+				    $etat = $televes->couleur($user['userId']);
+				    $nbEnfants = $etat['connus']; //count($enfants);
+				    ?>
+					<tr class="<?php echo $etat['couleur']; ?>">
+						<td><?php echo $user['Titre'] . ' ' . mb_strtoupper($user['Nom']) . ' ' . $this->formatPrenom($user['Prenom']) . '<br />' . $user['Email']; ?></td>
+						<td><?php echo $this->formatAdresse($user['AdresseL1']) . '<br />' . $this->formatAdresse($user['AdresseL2']); ?></td>
+						<td><?php echo $commune; ?></td>
+						<td><?php echo $user['Telephone'] . '<br />' . $user['TelephoneC']; ?></td>
+						<td><?php if ($user['bloque'] == 1) {
+						    echo $this->makeButton('v' . $user['userId'], 'v' . $user['userId'], $url1, 'Validation', 'btnliste');
+						} else {
+						    echo 'Compte validé'; 
+						}?></td>
+						<td><?php if ($user['bloque'] == 0) { 
+						    echo $this->makeButton('m' . $user['userId'], 'm' . $user['userId'], $url2, 'Changer', 'btnliste');
+						}?></td>
+						<td align="center"><?php if ($nbEnfants == 0) { 
+						    echo $this->makeButton('s' . $user['userId'], 's' . $user['userId'], $url3, 'Supprimer', 'btnliste');
+						} else {
+						    echo $this->makeButton('e' . $user['userId'], 'e' . $user['userId'], $url4, $nbEnfants . ($nbEnfants > 1 ? ' enfants' : ' enfant'), 'btnliste ' . $etat['couleur']);
+						}?></td>
+					</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+			<!-- Pagination display --> <?php echo $this->users; ?> <?php endif ?></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr align="center">
+			<td><?php echo $this->form; ?></td>
+		</tr>
+	</tfoot>
+</table>

@@ -1,0 +1,110 @@
+<?php
+function is_edit($ligne)
+{
+    global $view;
+    $ligne = trim($ligne);
+    if (empty($ligne) || preg_match('/^;/',$ligne) || preg_match('/^\[/',$ligne) || !strpos($ligne,'=')) return false;
+    return true;
+}
+function laligne($ligne, $numligne)
+{
+    global $view;
+    $action = $view->link('sadmin', 'editfichier') . '/f/' . $view->document . '/l/' . $numligne;
+    // lignes à afficher
+    if (!is_edit($ligne)) {
+        // ligne sur 2 colonnes et dernière colonne vide
+        return '<td colspan="2" height="16">' . $ligne . '</td><td></td>';
+    } elseif ($numligne != $view->editligne) {
+        // ligne sur 2 colonnes et bouton dans dernière colonne
+        return '<td colspan="2">' . $ligne . '</td><td>' .
+        $view->makeButton('voir', 'voir', $action, 'Editer', 'btnliste') .
+        '</td>';
+    }
+    // ligne à éditer
+    $ligne = explode('=', $ligne, 2);
+    $val = $view->formText('v', $ligne[1], array('size' => '40'));
+    $cle = $view->formHidden('c', $ligne[0]);
+    $submit = $view->formSubmit('submit', 'Enregistrer', array('class' => 'btnliste'));
+    $form = $view->form('modif', array('action' => $action, 'method' => 'post'), $val . $cle . $submit);
+    return '<td>' . $ligne[0] . ' =</td><td>' . $form . '</td><td></td>';
+}
+function montextarea()
+{
+    global $view;
+    $action = $view->link('sadmin', 'editfichier') . '/f/' . $view->document;
+    $val = $view->formTextarea('t', $view->liste);
+    $submit = $view->formSubmit('submit', 'Enregistrer', array('class' => 'btnliste'));
+    $cancel = $view->formButton('cancel', 'Abandonner', array('class' => 'btnliste','onclick' => 'window.location.href="' . $view->link('sadmin', 'editconfig') . '";'));
+    return $view->form('modif', array('action' => $action, 'method' => 'post'), $val . '<br />' . $cancel . ' ' . $submit);
+}
+// variables de la page
+$view = $this; // globale
+$numligne = 0;
+if ($this->extension == '.ini') {
+    /* *******************************************************************************
+     * Début du script de la page pour un fichier ini
+     */
+    echo '<h1>';
+    echo $this->escape($this->pageTitle);
+    echo '</h1>';
+    if (!empty($this->messageError)) {
+        echo '<p class="error">' . $this->messageError . '</p>';
+    }
+    ?>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td><?php if (count($this->liste) == 0) : ?>
+			<h3>Le document <?php echo $this->document; ?> est vide !</h3>
+			<?php else : ?>
+			<h3>Document <?php echo $this->document; ?></h3>
+			<table class="toute">
+				<thead>
+					<tr>
+						<th></th>
+						<th colspan="2">Contenu du document</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($this->liste as $ligne) : ?>
+					<tr>
+						<td><?php echo ++$numligne; ?></td>
+						<?php echo laligne($ligne, $numligne); ?>
+					</tr>
+					<?php endforeach; ?>
+				</tbody>
+			</table>
+			<?php endif; ?></td>
+		</tr>
+	</tbody>
+</table>
+			<?php
+} else {
+    /* *******************************************************************************
+     * Début du script de la page pour un fichier txt
+     */
+    echo '<p class="error">' . $this->messageError . '</p>';
+    ?>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td>
+			<h3>Document <?php echo $this->document; ?></h3>
+			<table class="toute">
+				<thead>
+					<tr>
+						<th>Contenu du document</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td><?php echo montextarea(); ?></td>
+					</tr>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>
+    <?php } ?>

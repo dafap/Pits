@@ -1,0 +1,51 @@
+<?php
+$urlBase = Zend_Controller_Front::getInstance()->getBaseUrl();
+$retour =  $urlBase . '/index';
+?>
+<h1>
+<?php echo $this->escape($this->pageTitle); ?>
+</h1>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td>
+				<table>
+					<tbody>
+						<tr>
+							<th>Demande d'ouverture de compte enregistrée</th>
+							<td>
+								<p>Nous avons bien reçu votre demande d'ouverture de compte.</p>
+								<p>
+									Un message de validation vous est immédiatement envoyé à
+									l'adresse:<br />
+									<?php echo Zend_Registry::get('email_mdp'); ?>
+								</p>
+								<p>
+									IMPORTANT : <b>Ouvrez votre messagerie.</b> CE MAIL QUE VOUS
+									ALLEZ RECEVOIR COMPORTE UN LIEN DE VALIDATION : <b>VOUS DEVREZ
+									CLIQUER sur ce lien POUR ACTIVER VOTRE COMPTE.</b> Sinon, vous ne
+									pourrez pas vous connecter.
+								</p>
+								<p>ATTENTION, le message peut vous arriver avec un décalage dans
+									le temps. Si tel est le cas, vérifiez votre boîte mail un peu
+									plus tard dans la journée et, si besoin est, dans les tout
+									prochains jours. Il peut également être classé comme spam dans
+									votre boîte aux lettres. Si vous ne recevez pas ce mail ne
+									perdez pas patience : ce décalage est lié au fonctionnement
+									d'internet. Il est heureusement rare qu'il atteigne plusieurs
+									jours !</p>
+								<p>Merci de votre compréhension</p>
+								<p align="center">
+								<?php
+								echo $this->makeButton('cancel', 'cancel', $retour, 'Continuer', '', 'margin-left: 80px;');
+								?>
+
+								</p>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

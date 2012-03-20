@@ -1,0 +1,31 @@
+<?php
+/**
+ * Description courte du fichier
+ *
+ * Description longue du fichier s'il y en a une
+ *
+ * @project project_name
+ * @package package_name
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 14 avr. 2011
+ * @version $Id: $
+ */
+$head = true;
+echo '<table>';
+foreach ($this->stations as $station) {
+    if ($head) {
+        echo '<tr>';
+        foreach ($station as $key => $value) {
+            echo '<th>' . $key . '</th>';
+        };
+        echo '</tr>';
+        $head = false;
+    }
+    echo '<tr>';
+    foreach ($station as $value) {
+        echo '<td>' . $value . '</td>';
+    };
+    echo '</tr>';
+}
+echo '</table>';
+

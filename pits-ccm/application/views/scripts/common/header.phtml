@@ -1,0 +1,37 @@
+<?php
+/*
+ * Application PiTS
+ * Dessin de l'entête des pages (bandeau, logo, menu)
+ *
+ * Les classes à définir sont : bandeauTitre, bandeauLogo, menu-top, menunav et linosep et lisep
+ * Les id à définir sont : bandeauTitre, bandeauLogo et menu-top
+ * Les images à définir sont : bandeau_transports_scolaires.jpg, bandeau_logo.png
+ * 
+ * Ce script est entièrement contenu dans le <div> d'id bandeauTitre et est composé de deux <div> d'id respectivement
+ * bandeauLogo et menu-top
+ */
+?>
+<div id="bandeauTitre"
+	style="background: url(http:images/bandeau_transports_scolaires.jpg) no-repeat top left;">
+	<div id="bandeauLogo">
+		<a href="http://www.cc-montesquieu.fr"
+			title="Retour à la page d'accueil (accesskey:1)" accesskey="1"> <img
+			src="http:images/bandeau_logo.png"
+			alt="Retour à la page d'accueil (accesskey:1)" border="0" /> </a>
+	</div>
+	<div id="menu-top">
+		<ul class="menunav">
+		<?php
+		// les classes 'lisep' et 'linosep' sont à définir dans une css
+		$class_separator = 'linosep';
+		// l'attribut menu est fourni par le deuxième argument de l'appel à partial du layout
+		if (!is_array($this->menu)) return;
+		foreach ($this->menu as $lien => $label) {
+		    echo "<li class=\"" . $class_separator . "\">"
+		    . "<a href=\"" . $lien. "\">" . $label . "</a></li>";
+		    $class_separator = 'lisep';
+		}
+		?>
+		</ul>
+	</div>
+</div>

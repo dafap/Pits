@@ -1,0 +1,56 @@
+<table class="admin">
+	<tbody>
+		<tr>
+			<td><?php if ($this->eleves->count() == 0) : ?>
+			<h3>Il n'y a pas d'élève inscrit</h3>
+			<?php else : ?>
+			<h3>Liste des élèves inscrits</h3>
+			<table class="toute">
+				<thead>
+					<tr>
+						<th>Nom</th>
+						<th>Prénom</th>
+						<th>Parent</th>
+						<th>Commune</th>
+						<th>Point d'arrêt</th>
+						<th>Etablissement</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($this->eleves as $eleve) : ?>
+				<?php $url1 = $this->link('admin','editeleve') . '/elv/' . $eleve['eleveId'] . '/page/' . $this->page; ?>
+				<?php $url2 = $this->link('admin','suppreleve') . '/e/' . $eleve['eleveId'] . '/p/' . $this->page; ?>
+				<?php $url3 = $this->link('admin','pdfeleve') . '/elv/' . $eleve['eleveId']; ?>
+				<?php $couleur = $eleve['nonInscrit'] ? 'rouge barre' : ($eleve['encours'] ? 'jaune' : 'vert'); ?>
+					<tr class="<?php echo $couleur; ?>">
+						<td><?php echo mb_strtoupper($eleve['Nom']); ?></td>
+						<td><?php echo $this->formatPrenom($eleve['Prenom']); ?></td>
+						<td><?php echo mb_strtoupper($eleve['NomR1']) . ' ' . $this->formatPrenom($eleve['PrenomR1']); ?></td>
+						<td><?php echo $eleve['NomVilleR1']; ?></td>
+						<td><?php echo $eleve['VilleStationR1'] . ' - ' . $eleve['NomStationR1']; ?></td>
+						<td><?php echo $eleve['NomEcole']; ?></td>
+						<td>
+						<?php echo $this->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, $couleur == 'rouge barre' ? 'Inscrire' : 'Modifier', 'btnliste'); ?>
+						</td>
+						<td>
+						<?php echo $this->makeButton('s' . $eleve['eleveId'], 's' . $eleve['eleveId'], $url2, 'Supprimer', 'btnliste'); ?>
+						</td>
+						<td>
+						<?php echo $this->makeButton('p' . $eleve['eleveId'], 'p' . $eleve['eleveId'], $url3, 'Justificatif', 'btnliste'); ?>
+						</td>
+					</tr>
+					<?php endforeach ?>
+				</tbody>
+			</table>
+			<!-- Pagination display --> <?php echo $this->eleves; ?> <?php endif ?></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr align="center">
+			<td><?php echo $this->form; ?></td>
+		</tr>
+	</tfoot>
+</table>

@@ -1,0 +1,53 @@
+<table class="admin">
+	<tbody>
+		<tr>
+			<td><?php if (empty($this->enfants)) : ?>
+			<h3>Il n'y a pas d'élève inscrit</h3>
+			<?php else : ?>
+			<h3>Liste des élèves inscrits par <?php echo mb_strtoupper($this->userNom) . ' ' . $this->formatPrenom($this->userPrenom); ?></h3>
+			<table class="toute">
+				<thead>
+					<tr>
+						<th>Elève</th>
+						<th>Parent</th>
+						<th>Point d'arrêt</th>
+						<th>Etablissement</th>
+						<th></th><th></th><th></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($this->enfants as $enfant) {
+				    $url1 = $this->link('admin', 'editeleve') . '/elv/' . $enfant['eleveId'] . '/u/' . $enfant['userId'] . '/p/' . $this->page;
+				    $url2 = $this->link('admin', 'suppreleve') . '/e/' . $enfant['eleveId'] . '/u/' . $enfant['userId'] . '/p/' . $this->page;
+				    $url3 = $this->link('admin', 'pdfeleve') . '/elv/' . $enfant['eleveId'];
+				    $couleur = $enfant['nonInscrit'] ? 'rouge barre' : ($enfant['encours'] ? 'jaune' : 'vert');
+				    ?>
+					<tr class="<?php echo $couleur; ?>">
+						<td><?php echo mb_strtoupper($enfant['Nom']) . ' ' . $this->formatPrenom($enfant['Prenom']); ?></td>
+						<td><?php echo mb_strtoupper($enfant['NomR1']) . ' ' . $this->formatPrenom($enfant['PrenomR1']); ?></td>
+						<td><?php echo $enfant['VilleStationR1'] . ' - ' . $enfant['NomStationR1']; ?></td>
+						<td><?php echo $enfant['NomEcole']; ?></td>
+						<td><?php 
+						echo $this->makeButton('m' . $enfant['eleveId'], 'm' . $enfant['eleveId'], $url1, $couleur == 'rouge barre' ? 'Inscrire' : 'Modifier', 'btnliste');
+						?></td>
+						<td><?php 
+						echo $this->makeButton('s' . $enfant['eleveId'], 'p' . $enfant['eleveId'], $url2, 'Supprimer', 'btnliste');
+						?></td>
+						<td><?php 
+						echo $this->makeButton('p' . $enfant['eleveId'], 'p' . $enfant['eleveId'], $url3, 'Justificatif', 'btnliste');
+						?></td>
+					</tr>
+					<?php } ?>
+				</tbody>
+			</table>
+			<?php endif ?></td>
+		</tr>
+	</tbody>
+	<tfoot>
+		<tr align="center">
+			<td><?php 
+			echo $this->makeButton('retour', 'retour', $this->listusers, 'Retour', 'btnliste');
+			?></td>
+		</tr>
+	</tfoot>
+</table>

@@ -1,0 +1,42 @@
+<?php
+/**
+* Description courte du fichier
+*
+* Description longue du fichier s'il y en a une
+* 
+* @project project_name
+* @package package_name
+* @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+* @date 19 mars 2012
+* @version $Id: $
+*/
+
+$villes = new TVilles();
+?>
+<table class="admin">
+	<tbody>
+	    <tr>
+	        <td>
+	            <h3>Liste des établissements</h3>
+	            <table>
+	                <thead>
+	                    <tr>
+	                        <th>Commune</th><th>Nom</th><th>Visible</th><th></th>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                <?php foreach ($this->liste as $etablissement) : ?>
+	                <?php $url = $this->link('admin', 'montrercacher', null, array('c' => $etablissement['CodeEN']));?>
+	                    <tr>
+	                        <td><?php echo $etablissement['Nom'];?></td>
+	                        <td><?php echo $villes->find($etablissement['Commune'])->current()->Nom; ?></td>
+	                        <td><?php echo $etablissement['visible'] == 1 ? 'visible' : 'caché'; ?></td>
+	                        <td><?php echo $this->makeButton('c' . $etablissement['CodeEN'], 'c' . $etablissement['CodeEN'], $url, $etablissement['visible'] == 1 ? 'Cacher' : 'Montrer', 'btnliste')?></td>
+	                    </tr>
+	                <?php endforeach;?>
+                    </tbody>
+                </table>
+            </td>
+        </tr>
+	</tbody>
+</table>

@@ -1,0 +1,55 @@
+<?php 
+$urlretour = $this->link('sadmin', 'index');
+$urlajout = $this->link('sadmin', 'adminadd');
+?>
+<h1><?php echo $this->escape($this->pageTitle); ?></h1>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td><?php if ($this->admins->count() == 0) : ?>
+			<h3>Bienvenue l'espace de gestion des administrateurs</h3>
+			<span class="error"><?php echo $this->errorMessage('admingest'); ?></span>
+			<p>Vous n’avez pas créé d’administrateur.</p>
+			<?php else : ?>
+			<h3>Liste des administrateurs</h3>
+			<span class="error"><?php echo $this->errorMessage('admingest'); ?></span>
+			<table class="toute">
+				<thead>
+					<tr>
+						<th>Prénom</th>
+						<th>Nom</th>
+						<th>Email</th>
+						<th></th>
+						<th></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php foreach ($this->admins as $admin) : ?>
+					<tr>
+						<td><?php echo $admin->Prenom; ?></td>
+						<td><?php echo $admin->Nom; ?></td>
+						<td><?php echo $admin->Email; ?></td>
+						<td align='center'><a
+							href="<?php echo $this->link('sadmin','adminedit'); ?>/u/<?php echo $admin->userId; ?>">Modifier</a>
+						</td>
+						<td><a
+							href="<?php echo $this->link('sadmin','adminsuppr'); ?>/u/<?php echo $admin->userId; ?>">Supprimer</a>
+						</td>
+						<td><a
+							href="<?php echo $this->link('sadmin','adminmdp'); ?>/userId/<?php echo $admin->userId; ?>">Mot
+						de passe</a></td>
+					</tr>
+					<?php endforeach ?>
+				</tbody>
+			</table>
+			<?php endif ?></td>
+		</tr>
+		<tr>
+			<td><?php 
+			echo $this->makeButton('cancel', 'cancel', $urlretour, 'Retour', 'btnliste', 'margin-left: 80px;'); 
+			echo $this->makeButton('ajout', 'ajout', $urlajout, 'Ajout', 'btnliste', 'margin-left: 80px;');?>
+			</td>
+		</tr>
+	</tbody>
+</table>

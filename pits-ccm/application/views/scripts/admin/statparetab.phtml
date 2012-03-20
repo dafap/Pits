@@ -1,0 +1,25 @@
+<table class="admin">
+	<tbody>
+		<tr>
+			<td>
+			<h3>Statistiques par commune</h3>
+			<table class="toute">
+				<thead>
+					<tr>
+						<th>Commune</th>
+						<th>Ecole</th>
+						<th>Effectif</th>
+					</tr>
+				</thead>
+				<tbody>
+				<?php
+				foreach ($this->stats as $item) {
+				    echo '<tr><td>' . $item['ville'] . '</td><td>' . $item['ecole'] . '</td><td>' . $item['nb'] . '</td></tr>';
+				}
+				?>
+				</tbody>
+			</table>
+			</td>
+		</tr>
+	</tbody>
+</table>

@@ -1,0 +1,11 @@
+<?php 
+echo '<h1>';
+echo $this->escape($this->pageTitle);
+echo '</h1>';
+echo $this->partial('common/listedocs.phtml', array('liste' => $this->liste, 'urlBase' => $this->urlBase,))
+?>
+<table align="center" cellpadding="5" cellspacing="1">
+<tfoot><tr><td>
+<?php echo $this->makeButton('retour', 'retour', $this->link('index','index'), 'Retour', 'btnliste', 'margin-left: 80px;'); ?>
+</td></tr></tfoot>
+</table>

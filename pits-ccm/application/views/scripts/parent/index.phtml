@@ -1,0 +1,110 @@
+<?php
+/**
+ * Espace parent
+ *
+ * Cas où aucun enfant n'est inscrit
+ * Cas où n'y a que des enfants en cours d'inscription (inscription non validée)
+ * Cas où il n'y a que des enfants inscrits (insciption validée)
+ * Cas où il y a des enfants inscrits et des enfants en cours d'inscription
+ *
+ * @project PiTS CCM
+ * @package application/views/scripts/parent
+ * @author DAFAP Informatique - Alain Pomirol (dafap@free.fr)
+ * @date 6 mars 2012
+ * @version $Id: $
+ */
+/**
+ * 
+ * Affiche le tableau des enfants sur l'écran.
+ * $cas prend pour valeur 'inscrits' ou ''
+ * 
+ * @param string $cas
+ */
+function printListeEnfants($view, $cas)
+{
+    $cas = strtolower($cas);
+    if ($cas == 'inscrits') {
+        $t = $view->elevesInscrits;
+        $message = 'Demande en cours de traitement par le service de TS<br />';
+    } else {
+        $t = $view->eleves; // en cours d'inscription
+        $message = "Vous n'avez pas confirmé cette inscription<br />";
+    }
+    echo "			<table class=\"toute\">
+				<thead>
+					<tr>
+						<th>Prénom</th>
+						<th>Nom</th>
+						<th>Date de naissance</th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+    ";
+    foreach ($t as $eleve) {
+        $url1 = $view->link('parent','editeleve') . '/elv/' . $eleve->eleveId . '/forward/parent/cancel/parent';
+        $url2 = $view->link('parent','suppreleve'). '/elv/' . $eleve->eleveId . '/forward/parent/cancel/parent';
+        $url3 = $view->link('parent','maileleve') . '/elv/' . $eleve->eleveId;
+        echo "					<tr>
+						<td>" . $eleve->Prenom . "</td>
+						<td>" . $eleve->Nom . "</td>
+						<td>" . strftime('%d/%m/%Y',strtotime($eleve->DateN)). "</td>
+						<td align='center'>";
+        if ($eleve->ficheValidee) {
+            echo 'Inscription validée par le service de TS<br />';
+            echo $view->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, 'Signaler un changement', 'btnliste');
+            echo $view->makeButton('p' . $eleve['eleveId'], 'p' . $eleve['eleveId'], $url3, 'Editer le justificatif', 'btnliste');
+        } elseif ($eleve->ficheExtraite) {
+            echo $message;
+            echo $view->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, 'Signaler un changement', 'btnliste');
+            echo $view->makeButton('p' . $eleve['eleveId'], 'p' . $eleve['eleveId'], $url3, 'Editer le justificatif', 'btnliste');
+        } else  {
+            echo $view->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, 'Modifier', 'btnliste');
+            echo $view->makeButton('s' . $eleve['eleveId'], 's' . $eleve['eleveId'], $url2, 'Supprimer', 'btnliste');
+            echo $view->makeButton('p' . $eleve['eleveId'], 'p' . $eleve['eleveId'], $url3, 'Editer le justificatif', 'btnliste');
+        }
+        echo '</td>
+					</tr>';
+    }
+    echo '				</tbody>
+			</table>';
+}
+
+?>
+<h1><?php echo $this->escape($this->pageTitle); ?></h1>
+<table align="center" cellpadding="5" cellspacing="1">
+	<tbody>
+		<tr>
+			<td><?php if ($this->elevesInscrits->count() == 0 && $this->eleves->count() == 0) : ?>
+			<h3>Bienvenue dans votre espace parents</h3>
+			<span class="error"><?php echo $this->errorMessage('parentIndex'); ?></span>
+			<p>Vous n’avez pas d’enfant inscrit pour l'année scolaire <?php echo $this->anneeScolaire;?>.</p>
+			<?php 
+			if ($this->existsNonInscrits) {
+			    $url = $this->link('parent', 'inscrire');
+			} else {
+			    $url = $this->link('parent', 'addneweleve') . '?cancel=' . urlencode('parent') . '&forward=' . urlencode('parent/inscrire');
+			}
+			echo $this->makeButton('cancel', 'cancel', $url, 'Inscrire mes enfants', 'btnliste', 'margin-left: 200px;'); 
+			?>
+			<p>Pour accéder plus tard à cet espace, rendez-vous sur le site 
+			www.cc-montesquieu.fr, rubrique Transports scolaires, inscription</p>
+			<?php else : ?>
+			    <span class="error"><?php echo $this->errorMessage('parentIndex'); ?></span>
+			    <?php if ($this->elevesInscrits->count() > 0) :?>
+			        <h3>Liste de vos enfants inscrits pour l'année scolaire <?php echo $this->anneeScolaire;?></h3>
+			        <?php printListeEnfants($this, 'inscrits'); ?>
+			        <?php $msgButton = 'Inscrire d\'autres enfants';?>
+			    <?php endif; ?>			  
+			    <?php if ($this->eleves->count() > 0) :?>
+			        <h3>Liste de vos enfants en cours d'inscription pour la rentrée <?php echo $this->anneeScolaire;?></h3>
+			        <?php printListeEnfants($this, ''); ?>
+			        <p>Vous pouvez inscrire d'autres enfants ou valider cette liste. Cliquez sur le bouton <b>Poursuivre l'inscription</b>.</p>
+			        <?php $msgButton = 'Poursuivre l\'inscription';?>
+			    <?php endif;?>
+			    <?php echo $this->makeButton('cancel', 'cancel', $this->link('parent', 'inscrire'), $msgButton, 'btnliste', 'margin-left: 80px;');?>
+			<?php endif; ?>			
+			</td>
+		</tr>
+	</tbody>
+</table>
