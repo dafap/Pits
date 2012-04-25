@@ -409,14 +409,13 @@ class SadminController extends Pits_Controller_Action
     }
     /**
      *
-     * Passe toutes les fiches élèves à l'état `nonInscrit` = 1
+     * Passe toutes les fiches élèves à l'état `nonInscrit` = 1, `encours`= 0, `ficheExtraite`= 0, `ficheValidee` = 0 et `ficheModifiee` = 0
      */
     public function desinscrireAction()
     {
         if ($this->_hasParam('confirmation')) {
             $eleves = new TEleves();
-            $eleves->desinscrire(); // passe tous les élèves à l'état `nonInscrit` = 1
-            $eleves->nonencours(); // passe tous les élèves à l'état `encours` = 0
+            $eleves->desinscrire(); // passe tous les élèves à l'état `nonInscrit` = 1, `encours`= 0, `ficheExtraite`= 0, `ficheValidee` = 0 et `ficheModifiee` = 0
             $this->_redirect('sadmin');
         } else {
             // prépare la vue

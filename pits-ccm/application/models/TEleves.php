@@ -324,22 +324,26 @@ class TEleves extends Zend_Db_Table_Abstract
         return $nbEnfants;
     }
     /**
-     *
-     * Passe tous les élèves à l'état `nonInscrit` = 1
+     * Passe les élèves concernés à l'état `nonInscrit` = 1, `encours`= 0, `ficheExtraite`= 0, `ficheValidee` = 0 et `ficheModifiee` = 0
+     * (tous les élèves si le paramètre est null ou manquant)
+     * 
+     * @param optional string|null $where
      */
-    public function desinscrire()
+    public function desinscrire($where = null)
     {
-        $data = array ('nonInscrit' => 1,);
-        $this->update($data, '');
+        $data = array ('nonInscrit' => 1,'ficheExtraite' => 0, 'ficheValidee' => 0, 'ficheModifiee' => 0, 'encours' => 0);
+        $this->update($data, is_null($where) ? '' : $where);
     }
     /**
-     *
-     * Passe tous les élèves à l'état `encours` = 0
+     * Passe les élèves concernés à l'état `encours` = 0
+     * (tous les élèves si le paramètre est null ou manquant)
+     * 
+     * @param optional string|null $where
      */
-    public function nonencours()
+    public function nonencours($where = null)
     {
         $data = array('encours' => 0,);
-        $this->update($data, '');
+        $this->update($data, is_null($where) ? '' : $where);
     }
     /**
      * Couleur définit l'état d'un userId de la manière suivante :

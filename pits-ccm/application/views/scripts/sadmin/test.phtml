@@ -1,2 +1,3 @@
 <?php 
-echo date('Ymd', strtotime('-1 year -4 month'));
+$auth = Zend_Auth::getInstance();
+Zend_Debug::dump($auth->getIdentity());

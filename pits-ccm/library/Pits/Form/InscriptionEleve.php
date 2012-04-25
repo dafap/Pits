@@ -39,6 +39,8 @@ include_once 'models/TVilles.php';
 
 class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
 {
+    private $_classes;
+    
     private $_stations;
 
     private $_tarifs;
@@ -46,6 +48,8 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
     private $_etablissements;
 
     public $message;
+    
+    private $_errorRib = false;
 
     /**
      * Initialisation du formulaire (méthode obligatoire)
@@ -67,16 +71,17 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
         //if (Zend_Registry::isRegistered('eleve')) {
         //    $eleve = Zend_Registry::get('eleve');
         //}
-        
+
         // Mise en place du translator
         $this->putsTranslator();
 
         // Récupérer les données du responsable en session
-        $session = Zend_Registry::get('session');
+        //$session = Zend_Registry::get('session');
 
         // Pour récupérer la liste des Classes dans $classeSelect
         $classes = new TClasses();
-        
+        $this->_classes = $classes->getClassesForJavaScript();
+
         // Pour récupérer le tableau sérialisé des stations
         $stations = new Pits_DbTable_TStationsdispo();
         $this->_stations = $stations->getStationsForJavaScript();
@@ -86,7 +91,7 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
         // Pour récupérer le tableau sérialisé des tarifs
         $tarifs = new TTarifs();
         $this->_tarifs = $tarifs->getTarifsForJavaScript();
-        
+
         // Pour récupérer les établissements et leurs TypeTarif
         $etabs = new TEtablissements();
         $this->_etablissements = $etabs->getTypeTarifForJavaScript();
@@ -95,31 +100,31 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
         // la liste des stations dans $stationSelect
         // et la liste des établissements dans $etabSelect
         $villes = new TVilles();
-        
+
         // Décorateur pour remplacer les dl dt dd en table, tr, td
         $decorators = array(
-		    'ViewHelper',
-        array('Errors', array('tag' => 'p', 'class' => 'error')),
-        array('Description', array('tag' => 'p', 'class' => 'description')),
-        array('HtmlTag', array('tag' => 'td')),
-        array('Label', array('tag' => 'th')),
-        array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))
+                'ViewHelper',
+                array('Errors', array('tag' => 'p', 'class' => 'error')),
+                array('Description', array('tag' => 'p', 'class' => 'description')),
+                array('HtmlTag', array('tag' => 'td')),
+                array('Label', array('tag' => 'th')),
+                array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))
         );
         $decotarif = array(
-		    'ViewHelper',
-        array('Errors', array('tag' => 'p', 'class' => 'error')),
-        array('Description', array('tag' => 'p', 'class' => 'description')),
-        array('HtmlTag', array('tag' => 'spam', 'id' => 'spamCodeTarif')),
-        array(array('td' =>'HTmlTag'), array('tag' => 'td')),
-        array('Label', array('tag' => 'th')),
-        array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))
+                'ViewHelper',
+                array('Errors', array('tag' => 'p', 'class' => 'error')),
+                array('Description', array('tag' => 'p', 'class' => 'description')),
+                array('HtmlTag', array('tag' => 'spam', 'id' => 'spamCodeTarif')),
+                array(array('td' =>'HTmlTag'), array('tag' => 'td')),
+                array('Label', array('tag' => 'th')),
+                array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))
         );
         $nomValidators = array(new Zend_Validate_StringLength(0, 30));
 
-        
+
         /****************
          * Partie ELEVE
-         */
+        */
         // Primary key en hidden pour le validateur : 0 si nouveau, initialisé si modif
         $this->putsHidden('pk',0);
 
@@ -145,28 +150,28 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
 
         // Champ "DateN" est un Text filtré
         $dateN = new Zend_Form_Element_Text('DateN');
-        $dateN->addValidators(array(new Pits_Validate_Date()))
+        $dateN->addValidators(array(new Pits_Validate_Date(), new Pits_Validate_Age(9),)) // minimum 9 ans
         ->setLabel('Date de naissance')
         ->setRequired(true)
         ->setDecorators($decorators);
         $this->addElement($dateN);
-        
+
         // Champ "Etablissement" est un Select dont les options ont été construites plus haut
         $etabSelect = new Zend_Form_Element_Select('CodeEN');
-        $etabSelect->setMultiOptions(array('-1' => '--- Choisissez l\'établissement scolaire ---'))
-        ->addMultiOptions($villes->listeEtabs())
-        ->addValidators(array(new Pits_Validate_ChoixSelect(-1)))
+        $etabSelect->setMultiOptions(array('0' => '--- Choisissez l\'établissement scolaire ---'))
+        ->addMultiOptions($liste = $villes->listeEtabs())
+        ->addValidators(array(new Pits_Validate_ChoixSelect(0, array_keys($liste))))
         ->setLabel('Etablissement scolaire fréquenté')
         ->setRequired(true)
         ->setDecorators($decorators)
-        ->setAttrib('onchange',"onchangeCodeEN(tabTypesTarifs, tabTarifs, this.value);");
+        ->setAttrib('onchange',"onchangeCodeEN(tabNiveaux, tabTarifs, tabClasses, this.value);");
         $this->addElement($etabSelect);
-        
+
         /*
          * Champ "Regime" est un Select dont les options sont
-         * 1 => Externe ou Demi-pensionnaire,
-         * 2 => Interne
-         */
+        * 1 => Externe ou Demi-pensionnaire,
+        * 2 => Interne
+        */
         $regimeSelect = new Zend_Form_Element_Select('Regime');
         $regimeSelect->setMultiOptions(array('0' => 'Externe/DP', '-1' => 'Interne'))
         ->setLabel('Régime')
@@ -176,17 +181,19 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
 
         // Champ "Classe" est un Select dont les options ont été construites plus haut
         $classeSelect = new Zend_Form_Element_Select('Classe');
-        $classeSelect->setMultiOptions(array('-1' => '--- Choisissez la classe ---'))
-        ->addMultiOptions($classes->liste())
-        ->addValidators(array(new Pits_Validate_ChoixSelect(-1)))
+        $classeSelect->setMultiOptions(array('0' => '--- Choisissez la classe ---'))
+        //->addMultiOptions($liste = $classes->liste())
         ->setLabel('Classe')
         ->setRequired(true)
-        ->setDecorators($decorators);
+        ->setRegisterInArrayValidator(false)
+        ->addValidators(array(new Pits_Validate_ChoixSelect(0, array_keys($classes->liste()))))
+        ->setDecorators($this->spamDecorators('spamCodeClasse'));
+        //->setDecorators($decorators);
         $this->addElement($classeSelect);
-        
+
         /***************************
          * Partie RESPONSABLE LEGAL
-         */
+        */
         // Champ "TitreR1" est un Select dont les options sont M., Mme ou Mlle
         $titreR1Select = new Zend_Form_Element_Select('TitreR1');
         $titreR1Select->setMultiOptions(array('M.' => 'M.', 'Mme' => 'Mme', 'Mlle' => 'Mlle'))
@@ -237,7 +244,7 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
 
         // Champ "CodePostalR1" est un Text(5) filtré
         $codePostalR1 = new Zend_Form_Element_Text('CodePostalR1');
-        $codePostalValidators = array(new Zend_Validate_StringLength(0,5), new Zend_Validate_Digits());
+        $codePostalValidators = array(new Zend_Validate_StringLength(5,5), new Zend_Validate_Digits());
         $codePostalR1->addValidators($codePostalValidators)
         ->setLabel('Code postal')
         ->setRequired(true)
@@ -246,11 +253,11 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
 
         // Champ "CommuneR1" est un Select dont les options ont été construites plus haut
         $villeR1Select = new Zend_Form_Element_Select('CommuneR1');
-        $villeR1Select->addValidators(array(new Pits_Validate_ChoixSelect(-1)))
-        ->setMultiOptions(array('-1' => '-- Choisissez la commune ---'))
-        ->addMultiOptions($villes->liste('CCM=1')) // Or HorsCCM=1'))
-        ->setLabel('Commune')
+        $villeR1Select->setMultiOptions(array('0' => '-- Choisissez la commune ---'))
+        ->addMultiOptions($liste = $villes->liste('CCM=1')) // Or HorsCCM=1'))
         ->setRequired(true)
+        ->addValidators(array(new Pits_Validate_ChoixSelect(0, array_keys($liste))))
+        ->setLabel('Commune')
         ->setDecorators($decorators)
         ->setAttrib('onchange',"onchangeCommuneR1(tabStations, this.value);");
         $this->addElement($villeR1Select);
@@ -283,30 +290,32 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
 
         /****************************
          * Partie TRANSPORT SCOLAIRE
-         */
+        */
         // Champ "CodeStationR1" est un Select dont les options ont été construites plus haut
         $codeStationR1Select = new Zend_Form_Element_Select('CodeStationR1');
-        $codeStationR1Select-> setMultiOptions(array('-1' => '--- Choisissez d\'abord la commune ---'))
+        $codeStationR1Select->setMultiOptions(array('0' => '--- Choisissez d\'abord la commune ---'))
         ->setLabel('Point d\'arrêt')
         ->setRequired(true)
-        ->addValidator('InArray',true,array($ArrayCodeStationPermis))
+        ->setRegisterInArrayValidator(false)
+        ->addValidators(array(new Pits_Validate_ChoixSelect(0, $ArrayCodeStationPermis)))
         ->setDecorators($this->spamDecorators('spamCodeStationR1'));
         $this->addElement($codeStationR1Select);
         /*
          * Champ "CodeTarif" est un Select initialisé à partir de la commune et de l'établissement
-         * (ce champ ne peut être mis en place que si on utilise Ajax)
-         */
+        * (ce champ ne peut être mis en place que si on utilise Ajax)
+        */
         $tarifSelect = new Zend_Form_Element_Select('CodeTarif');
-        $tarifSelect->setMultiOptions(array('-1' => '--- Choisissez d\'abord l\'établissement ---'))
+        $tarifSelect->setMultiOptions(array('0' => '--- Choisissez d\'abord l\'établissement ---'))
         ->setLabel('Tarif')
         ->setRequired(true)
-        ->addValidator('InArray',true,array($tarifs->getArrayCodeTarifPermis()))
+        ->setRegisterInArrayValidator(false)
+        ->addValidators(array(new Pits_Validate_ChoixSelect(0, $tarifs->getArrayCodeTarifPermis())))
         ->setDecorators($this->spamDecorators('spamCodeTarif'));
         $this->addElement($tarifSelect);
 
         /******************************
          * Partie PRELEVEMENT BANCAIRE
-         */
+        */
         $ribBanque = new Zend_Form_Element_Text('RibBanque');
         $ribBanque->setValidators($codePostalValidators)
         ->setLabel('RIB: Code banque')
@@ -329,7 +338,7 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
         $this->addElement($ribCompte);
 
         $ribCle = new Zend_Form_Element_Text('RibCle');
-        $ribCle->setValidators(array(new Zend_Validate_StringLength(0,2), new Zend_Validate_Digits()))
+        $ribCle->setValidators(array(new Zend_Validate_StringLength(2,2), new Zend_Validate_Digits()))
         ->setLabel('RIB: Clé RIB')
         ->setRequired(false)
         ->setDecorators($decorators);
@@ -353,21 +362,21 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
          * Un groupe de données bancaires
          */
         $this->addDisplayGroup(
-        array('RibBanque', 'RibAgence', 'RibCompte', 'RibCle', 'RibDom', 'RibTit'),
-        'rib',
-        array(
-        'decorators' => array('FormElements', array(array('tbody' => 'HtmlTag',), array('tag' => 'tbody', 'id' => 'rib', 'style'=>'display: none')),)
-        )
+                array('RibBanque', 'RibAgence', 'RibCompte', 'RibCle', 'RibDom', 'RibTit'),
+                'rib',
+                array(
+                        'decorators' => array('FormElements', array(array('tbody' => 'HtmlTag',), array('tag' => 'tbody', 'id' => 'rib', 'style'=>'display: none')),)
+                )
         );
 
         /*************************
          * Partie GARDE ALTERNEE
-         */
+        */
         /*
          * Bouton radio "Cet enfant a un autre responsable légal à une adresse différente"
-         * qui active le bas du formulaire.
-         * Par défaut elle est décochée.
-         */
+        * qui active le bas du formulaire.
+        * Par défaut elle est décochée.
+        */
         $r2Radio = new Zend_Form_Element_Radio('SecondeAdresse');
         $r2Radio->setDecorators($decorators)
         ->setLabel('Cas de garde alternée : cet élève est-il amené à se rendre à une adresse différente desservie par la Communauté de Commune de Montesquieu ?')
@@ -419,7 +428,7 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
         $adressR2L2->addValidators($nomValidators)
         ->setLabel('Complément d\'adresse')
         ->setRequired(false)
-        ->addPrefixPath('Pits_Filter', 'Pits/Filter/', 'filter')      
+        ->addPrefixPath('Pits_Filter', 'Pits/Filter/', 'filter')
         ->addFilter('FormatAdresse')
         ->setDecorators($decorators);
         $this->addElement($adressR2L2);
@@ -435,10 +444,12 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
 
         // Champ "CommuneR2" est un Select dont les options ont été construites plus haut
         $villeR2Select = new Zend_Form_Element_Select('CommuneR2');
-        $villeR2Select->setMultiOptions(array('-1' => '--- Choisissez une commune ---'))
-        ->addMultiOptions($villes->liste('CCM=1 Or HorsCCM=1'))
+        $villeR2Select->setMultiOptions(array('0' => '--- Choisissez une commune ---'))
+        ->addMultiOptions($liste = $villes->liste('CCM=1')) // Or HorsCCM=1'))
         ->setLabel('Commune')
         ->setRequired(false)
+        ->setRegisterInArrayValidator(false)
+        ->addValidators(array(new Pits_Validate_ChoixSelect(0, array_keys($liste), false)))
         ->setDecorators($decorators)
         ->setAttrib('onchange',"onchangeCommuneR2(tabStations, this.value);");
         $this->addElement($villeR2Select);
@@ -471,14 +482,15 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
 
         /*
          * Champ "CodeStationR2" est un Select dont les options doivent être calculées en
-         * fonction de CommuneR2 (javascript).
-         */
-        $ArrayCodeStationPermis[] = '-1'; // option permise car saisie non obligatoire
+        * fonction de CommuneR2 (javascript).
+        */
+        //$ArrayCodeStationPermis[] = '0'; // option permise car saisie non obligatoire
         $codeStationR2Select = new Zend_Form_Element_Select('CodeStationR2');
-        $codeStationR2Select->setMultiOptions(array('-1' => '--- Choisissez d\'abord la commune ---'))
+        $codeStationR2Select->setMultiOptions(array(0 => '--- Choisissez d\'abord la commune ---'))
         ->setLabel('Point d\'arrêt')
         ->setRequired(false)
-        ->addValidator('InArray',true,array($ArrayCodeStationPermis))
+        ->setRegisterInArrayValidator(false)
+        ->addValidators(array(new Pits_Validate_ChoixSelect(0, $ArrayCodeStationPermis, false)))
         ->setDecorators($this->spamDecorators('spamCodeStationR2'));
         $this->addElement($codeStationR2Select);
 
@@ -486,48 +498,50 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
          * Un groupe de garde alternée
          */
         $this->addDisplayGroup(
-        array('TitreR2', 'NomR2', 'PrenomR2', 'AdressR2L1', 'AdressR2L2', 'CodePostalR2', 'CommuneR2', 'EmailR2', 'TelephoneR2', 'TelephoneR2c', 'CodeStationR2'),
-        'gardeAlternee',
-        array(
-        'decorators' => array('FormElements', array(array('tbody' => 'HtmlTag',), array('tag' => 'tbody', 'id' => 'gardeAlternee', 'style'=>'display: none')),)
-        )
+                array('TitreR2', 'NomR2', 'PrenomR2', 'AdressR2L1', 'AdressR2L2', 'CodePostalR2', 'CommuneR2', 'EmailR2', 'TelephoneR2', 'TelephoneR2c', 'CodeStationR2'),
+                'gardeAlternee',
+                array(
+                        'decorators' => array('FormElements', array(array('tbody' => 'HtmlTag',), array('tag' => 'tbody', 'id' => 'gardeAlternee', 'style'=>'display: none')),)
+                )
         );
 
         // Bouton "Annuler"
         $decoratorsButton = array(
-		    'ViewHelper',
-        array('HtmlTag', array('tag' => 'a', 'href'=> $this->getCancel())),
-        array(array('td' => 'HtmlTag'), array('tag' => 'td'))
+                'ViewHelper',
+                array('HtmlTag', array('tag' => 'a', 'href'=> $this->getCancel())),
+                array(array('td' => 'HtmlTag'), array('tag' => 'td'))
         );
         $this->putsCancelButton('Abandonner', $decoratorsButton, 80);
 
         // Bouton "Créer le compte" est un Submit
         $decoratorsButton = array(
-		    'ViewHelper',
-        array('HtmlTag', array('tag' => 'td')),
+                'ViewHelper',
+                array('HtmlTag', array('tag' => 'td')),
         );
         $this->putsSubmitButton('Enregistrer', $decoratorsButton);
 
         // Groupe des boutons
         $this->addDisplayGroup(
-        array('cancel','submit'),'buttons',array(
-        'decorators' => array('FormElements',array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))),
-        ));
+                array('cancel','submit'),'buttons',array(
+                        'decorators' => array('FormElements',array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))),
+                ));
 
         // Jeton anti-CSRF
         $this->putsHash('token')
-        // Hidden pour les valeurs par défaut de CodeStationR1, CodeStationR2, CodeTarif et SecondeAdresse
+        // Hidden pour les valeurs par défaut de CodeStationR1, CodeStationR2, CodeClasse, CodeTarif et SecondeAdresse
         ->putsHidden('hCodeStationR1', $this->getInitValue('hCodeStationR1')) //$eleve->CodeStationR1)
         ->putsHidden('hCodeStationR2', $this->getInitValue('hCodeStationR2')) //$eleve->CodeStationR2)
+        ->putsHidden('hCodeClasse', $this->getInitValue('hCodeClasse')) //$eleve->CodeClasse
         ->putsHidden('hCodeTarif', $this->getInitValue('hCodeTarif')) //$eleve->CodeTarif)
         ->putsHidden('hSecondeAdresse', $this->getInitValue('hSecondeAdresse')) //$eleve->SecondeAdresse)
         ->putsForward();
 
         // place la balise <table>
         $this->setDecorators(
-        array('FormElements',
-        array('HtmlTag', array('tag' => 'table')),
-		      'Form'));
+                array('FormElements',
+                        array('Errors', array('tag' => 'p', 'class' => 'error')),
+                        array('HtmlTag', array('tag' => 'table')),
+                        'Form'));
     }
     /**
      * Place un couple de balises <div id="$id"> </div> dans le bloc <td> </td>
@@ -538,13 +552,13 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
     private function spamDecorators($id)
     {
         return array(
-		    'ViewHelper',
-        array('Errors', array('tag' => 'p', 'class' => 'error')),
-        array('Description', array('tag' => 'p', 'class' => 'description')),
-        array('HtmlTag', array('tag' => 'div', 'id' => $id)),
-        array(array('td' =>'HTmlTag'), array('tag' => 'td')),
-        array('Label', array('tag' => 'th')),
-        array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))
+                'ViewHelper',
+                array('HtmlTag', array('tag' => 'div', 'id' => $id)),
+                array('Errors', array('tag' => 'p', 'class' => 'error')),
+                array('Description', array('tag' => 'p', 'class' => 'description')),
+                array(array('td' =>'HTmlTag'), array('tag' => 'td')),
+                array('Label', array('tag' => 'th')),
+                array(array('tr' => 'HtmlTag'), array('tag' => 'tr'))
         );
     }
 
@@ -561,18 +575,20 @@ class Pits_Form_InscriptionEleve extends Pits_Form_Abstract
         $view->headScript()->setFile('js/arrayPHP2JS.js')
         ->appendFile('js/formElv.js')
         ->appendScript(
-"var stations = new PhpArray2Js('" . $this->_stations . "');
-var tabStations = stations.retour();
-var typestarifs = new PhpArray2Js('" . $this->_etablissements . "');
-var tabTypesTarifs = typestarifs.retour();
-var tarifs = new PhpArray2Js('" . $this->_tarifs . "');
-var tabTarifs = tarifs.retour();");
+                "var classes = new PhpArray2Js('" . $this->_classes . "');
+                var tabClasses = classes.retour();
+                var stations = new PhpArray2Js('" . $this->_stations . "');
+                var tabStations = stations.retour();
+                var niveaux = new PhpArray2Js('" . $this->_etablissements . "');
+                var tabNiveaux = niveaux.retour();
+                var tarifs = new PhpArray2Js('" . $this->_tarifs . "');
+                var tabTarifs = tarifs.retour();");
         $view->inlineScript()
-        ->appendScript("onchangeCommuneR1(tabStations,document.getElementById('CommuneR1').value);")
-        ->appendScript("onchangeCommuneR2(tabStations,document.getElementById('CommuneR2').value);")
-        ->appendScript("onchangeCodeEN(tabTypesTarifs,tabTarifs,document.getElementById('CodeEN').value);")
-        ->appendScript("onchangeCodeTarif(tabTarifs,document.getElementById('hCodeTarif').value);")
-        ->appendScript("montreBloc('gardeAlternee',document.getElementById('hSecondeAdresse').value);");
+        ->appendScript("onchangeCommuneR1(tabStations, document.getElementById('CommuneR1').value);")
+        ->appendScript("onchangeCommuneR2(tabStations, document.getElementById('CommuneR2').value);")
+        ->appendScript("onchangeCodeEN(tabNiveaux, tabTarifs, tabClasses, document.getElementById('CodeEN').value);")
+        ->appendScript("onchangeCodeTarif(tabTarifs, document.getElementById('hCodeTarif').value);")
+        ->appendScript("montreBloc('gardeAlternee', document.getElementById('hSecondeAdresse').value);");
         return $this;
     }
 
@@ -584,14 +600,63 @@ var tabTarifs = tarifs.retour();");
      */
     public function isValid($data)
     {
+        if ($data['SecondeAdresse'] == '1') {
+            $this->getElement('NomR2')->setRequired(true)->addValidator(new Zend_Validate_StringLength(0, 30));
+            $this->getElement('PrenomR2')->setRequired(true)->addValidator(new Zend_Validate_StringLength(0, 30));
+            $this->getElement('CommuneR2')->getValidator('Pits_Validate_ChoixSelect')->setActif(true);
+            $this->getElement('CodeStationR2')->getValidator('Pits_Validate_ChoixSelect')->setActif(true);
+        } else {
+            $data['NomR2'] = $data['PrenomR2'] = $data['AdressR2L1'] = $data['AdressR2L2'] = $data['CodePostalR2'] = $data['EmailR2'] = $data['TelephoneR2'] = $data['TelephoneR2c'] = '';
+        }
+        $tarifs = new TTarifs();
+        if ($tarifs->isPrelevement($data['CodeTarif'])) {
+            $this->getElement('RibBanque')->setRequired(true);
+            $this->getElement('RibAgence')->setRequired(true);
+            $this->getElement('RibCompte')->setRequired(true);
+            $this->getElement('RibCle')->setRequired(true);
+            $this->getElement('RibDom')->setRequired(true);
+            $this->getElement('RibTit')->setRequired(true);
+        } else {
+            $data['RibBanque'] = $data['RibAgence'] = $data['RibCompte'] = $data['RibCle'] = $data['RibDom'] = $data['RibTit'] = '';               
+        }
+        
         $valid = parent::isValid($data);
         if ($valid) {
             // ici, il faut que Nom, Prenom et DateN soient valides
             $this->getElement('Nom')->addValidator(new Pits_Validate_ElvDejaInscrit($data['pk'], $data['Prenom'], $data['DateN']));
-            $valid = $this->getElement('Nom')->isValid($data['Nom']);
-            if ($valid && $data['SecondeAdresse'] == '1') {
-                $valid = $data['CommuneR2'] != '-1';
+            $valid = $this->getElement('Nom')->isValid($data['Nom']); // vérifie que le nouvel élève n'existe pas
+            if (!valid) $this->addError('Cet enfant a déjà une fiche. Mettez-la à jour.');
+        } else {
+            $error = false;
+            if (!$this->getElement('RibBanque')->isValid($data['RibBanque'], $data))
+            {
+                $this->addError('Erreur sur le RIB : Code Banque !'); $error = true;
             }
+            if (!$this->getElement('RibAgence')->isValid($data['RibAgence'], $data))
+            {
+                $this->addError('Erreur sur le RIB : Code Agence !'); $error = true;
+            }
+            if (!$this->getElement('RibCompte')->isValid($data['RibCompte'], $data))
+            {
+                $this->addError('Erreur sur le RIB : Numéro de compte !'); $error = true;
+            }
+            if (!$this->getElement('RibCle')->isValid($data['RibCle'], $data))
+            {
+                $this->addError('Erreur sur le RIB : Clé RIBe !'); $error = true;
+            }
+            if (!$this->getElement('RibDom')->isValid($data['RibDom'], $data))
+            {
+                $this->addError('Erreur sur le RIB : Domiciliation !'); $error = true;
+            }
+            if (!$this->getElement('RibTit')->isValid($data['RibTit'], $data))
+            {
+                $this->addError('Erreur sur le RIB : Titulaire !'); $error = true;
+            }
+            if ($error) {
+                $this->addError('L\'enregistrement a échoué. Remettez le bon tarif et corrigez les erreurs.');
+            } else {
+                $this->addError('L\'enregistrement a échoué. Vérifiez les données et corrigez les erreurs.');
+            }            
         }
         return $valid;
     }

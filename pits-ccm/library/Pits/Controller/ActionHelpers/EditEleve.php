@@ -45,6 +45,7 @@ class Pits_Controller_ActionHelpers_EditEleve extends Zend_Controller_Action_Hel
         // complément pour les champs hidden
         $init['hCodeStationR1']  = $eleve->CodeStationR1;
         $init['hCodeStationR2']  = $eleve->CodeStationR2;
+        $init['hCodeClasse']     = $eleve->Classe;
         $init['hCodeTarif']      = $eleve->CodeTarif;
         $init['hSecondeAdresse'] = $eleve->SecondeAdresse;
 
@@ -68,6 +69,7 @@ class Pits_Controller_ActionHelpers_EditEleve extends Zend_Controller_Action_Hel
             } elseif ($elevepost['CodeStationR2'] == -1) {
                 $elevepost['CodeStationR2'] = null;
                 $elevepost['CodeServiceR2'] = null;
+                break;
             }
             
             /******** Ajout du 7 mars 2012 pour gérer les reprises d'inscription ********/

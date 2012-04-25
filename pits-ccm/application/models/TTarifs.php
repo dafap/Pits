@@ -107,4 +107,17 @@ class TTarifs extends Zend_Db_Table_Abstract
         // On serialise le tableau obtenu pour traitement par JavaScript
         return htmlspecialchars(serialize($result), ENT_QUOTES);
     }
+    /**
+     * Retourne un booleen Vrai / Faux selon si le tarif est de type prélèvement (Prelevement == 1)
+     * @param string|integer codeTarif
+     * @return boolean
+     */
+    public function isPrelevement($codeTarif)
+    {
+        if ((int) $codeTarif > 0) {
+            $record = $this->find($codeTarif)->current();
+            return $record->Prelevement == 1;
+        }
+        return false;
+    }
 }

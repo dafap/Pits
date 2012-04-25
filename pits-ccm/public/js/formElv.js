@@ -27,8 +27,8 @@ function valeurRadio(nomElement, nbChoix) {
 	return res;
 }
 /**
- * Retourne 1 si l'option sélectionnée a pour valeur -1 (en général associée à --
- * Choisissez une valeur ---) 0 sinon
+ * Retourne 1 si l'option sélectionnée a pour valeur 0 (en général associée à --
+ * Choisissez une valeur ---) retourne 0 sinon
  * 
  * @param nomSelect
  *            (nom du select)
@@ -37,7 +37,7 @@ function valeurRadio(nomElement, nbChoix) {
  */
 function emptySelect(nomSelect) {
 	selectElement = document.getElementById(nomSelect);
-	return Number(selectElement.options[selectElement.selectedIndex].value == -1);
+	return Number(selectElement.options[selectElement.selectedIndex].value == 0);
 }
 /**
  * Retourne la valeur de l'option sélectionnée dans le select
@@ -72,11 +72,14 @@ function inArray(needle, haystack) {
 /**
  * fonction appelée par onchange sur le Select de l'établissement
  */
-function onchangeCodeEN(typestarifs, tab, codeEN) {
+function onchangeCodeEN(tabNiveaux, tabTarifs, tabClasses, codeEN) {
 	// insertion du blocHtmlStation
 	putsSelectStations();
+	// insertion du blocHtmlClasse
+	var blocHtml = blocHtmlClasse(tabNiveaux, tabClasses, codeEN);
+	document.getElementById('spamCodeClasse').innerHTML = blocHtml;
 	// insertion du blocHtmlTarif
-	var blocHtml = blocHtmlTarif(typestarifs, tab, codeEN);
+	blocHtml = blocHtmlTarif(tabNiveaux, tabTarifs, codeEN);
 	document.getElementById('spamCodeTarif').innerHTML = blocHtml;
 	montreBloc('rib', 0);
 }
@@ -91,13 +94,13 @@ function putsSelectStations() {
 		var codeVille = valeurSelect('CommuneR' + (i + 1));
 		var blocHtml = '<select name="' + nomsSelect[i] + '" id="'
 				+ nomsSelect[i] + '">';
-		if (codeEN == -1) {
-			blocHtml += '\n  <option value="-1" label="--- Choisissez d\'abord l\'établissement ---">--- Choisissez d\'abord l\'établissement ---</option>';
+		if (codeEN == 0) {
+			blocHtml += '\n  <option value="0" label="--- Choisissez d\'abord l\'établissement ---">--- Choisissez d\'abord l\'établissement ---</option>';
 		} else {
-			if (codeVille == -1) {
-				blocHtml += '\n  <option value="-1" label="--- Choisissez d\'abord la commune ---">--- Choisissez d\'abord la commune ---</option>';
+			if (codeVille == 0) {
+				blocHtml += '\n  <option value="0" label="--- Choisissez d\'abord la commune ---">--- Choisissez d\'abord la commune ---</option>';
 			} else {
-				blocHtml += '\n  <option value="-1" label="--- Choisissez un point d\'arrêt ---">--- Choisissez un point d\'arrêt ---</option>';
+				blocHtml += '\n  <option value="0" label="--- Choisissez un point d\'arrêt ---">--- Choisissez un point d\'arrêt ---</option>';
 				var valHidden = document.getElementById('h' + nomsSelect[i]).value;
 				if (tabStations[codeEN][codeVille] == undefined) {					
 					for (commune in tabStations[codeEN]) {
@@ -133,15 +136,53 @@ function putsSelectStations() {
 	}
 }
 
-function blocHtmlTarif(typestarifs, tab, codeEN) {
+function blocHtmlClasse(tabniveaux, tab, codeEN) {
 	var blocHtml = 'vide';
 	if (codeEN != 'vide') {
-		// on cherche le typetarif
-		var nb = typestarifs.length;
+		// on cherche le niveau pour les classes
+		var nb = tabniveaux.length;
 		var val = 'vide';
 		for ( var j = 0; j < nb; j++) {
-			if (typestarifs[j][0] == codeEN) {
-				val = typestarifs[j][1];
+			if (tabniveaux[j][0] == codeEN) {
+				val = tabniveaux[j][2];
+				break;
+			}
+		}
+		if (val != 'vide') {
+			// on compte les classes
+			nb = tab[val].length;
+			valHidden = document.getElementById('hCodeClasse').value;
+			// construction du blocHtml à insérer
+			blocHtml = '<select name="Classe" id="Classe">';
+			blocHtml += '\n    <option value="0" label="--- Choisissez la classe ---">--- Choisissez la classe ---</option>';
+			for ( var j = 0; j < nb; j++) {
+				blocHtml += '\n    <option value="' + tab[val][j][0];
+				// + '" label="' + tab[val][j][1];
+				if (tab[val][j][0] == valHidden) {
+					blocHtml += '" selected="selected';
+				}
+				blocHtml += '">' + tab[val][j][1] + '</option>';
+			}
+			blocHtml += '\n</select>';
+		}
+	}
+	if (blocHtml == 'vide') {
+		blocHtml = '<select name="Classe" id="Classe">';
+		blocHtml += '	    <option value="0" label="--- Choisissez d\'abord l\'établissement ---">--- Choisissez d\'abord l\'établissement ---</option>';
+		blocHtml += '</select>';
+	}
+	return blocHtml;
+}
+
+function blocHtmlTarif(tabniveaux, tab, codeEN) {
+	var blocHtml = 'vide';
+	if (codeEN != 'vide') {
+		// on cherche le niveau pour les tarifs
+		var nb = tabniveaux.length;
+		var val = 'vide';
+		for ( var j = 0; j < nb; j++) {
+			if (tabniveaux[j][0] == codeEN) {
+				val = tabniveaux[j][1];
 				break;
 			}
 		}
@@ -151,7 +192,7 @@ function blocHtmlTarif(typestarifs, tab, codeEN) {
 			valHidden = document.getElementById('hCodeTarif').value;
 			// construction du blocHtml à insérer
 			blocHtml = '<select name="CodeTarif" id="CodeTarif" onchange="onchangeCodeTarif(tabTarifs,this.value);">';
-			blocHtml += '\n    <option value="-1" label="--- Choisissez le tarif ---">--- Choisissez le tarif ---</option>';
+			blocHtml += '\n    <option value="0" label="--- Choisissez le tarif ---">--- Choisissez le tarif ---</option>';
 			for ( var j = 0; j < nb; j++) {
 				blocHtml += '\n    <option value="' + tab[val][j][0];
 				// + '" label="' + tab[val][j][1];
@@ -166,11 +207,13 @@ function blocHtmlTarif(typestarifs, tab, codeEN) {
 	}
 	if (blocHtml == 'vide') {
 		blocHtml = '<select name="CodeTarif" id="CodeTarif">';
-		blocHtml += '	    <option value="-1" label="--- Choisissez d\'abord l\'établissement ---">--- Choisissez d\'abord l\'établissement ---</option>';
+		blocHtml += '	    <option value="0" label="--- Choisissez d\'abord l\'établissement ---">--- Choisissez d\'abord l\'établissement ---</option>';
 		blocHtml += '</select>';
 	}
 	return blocHtml;
 }
+
+
 function onchangeCodeTarif(tab, codetarif) {
 	var prelevement = -1; // par la suite, prend les valeurs O ou 1
 	var ni = tab.length;
@@ -207,8 +250,8 @@ function blocHtmlStation(tab, codeInsee, idSelect) {
 			valHidden = document.getElementById('h' + idSelect).value;
 			// construction du blocHtml à insérer
 			blocHtml = '<select name="' + idSelect + '" id="' + idSelect + '">';
-			blocHtml += '\n    <option value="-1">--- Choisissez le point d\'arrêt ---</option>';
-			// blocHtml += '\n <option value="-1" label="--- Choisissez le point
+			blocHtml += '\n    <option value="0">--- Choisissez le point d\'arrêt ---</option>';
+			// blocHtml += '\n <option value="0" label="--- Choisissez le point
 			// d\'arrêt ---">--- Choisissez le point d\'arrêt ---</option>';
 			for ( var j = 0; j < nb; j++) {
 				blocHtml += '\n    <option value="' + tab[val][1][j][0];
@@ -224,7 +267,7 @@ function blocHtmlStation(tab, codeInsee, idSelect) {
 	}
 	if (blocHtml == 'vide') {
 		blocHtml = '<select name="' + idSelect + '" id="' + idSelect + '">';
-		blocHtml += '    <option value="-1" label="--- Choisissez d\'abord la commune ---">--- Choisissez d\'abord la commune ---</option>';
+		blocHtml += '    <option value="0" label="--- Choisissez d\'abord la commune ---">--- Choisissez d\'abord la commune ---</option>';
 		blocHtml += '</select>';
 	}
 	return blocHtml;
@@ -251,5 +294,25 @@ function onchangeCommuneR2(tab, codeInsee) {
  * @return
  */
 function montreBloc(idBloc, montre) {
-	document.getElementById(idBloc).style.display = montre == 0 ? 'none' : '';
+	if (idBloc == "gardeAlternee") {
+	  cacheBloc = document.getElementById('SecondeAdresse-0').checked == true;
+	  document.getElementById(idBloc).style.display = cacheBloc && (montre == 0) ? 'none' : '';
+	} else {
+		if (idBloc == 'rib') {
+			document.getElementById(idBloc).style.display = cacheRib()
+					|| (montre == 0) ? 'none' : '';
+		} else {
+			document.getElementById(idBloc).style.display = montre == 0 ? 'none' : '';
+		}
+	}
+}
+
+function cacheRib() {
+	var cache = document.getElementById('RibBanque') == '';
+	cache &= document.getElementById('RibAgence') == '';
+	cache &= document.getElementById('RibCompte') == '';
+	cache &= document.getElementById('RibCle') == '';
+	cache &= document.getElementById('RibDom') == '';
+	cache &= document.getElementById('RibTit') == '';
+	return cache;
 }

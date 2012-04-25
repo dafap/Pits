@@ -94,11 +94,11 @@ class TEtablissements extends Zend_Db_Table_Abstract
     public function getTypeTarifForJavaScript()
     {
         $etablissements = $this->fetchAll($this->select()
-        ->from($this, array('CodeEN', 'TypeTarif')));
+        ->from($this, array('CodeEN', 'TypeTarif', 'Niveau')));
         // $result est un tableau (CodeEN,TypeTarif)
         $result = array();
         foreach ($etablissements as $etablissement) {
-            $result[] = array($etablissement->CodeEN, $etablissement->TypeTarif);
+            $result[] = array($etablissement->CodeEN, $etablissement->TypeTarif, $etablissement->Niveau);
         }
         // On serialise le tableau obtenu pour traitement par JavaScript
         return htmlspecialchars(serialize($result), ENT_QUOTES);

@@ -59,6 +59,7 @@ function printListeEnfants($view, $cas)
             echo $view->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, 'Signaler un changement', 'btnliste');
             echo $view->makeButton('p' . $eleve['eleveId'], 'p' . $eleve['eleveId'], $url3, 'Editer le justificatif', 'btnliste');
         } else  {
+            echo $message;
             echo $view->makeButton('m' . $eleve['eleveId'], 'm' . $eleve['eleveId'], $url1, 'Modifier', 'btnliste');
             echo $view->makeButton('s' . $eleve['eleveId'], 's' . $eleve['eleveId'], $url2, 'Supprimer', 'btnliste');
             echo $view->makeButton('p' . $eleve['eleveId'], 'p' . $eleve['eleveId'], $url3, 'Editer le justificatif', 'btnliste');
