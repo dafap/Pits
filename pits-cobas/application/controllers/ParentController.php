@@ -29,6 +29,13 @@ class ParentController extends Ap_Controller_Action
         if (!$this->_auth->hasIdentity()) $this->_redirect('/parent/logout');
     }
     /**
+     * Vérifie si les inscriptions sont ouvertes
+     */
+    private function _verifInscriptionsOuvertes()
+    {
+        if ($this->_siteOuvert['inscription'] != 1) $this->_redirect('/parent/index');
+    }
+    /**
      *
      * Page d'entrée de l'espace parents
      */
@@ -52,6 +59,7 @@ class ParentController extends Ap_Controller_Action
     public function inscriptioneleveAction()
     {
         $this->_verifAuth();
+        $this->_verifInscriptionsOuvertes();
         // enregistrement initialisé
         $records = new Pits_Model_DbTable_TEleves();
         $record = $records->createRow($this->_initR1());
@@ -74,6 +82,7 @@ class ParentController extends Ap_Controller_Action
     public function editeleveAction()
     {
         $this->_verifAuth();
+        $this->_verifInscriptionsOuvertes();
         // récupération de l'enregistrement
         if (($eleveId = $this->getRequest()->getParam('e', -1)) == -1) {
             $this->_redirect('/parent/index');
@@ -104,6 +113,7 @@ class ParentController extends Ap_Controller_Action
     public function suppreleveAction()
     {
         $this->_verifAuth();
+        $this->_verifInscriptionsOuvertes();
         // récupération de l'enregistrement
         if (($eleveId = $this->getRequest()->getParam('e', -1)) == -1) {
             $this->_redirect('/parent/index');
@@ -157,6 +167,7 @@ class ParentController extends Ap_Controller_Action
     public function payerAction()
     {
         $this->_verifAuth();
+        $this->_verifInscriptionsOuvertes();
         // calcul du montant à payer et de la référence (date | montant | userId | liste des eleveId séparés par des |)
         $elevesTable = new Pits_Model_DbTable_TEleveslist();
         $calcul = $elevesTable->montantRef((int) $this->_auth->getIdentity()->userId);

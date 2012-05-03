@@ -14,7 +14,12 @@
 
 <table class="page-login">
 	<tr>
-		<td><?php if ($this->siteOuvert['inscription'] == 1) : ?>
+		<td><?php if ($this->siteOuvert['inscription'] == 0) : ?>
+		    <?php // inscription annoncée à la date du siteOuvert.date ?>
+			<p id="cadre_login">Les inscriptions pour les transports scolaires de l'année <?php echo $this->siteOuvert['annee_scolaire']; ?> 
+			seront ouvertes à partir du <?php echo $this->siteOuvert['date'];?>.</p> Pour tout renseignement,
+			adressez-vous directement au service à l'adresse : 
+		    <?php elseif ($this->siteOuvert['inscription'] == 1) : ?>
 			<p id="cadre_login">
 				Vous pouvez inscrire vos enfants en ligne au service de transport
 				scolaire organisé par <span class="organisateur">la COBAS</span>
@@ -37,6 +42,7 @@
 			</p> Pour tout autre renseignement ou tout autre mode d'inscription,
 			vous pouvez vous adresser directement au service à l'adresse : 
 			<?php else : ?>
+			<?php // les inscriptions sont closes ?>
 			<p id="cadre_login">Le service d'inscription en ligne aux transports
 				scolaires est actuellement fermé.</p> Pour tout renseignement,
 			adressez-vous directement au service à l'adresse : 

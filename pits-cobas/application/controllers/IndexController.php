@@ -46,7 +46,14 @@ class IndexController extends Ap_Controller_Action
         Zend_Session::destroy();
         $this->_redirect('.');
     }
-
+    /**
+     * Vérifie si les inscriptions sont ouvertes
+     */
+    private function _verifInscriptionsOuvertes()
+    {
+        if ($this->_siteOuvert['inscription'] != 1) $this->_redirect('/index/logout');
+    }
+    
     /**
      * Oubli du mot de passe
      */
@@ -74,6 +81,7 @@ class IndexController extends Ap_Controller_Action
      */
     public function creercompteAction()
     {
+        $this->_verifInscriptionsOuvertes();
         // fiche vide
         $records = new Pits_Model_DbTable_TUser();
         $record = $records->createRow(); 
