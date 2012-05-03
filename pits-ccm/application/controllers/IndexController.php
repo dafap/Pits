@@ -61,6 +61,7 @@ class IndexController extends Pits_Controller_Action
      */
     public function creationAction()
     {
+        if ($this->getEtatInscriptions() != 1) $this->_redirect('/');
         $records = new TUser();
         // Récupération de l'enregistrement à éditer si nécessaire
         $params = $this->getRequest()->getParams();

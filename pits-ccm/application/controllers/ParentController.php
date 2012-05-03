@@ -206,6 +206,8 @@ class ParentController extends Pits_Controller_Action
      */
     public function editeleveAction()
     {
+        if ($this->getEtatInscriptions() != 1) $this->_redirect('parent/index');
+        
         $eleveId = (int) $this->getRequest()->getParam('elv', -1);
         $isUpdate = $eleveId > 0;
         $forward = $this->getRequest()->getParam('forward', null); // interprétation des url : controller/action?param=...
@@ -245,6 +247,8 @@ class ParentController extends Pits_Controller_Action
     }
     public function suppreleveAction()
     {
+        if ($this->getEtatInscriptions() != 1) $this->_redirect('parent/index');
+        
         // Vérification de la présence des paramètres elv, cancel et forward
         $eleveId = (int) $this->getRequest()->getParam('elv', -1);
         $existsElv = $eleveId > 0;
