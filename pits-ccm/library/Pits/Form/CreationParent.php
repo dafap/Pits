@@ -111,9 +111,9 @@ class Pits_Form_CreationParent extends Pits_Form_Abstract
 
         // Champ "Ville" est un Select dont les Options sont dans $villesOptions
         $villeSelect = new Zend_Form_Element_Select('Commune');
-        $villeSelect->setMultiOptions(array('-1' => '-- Choisissez la commune ---'))
-        ->addMultiOptions($villes->liste('CCM=1'))  // Or HorsCCM=1')) // villes desservies
-        ->addValidators(array(new Pits_Validate_ChoixSelect(-1)))
+        $villeSelect->setMultiOptions(array('0' => '-- Choisissez la commune ---'))
+        ->addMultiOptions($liste = $villes->liste('CCM=1'))  // Or HorsCCM=1')) // villes desservies
+        ->addValidators(array(new Pits_Validate_ChoixSelect(0, array_keys($liste))))
         ->setLabel('Commune')
         ->setDecorators($decorators)
         ->setRequired(true);

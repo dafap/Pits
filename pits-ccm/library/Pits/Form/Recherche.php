@@ -55,7 +55,6 @@ class Pits_Form_Recherche extends Pits_Form_Abstract
         ->setDescription('(laisser vide si la recherche porte sur le nom)')
         ->setDecorators($decorators);
         $this->addElement($critereEmail);
-
         if ($this->getInitValue('modele') == 'eleve') {
             $encoursRadio = new Zend_Form_Element_Radio('encours');
             $encoursRadio->setDecorators($decorators)
@@ -64,8 +63,14 @@ class Pits_Form_Recherche extends Pits_Form_Abstract
             ->setSeparator(' ')
             ->setValue(0);
             $this->addElement($encoursRadio);
-        } elseif ($this->getInitValue('modele' == 'user')) {
-            ;
+        } elseif ($this->getInitValue('modele') == 'user') {
+            $bloqueRadio = new Zend_Form_Element_Radio('bloque');
+            $bloqueRadio->setDecorators($decorators)
+            ->setLabel('Etat des comptes ?')
+            ->addMultiOptions(array('1' => 'bloqués', '0' => 'validés', '2' => 'tous'))
+            ->setSeparator(' ')
+            ->setValue(2);
+            $this->addElement($bloqueRadio);
         }
         // Bouton "Annuler"
         $decoratorsButton = array(

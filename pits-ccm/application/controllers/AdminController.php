@@ -100,9 +100,10 @@ class AdminController extends Pits_Controller_Action
             // parametres passés par le formulaire de recherche : 'post'
             $critereNom = isset($_POST['critereNom']) ? $_POST['critereNom'] : '';
             $critereEmail = isset($_POST['critereEmail']) ? $_POST['critereEmail'] : '';
+            $critereType = $this->getRequest()->getParam('bloque', 2); // comptes bloqués par défaut
         }
         // page de retour pour le formulaire (champs 'hidden')
-        $form = new Pits_Form_Recherche(array('cancel' => $this->view->link('admin', 'index'), ));
+        $form = new Pits_Form_Recherche(array('cancel' => $this->view->link('admin', 'index'), 'modele' => 'user'));
         $form->setAction($this->view->link('admin','listusers'))
         ->setMethod('post');
 
@@ -123,6 +124,10 @@ class AdminController extends Pits_Controller_Action
                 // mettre critereEmail en session
                 $mysession->critereEmail = $critereEmail;
             }
+            if ($critereType < 2) {
+                $select->where('bloque = ?', $critereType);
+            }
+            $mysession->critereType = $critereType;
         } else {
             $formDefaults = array();
             // si critereNom est en session
@@ -134,6 +139,11 @@ class AdminController extends Pits_Controller_Action
             if (isset($mysession->critereEmail)) {
                 $select->where('Email LIKE ?', '%' . $mysession->critereEmail . '%');
                 $formDefaults['critereEmail'] = $mysession->critereEmail;
+            }
+            // si critereType est en session
+            if (isset($mysession->critereType)) {
+                if ($mysession->critereType < 2) $select->where('bloque = ?', $mysession->critereType);
+                $formDefaults['bloque'] = $mysession->critereType;
             }
             $form->setDefaults($formDefaults);
         }
