@@ -8,26 +8,147 @@
  * @date 8 mars 2011
  * @version $Id: $
  */
+$mercredi = true;
+$samedi = false;
+
 $parite = 1;
 ?>
 <h1>Administration des inscriptions aux transports scolaires</h1>
-<h3>Statistiques par point de montée</h3>
+<h3>Statistiques par point de montée : lu ma je ve</h3>
 <table class="fiche">
-	<thead>
-		<tr>
-			<th>Commune</th>
-			<th>Point de montée</th>
-			<th>Effectif</th>
-		</tr>
-	</thead>
-	<tbody>
-	<?php
-	foreach ($this->stats as $item) {
-	    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td>' . $item['ville'] . '</td><td>' . $item['station'] . '</td><td>' . $item['nb'] . '</td></tr>';
-	}
-	?>
-	</tbody>
+	<tr>
+		<td>
+		    <h3>Destination principale</h3>
+			<table class="fiche">
+				<thead>
+					<tr>
+						<th>Commune</th>
+						<th>Point de montée</th>
+						<th>Effectif</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					foreach ($this->stats as $item) {
+					    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td>' . $item['ville'] . '</td><td>' . $item['station'] . '</td><td>' . $item['nb'] . '</td></tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		</td>
+		<td>
+		    <h3>Garde alternée</h3>
+			<table class="fiche">
+				<thead>
+					<tr>
+						<th>Commune</th>
+						<th>Point de montée</th>
+						<th>Effectif</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					foreach ($this->stats2 as $item) {
+					    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td>' . $item['ville'] . '</td><td>' . $item['station'] . '</td><td>' . $item['nb'] . '</td></tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		</td>
+	</tr>
 </table>
+<?php if ($mercredi) : ?>
+<h3>Statistiques par point de montée : mercredi</h3>
+<table class="fiche">
+	<tr>
+		<td>
+		    <h3>Destination principale</h3>
+			<table class="fiche">
+				<thead>
+					<tr>
+						<th>Commune</th>
+						<th>Point de montée</th>
+						<th>Effectif</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					foreach ($this->statsMe as $item) {
+					    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td>' . $item['ville'] . '</td><td>' . $item['station'] . '</td><td>' . $item['nb'] . '</td></tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		</td>
+		<td>
+		    <h3>Garde alternée</h3>
+			<table class="fiche">
+				<thead>
+					<tr>
+						<th>Commune</th>
+						<th>Point de montée</th>
+						<th>Effectif</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					foreach ($this->stats2Me as $item) {
+					    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td>' . $item['ville'] . '</td><td>' . $item['station'] . '</td><td>' . $item['nb'] . '</td></tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<?php endif; ?>
+
+<?php if ($samedi) : ?>
+<h3>Statistiques par point de montée : samedi</h3>
+<table class="fiche">
+	<tr>
+		<td>
+		    <h3>Destination principale</h3>
+			<table class="fiche">
+				<thead>
+					<tr>
+						<th>Commune</th>
+						<th>Point de montée</th>
+						<th>Effectif</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					foreach ($this->statsSa as $item) {
+					    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td>' . $item['ville'] . '</td><td>' . $item['station'] . '</td><td>' . $item['nb'] . '</td></tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		</td>
+		<td>
+		    <h3>Garde alternée</h3>
+			<table class="fiche">
+				<thead>
+					<tr>
+						<th>Commune</th>
+						<th>Point de montée</th>
+						<th>Effectif</th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php
+					foreach ($this->stats2Sa as $item) {
+					    echo '<tr class="' . ($parite++ % 2 ? 'odd' : 'even') . '"><td>' . $item['ville'] . '</td><td>' . $item['station'] . '</td><td>' . $item['nb'] . '</td></tr>';
+					}
+					?>
+				</tbody>
+			</table>
+		</td>
+	</tr>
+</table>
+<?php endif; ?>
+
 <p>
-<?php echo $this->makeButton('retour', 'retour', $this->link('admin', 'statistiques'), 'Retour', 'field_btn_retour'); ?>
+	<?php echo $this->makeButton('retour', 'retour', $this->link('admin', 'statistiques'), 'Retour', 'field_btn_retour'); ?>
 </p>

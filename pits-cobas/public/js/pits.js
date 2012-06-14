@@ -208,21 +208,21 @@ function putsSelectTarifs() {
  */
 function putsSelectStations() {
 	var codeEN = valeurSelect('CodeEN');
-	var nomsSelect = new Array('CodeStation1', 'CodeStation2');
-	for (var i=0; i<2; i++) {
+	var nomsSelect = new Array('CodeStation1', 'CodeStation1m', 'CodeStation1s', 'CodeStation2', 'CodeStation2m', 'CodeStation2s');
+	for (var i=0; i<6; i++) {
 		var blocHtml = '<select name="' + nomsSelect[i] + '" id="' + nomsSelect[i] + '" class="field_select_275" onchange="onchangeCodeStation();">';
 		if (codeEN == -1) {
 			blocHtml += '\n  <option value="-1" label="--- Choisissez d\'abord l\'établissement ---">--- Choisissez d\'abord l\'établissement ---</option>';
 		} else {
 			blocHtml += '\n  <option value="-1" label="--- Choisissez un point d\'arrêt ---">--- Choisissez un point d\'arrêt ---</option>';
 			var valHidden = document.getElementById('h' + nomsSelect[i]).value;
-			nb = tabStations[codeEN].length;
+			nb = tabStations[codeEN][i % 3].length;
 			for (var j=0; j < nb; j++) {
-				blocHtml += '\n  <option value="' + tabStations[codeEN][j][0];
-				if (tabStations[codeEN][j][0] == valHidden) {
+				blocHtml += '\n  <option value="' + tabStations[codeEN][i % 3][j][0];
+				if (tabStations[codeEN][i % 3][j][0] == valHidden) {
 					blocHtml += '" selected="selected';
 				}
-				blocHtml += '">' + tabStations[codeEN][j][1] + '</option>';
+				blocHtml += '">' + tabStations[codeEN][i % 3][j][1] + '</option>';
 			}
 		}
 		blocHtml += '\n</select>';

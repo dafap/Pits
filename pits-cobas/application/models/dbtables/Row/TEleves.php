@@ -70,19 +70,13 @@ class Pits_Model_DbTable_Row_TEleves extends Pits_Model_DbTable_Row_Abstract
         parent::save();
     }
     /**
-     * Affectation de CodeService1 et enregistrement
-     * @param string|null $CodeService
+     * Affectation de value au champ et enregistrement
+     * 
+     * @param string $champ
+     * @param string|null $value
      */
-    public function setCodeService1($CodeService) {
-        $this->_setData('CodeService1', $CodeService);
-        return parent::save();
-    }
-    /**
-     * Affectation de CodeService2 et enregistrement
-     * @param string|null $CodeService
-     */
-    public function setCodeService2($CodeService) {
-        $this->_setData('CodeService2', $CodeService);
+    public function setData($champ, $value) {
+        $this->_setData($champ, $value);
         return parent::save();
     }
 }

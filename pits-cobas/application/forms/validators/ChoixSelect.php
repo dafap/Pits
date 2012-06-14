@@ -25,10 +25,13 @@ require_once 'Zend/Validate/Abstract.php';
 class Pits_Validate_ChoixSelect extends Zend_Validate_Abstract
 {
     const INVALID      = 'choixSelectInvalid';
+    const PERSONNALISE = 'choixSelectMessage';
     protected $_messageTemplates = array(
-    self::INVALID => 'Vous devez choisir une valeur dans la liste'
+    self::INVALID => 'Vous devez choisir une valeur dans la liste',
+    self::PERSONNALISE => '',       
     );
     private $_sanschoix;
+    private $_errorMsg;
 
     /**
      * Place la valeur interdite correspondant à la ligne 1 --- Choisissez ...
@@ -36,11 +39,16 @@ class Pits_Validate_ChoixSelect extends Zend_Validate_Abstract
      */
     public function __construct($options = array())
     {
+        $this->_errorMsg = self::INVALID;
         if (is_array($options)) {
             if (array_key_exists('sanschoix', $options)) {
                 $this->_sanschoix = $options['sanschoix'];
             } else {
                 $this->_sanschoix = '?';
+            }
+            if (array_key_exists('message', $options)) {
+                $this->_errorMsg = self::PERSONNALISE;
+                $this->_messageTemplates[self::PERSONNALISE] = $options['message'];
             }
         } else {
             $this->_sanschoix = empty($options) ? '?' : $options;
@@ -49,7 +57,7 @@ class Pits_Validate_ChoixSelect extends Zend_Validate_Abstract
     public function isValid($value)
     {
         if ($value == $this->_sanschoix) {
-            $this->_error(self::INVALID);
+            $this->_error($this->_errorMsg);
             return false;
         }
         return true;

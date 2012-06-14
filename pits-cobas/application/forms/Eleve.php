@@ -134,13 +134,28 @@ class Pits_Form_Eleve extends Zend_Form
     public function isValid($data)
     {
         $this->getElement('CodeStation1')->setRegisterInArrayValidator(false);
-        $this->getElement('CodeTarif')->setRegisterInArrayValidator(false);
+        $this->getElement('CodeStation1m')->setRegisterInArrayValidator(false);
+        $this->getElement('CodeStation1s')->setRegisterInArrayValidator(false);
         $this->getElement('CodeStation2')->setRegisterInArrayValidator(false);
+        $this->getElement('CodeStation2m')->setRegisterInArrayValidator(false);
+        $this->getElement('CodeStation2s')->setRegisterInArrayValidator(false);
+        $this->getElement('CodeTarif')->setRegisterInArrayValidator(false);
 
-        if ($this->getElement('SecondeAdresse')->getValue() == 0) {
-            $this->getElement('CommuneR2')->removeValidator("ChoixSelect");
+        if ($data['SecondeAdresse'] == 0) {
+            $this->getElement('CommuneR2')->removeValidator('ChoixSelect');
+        }
+        $tecole = new Pits_Model_DbTable_TEtablissements();
+        if (!$tecole->mercredi($data['CodeEN'])) {
+            $this->getElement('CodeStation1m')->removeValidator('ChoixSelect');
+        } else {
+            $codeStation1m = $this->getElement('CodeStation1m')->getValidator('ChoixSelect');
+            //$codeStation1m->addError('Vous devez indiquer un arrêt pour le mercredi, même si c\'est le même qu\'en semaine.');
+            if (!$codeStation1m->isValid($data['CodeStation1m'], 'Vous devez indiquer un arrêt pour le mercredi, même si c\'est le même qu\'en semaine.')) {                
+                //$this->addErrorMessage('Vous devez indiquer un arrêt pour le mercredi, même si c\'est le même qu\'en semaine.');
+            }
         }
         return parent::isValid($data);
+        //return $valid;
     }
 
     /**
@@ -155,14 +170,14 @@ class Pits_Form_Eleve extends Zend_Form
         parent::setView($view);
         $view->headScript()->setFile('js/arrayPHP2JS.js')
         ->appendScript(
-"var serializeStations = new PhpArray2Js('" . $this->_stations . "');
-var tabStations = serializeStations.retour();
-var serializeTarifs = new PhpArray2Js('" . $this->_tarifs . "');
-var tabTarifs = serializeTarifs.retour();
-var serializeEcolesArcachon = new PhpArray2Js('" . $this->_ecolesArcachon . "');
-var tabEcolesArcachon = serializeEcolesArcachon.retour();
-var serializeStationsHorsCobas = new PhpArray2Js('" . $this->_stationsHorsCobas . "');
-var tabStationsHorsCobas = serializeStationsHorsCobas.retour();");      
+                "var serializeStations = new PhpArray2Js('" . $this->_stations . "');
+                var tabStations = serializeStations.retour();
+                var serializeTarifs = new PhpArray2Js('" . $this->_tarifs . "');
+                var tabTarifs = serializeTarifs.retour();
+                var serializeEcolesArcachon = new PhpArray2Js('" . $this->_ecolesArcachon . "');
+                var tabEcolesArcachon = serializeEcolesArcachon.retour();
+                var serializeStationsHorsCobas = new PhpArray2Js('" . $this->_stationsHorsCobas . "');
+                var tabStationsHorsCobas = serializeStationsHorsCobas.retour();");
         $view->inlineScript()
         //->appendScript("onchangeCommuneR1(tabStations,document.getElementById('CommuneR1').value);")
         //->appendScript("onchangeCommuneR2(tabStations,document.getElementById('CommuneR2').value);")

@@ -36,7 +36,7 @@ h1 {
 
 h2 {
 	font-family: Geneva, Arial, Helvetica, sans-serif;
-	font-size: 18px;
+	font-size: 15px;
 	color: #91ABCB;
 	margin-bottom: 10px;
 	margin-top: 10px;
@@ -1530,6 +1530,14 @@ h2 {
 	font-size: 11px;
 	margin-bottom: 5px;
 }
+.contener_form_txt240 {
+	float: left;
+	width: 240px;
+	height: 19px;
+	font-size: 11px;
+	padding-top: 3px;
+	margin-bottom: 3px;
+}
 .contener_form_field {
 	float: left;
 	width: 210px;
@@ -2199,6 +2207,9 @@ table.button_gris td {
 }
 .paginationControl .current {
 	color: red;
+}
+.displaynone {
+	display:none;
 }
 
 table.pits_index_sadmin {

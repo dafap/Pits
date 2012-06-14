@@ -32,7 +32,8 @@ class Ap_Controller_ActionHelpers_EditEleve extends Zend_Controller_Action_Helpe
         ->setActionRetour($cancel)
         ->setDefaults($record->toArray())
         ->setDefault('DateN', $dateN)
-        ->setDefaults(array('hCodeStation1' => $record->CodeStation1, 'hCodeStation2' => $record->CodeStation2))
+        ->setDefaults(array('hCodeStation1' => $record->CodeStation1, 'hCodeStation1m' => $record->CodeStation1m, 'hCodeStation1s' => $record->CodeStation1s,
+                            'hCodeStation2' => $record->CodeStation2, 'hCodeStation2m' => $record->CodeStation2m, 'hCodeStation2s' => $record->CodeStation2s, ))
         ->setDefault('hCodeTarif', $record->CodeTarif)
         ->setDefault('hSecondeAdresse', $record->SecondeAdresse)
         ->setDefault('hFamille', $nbEnfants);
@@ -40,10 +41,23 @@ class Ap_Controller_ActionHelpers_EditEleve extends Zend_Controller_Action_Helpe
             if ($form->isValid($_POST)) {
                 // valeurs renvoyées par le formulaire
                 $formValues = $form->getValues();
+                // formatage des valeurs à enregistrer
                 $formValues['DateN'] = Pits_Model_Format::date('YYYY-MM-dd', $formValues['DateN'], 'fr_FR');
+                if ($formValues['CodeStation1m'] == -1) {
+                    $formValues['CodeStation1m'] = null;
+                    $formValues['CodeService1m'] = null;
+                }
+                if ($formValues['CodeStation1s'] == -1) {
+                    $formValues['CodeStation1s'] = null;
+                    $formValues['CodeService1s'] = null;
+                }
                 if ($formValues['SecondeAdresse'] == 0) {
                     $formValues['CodeStation2'] = null;
                     $formValues['CodeService2'] = null;
+                    $formValues['CodeStation2m'] = null;
+                    $formValues['CodeService2m'] = null;
+                    $formValues['CodeStation2s'] = null;
+                    $formValues['CodeService2s'] = null;
                     $formValues["TitreR2"] = null;
                     $formValues["NomR2"] = null;
                     $formValues["PrenomR2"] = null;
@@ -54,10 +68,21 @@ class Ap_Controller_ActionHelpers_EditEleve extends Zend_Controller_Action_Helpe
                     $formValues["TelephoneR2"] = null;
                     $formValues["TelephoneR2c"] = null;
                     $formValues["EmailR2"] = null;
-                } elseif ($formValues['CodeStation2'] == -1) {
-                    $formValues['CodeStation2'] = null;
-                    $formValues['CodeService2'] = null;
+                } else {
+                    if ($formValues['CodeStation2'] == -1) {
+                        $formValues['CodeStation2'] = null;
+                        $formValues['CodeService2'] = null;
+                    }
+                    if ($formValues['CodeStation2m'] == -1) {
+                        $formValues['CodeStation2m'] = null;
+                        $formValues['CodeService2m'] = null;
+                    }
+                    if ($formValues['CodeStation2s'] == -1) {
+                        $formValues['CodeStation2s'] = null;
+                        $formValues['CodeService2s'] = null;
+                    }
                 }
+                
                 // suppression des champs de controle
                 $values = array_intersect_key($formValues, $record->toArray());
                 // valeurs modifiées
@@ -68,18 +93,46 @@ class Ap_Controller_ActionHelpers_EditEleve extends Zend_Controller_Action_Helpe
                     if ($majService1 = $record->isFieldModified('CodeStation1')) { // affectation simultanée
                         $record->CodeService1 = null; // on libère la place pour ré-affectation, nécessaire si changement de station sur le même circuit
                     }
+                    // le champs CodeStation1m a-t-il changé ?
+                    if ($majService1m = $record->isFieldModified('CodeStation1m')) { // affectation simultanée
+                        $record->CodeService1m = null; // on libère la place pour ré-affectation, nécessaire si changement de station sur le même circuit
+                    }
+                    // le champs CodeStation1s a-t-il changé ?
+                    if ($majService1s = $record->isFieldModified('CodeStation1s')) { // affectation simultanée
+                        $record->CodeService1s = null; // on libère la place pour ré-affectation, nécessaire si changement de station sur le même circuit
+                    }
                     // le champs CodeStation2 a-t-il changé ?
                     if ($majService2 = $record->isFieldModified('CodeStation2')) { // affectation simultanée
                         $record->CodeService2 = null; // on libère la place pour ré-affectation, nécessaire si changement de station sur le même circuit
+                    }
+                    // le champs CodeStation2m a-t-il changé ?
+                    if ($majService2m = $record->isFieldModified('CodeStation2m')) { // affectation simultanée
+                        $record->CodeService2m = null; // on libère la place pour ré-affectation, nécessaire si changement de station sur le même circuit
+                    }
+                    // le champs CodeStation2s a-t-il changé ?
+                    if ($majService2s = $record->isFieldModified('CodeStation2s')) { // affectation simultanée
+                        $record->CodeService2s = null; // on libère la place pour ré-affectation, nécessaire si changement de station sur le même circuit
                     }
                     try {
                         $record->save();
                         $tservices = new Pits_Model_DbTable_TServicesFromEtablissementStation();
                         if ($majService1) {
-                            $record->setCodeService1($s1=$tservices->findService($record->CodeEN, $record->CodeStation1));
+                            $record->setData('CodeService1', $tservices->findService($record->CodeEN, $record->CodeStation1));
+                        }
+                        if ($majService1m) {
+                            $record->setData('CodeService1m', $tservices->findService($record->CodeEN, $record->CodeStation1m));
+                        }
+                        if ($majService1s) {
+                            $record->setData('CodeService1s', $tservices->findService($record->CodeEN, $record->CodeStation1s));
                         }
                         if ($majService2) {
-                            $record->setCodeService2($s2=$tservices->findService($record->CodeEN, $record->CodeStation2));
+                            $record->setdata('CodeService2', $tservices->findService($record->CodeEN, $record->CodeStation2));
+                        }
+                        if ($majService2m) {
+                            $record->setData('CodeService2m', $tservices->findService($record->CodeEN, $record->CodeStation2m));
+                        }
+                        if ($majService2s) {
+                            $record->setData('CodeService2s', $tservices->findService($record->CodeEN, $record->CodeStation2s));
                         }
                     } catch (Exception $e) {
                     }

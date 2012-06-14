@@ -18,7 +18,8 @@ Adresse : §AdressR1L1§
 Téléphone : §liste(TelephoneR1,TelephoneR1c)§
 §rem: --------------------------------------------------------------------------------------------------------	
 Email : §EmailR1§
-Point de montée : §VilleStation1§ - §NomStation1§
+Point de montée en semaine : §VilleStation1§ - §NomStation1§
+Point de montée le mercredi : §VilleStation1m§ - §NomStation1m§
 Tarif : §TarifLibelle§ - §TarifTarif§ €
 §finbloc§
 §rem: -------------------------------------------------------------------------------------
@@ -35,7 +36,8 @@ Adresse : §AdressR2L1§
 §rem: Ici, on utilise le même séparateur que celui défini plus haut pour la première liste
 Téléphone : §liste(TelephoneR2,TelephoneR2c)§
 Email : §EmailR2§
-Point de montée : §VilleStation2§ - §NomStation2§
+Point de montée en semaine : §VilleStation2§ - §NomStation2§
+Point de montée le mercredi : §VilleStation2m§ - §NomStation2m§
 §finbloc§
 §rem: -------------------------------------------------------------------------------------
 §rem: L'instruction endif ne contient rien d'autre sur la ligne

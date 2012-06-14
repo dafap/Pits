@@ -590,7 +590,12 @@ class AdminController extends Ap_Controller_Action
     public function statparstationAction()
     {
         $televes = new Pits_Model_DbTable_TEleveslist();
-        $this->view->stats =$televes->statparstation();
+        $this->view->stats =$televes->statparstation('1');
+        $this->view->statsMe =$televes->statparstation('1', "m");
+        $this->view->statsSa =$televes->statparstation('1', "s");
+        $this->view->stats2 =$televes->statparstation('2');
+        $this->view->stats2Me =$televes->statparstation('2', "m");
+        $this->view->stats2Sa =$televes->statparstation('2', "s");
     }
     /**
      *

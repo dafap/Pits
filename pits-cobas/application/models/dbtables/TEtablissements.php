@@ -29,4 +29,16 @@ class Pits_Model_DbTable_TEtablissements extends Zend_Db_Table_Abstract
         // On serialise le tableau obtenu pour traitement par JavaScript
         return htmlspecialchars(serialize($result), ENT_QUOTES);
     }
+    
+    /**
+     * Renvoie VRAI si l'établissement est un établissement secondaire ou autre
+     *         FAUX si l'établissement est une E.M. ou une E.E.
+     * @param string $codeEn
+     * @return boolean
+     */
+    public function mercredi($codeEn) {
+        $record = $this->find($codeEn)->current();
+        return $record->Niveau > 2;
+         
+    }
 }
