@@ -171,8 +171,8 @@ $auth = Zend_Auth::getInstance()->getIdentity();
 					<tr>
 						<td><?php echo $this->makeButton('ajoutElv', 'ajoutElv', $urlAjout, 'Inscrire un autre enfant', 'field_btn_contact');?>
 						</td>
-						<?php if (aPayer($this->eleves, 0)){?>
-						<td><?php echo $this->paybox;//$this->makeButton('payer', 'payer', $urlPayer, 'Valider la liste et payer', 'field_btn_contact');?>
+						<?php if ($aPayerMsg = aPayer($this->eleves, 0)){?>
+						<td><?php echo $this->paybox;// c'est un formulaire qui affiche 'Valider la liste et payer');?>
 						<?php }?>
 						</td>
 						<td><?php echo $this->makeButton('user', 'user', $urlCompte, 'Voir mon compte', 'field_btn_contact');?>
@@ -181,6 +181,9 @@ $auth = Zend_Auth::getInstance()->getIdentity();
 						</td>
 					</tr>
 				</table>
+				<?php if ($aPayerMsg) : ?>
+				<p class="description">Lors du paiement, le numéro de carte bacaire devra être saisi sans espace.</p>
+				<?php endif; ?>
 			</td>
 		</tr>
 	</tfoot>
